@@ -1,9 +1,9 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery, call } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* fetchSongs() {
   try {
-    const response = yield axios.get('/api/songs');
+    const response = yield call(axios.get, '/api/songs');
     yield put({ type: 'FETCH_SONGS_SUCCESS', payload: response.data });
   } catch (error) {
     yield put({ type: 'FETCH_SONGS_FAILURE', payload: error });

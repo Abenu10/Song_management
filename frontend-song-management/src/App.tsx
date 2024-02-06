@@ -1,20 +1,15 @@
 import { useState } from 'react'
-
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 import '@/App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-    <div>
-      <h1>hello world</h1>
-      
-    </div>
- 
-    </>
-  )
+    return (
+        <Provider store={store}>
+            <div></div>
+        </Provider>
+    )
 }
 
 export default App
