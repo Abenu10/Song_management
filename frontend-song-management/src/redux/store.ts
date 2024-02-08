@@ -11,6 +11,7 @@ const store = configureStore({
 })
 sagaMiddleware.run(rootSaga)
 
+export type AppDispatch = typeof store.dispatch
 export default store
 
 // const store = configureStore({

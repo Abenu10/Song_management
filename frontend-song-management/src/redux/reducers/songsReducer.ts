@@ -1,34 +1,33 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface Song {
-    _id: string;
-    title: string;
-    artist: string;
-    album: string;
-    genre: string;
-    songUrl: string;
-    publicId: string;
-    userId: string;
-    likes: string[];
-}
+import { createSlice } from '@reduxjs/toolkit'
+import { fetchSongs } from '../../services/songService'
 
 const songsSlice = createSlice({
     name: 'songs',
-    initialState: [] as Song[],
+    initialState: {
+        songs: [],
+        isLoading: false,
+        error: null,
+    },
     reducers: {
-        setSongs: (state, action: PayloadAction<Song[]>) => action.payload,
-        addSong: (state, action: PayloadAction<Song>) => [
-            ...state,
-            action.payload,
-        ],
-        updateSong: (state, action: PayloadAction<Song>) =>
-            state.map((song: Song) =>
-                song._id === action.payload._id ? action.payload : song
-            ),
-        deleteSong: (state, action: PayloadAction<string>) =>
-            state.filter((song: Song) => song._id !== action.payload),
+        // Add any synchronous actions here if needed
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchSongs.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(fetchSongs.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.songs = action.payload
+            })
+            .addCase(fetchSongs.rejected, (state, action) => {
+                state.isLoading = false
+                // state = action.error.message
+            })
+
+        // Similarly, handle other async actions (create, update, delete) here
     },
 })
 
-export const { setSongs, addSong, updateSong, deleteSong } = songsSlice.actions;
-export default songsSlice.reducer;
+export default songsSlice.reducer
