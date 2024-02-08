@@ -19,7 +19,7 @@ interface SongListProps {
     error: string | null
 }
 
-const SongList = ({ songs , isLoading, error }: SongListProps) => {
+const SongList = ({ songs, isLoading, error }: SongListProps) => {
     if (isLoading) {
         return <p>Loading...</p>
     }
@@ -37,6 +37,7 @@ const SongList = ({ songs , isLoading, error }: SongListProps) => {
                 ))}
             </ul>
         </div>
+       
     )
 }
 

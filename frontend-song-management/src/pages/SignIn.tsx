@@ -1,12 +1,11 @@
-// import authService from '../../services/authService';
+import React from 'react'
 
-// const handleSubmit = async (event: React.FormEvent) => {
-//     event.preventDefault();
-//     try {
-    //   dispatch({ type: 'LOGIN_REQUEST', payload: { username, password } })
-//         const response = await authService.login({ username, password });
-//         // handle successful login
-//     } catch (error) {
-//         // handle error
-//     }
-// };
+const SignIn = () => {
+    return (
+        <div>
+            <h1>signin</h1>
+        </div>
+    )
+}
+
+export default SignIn
