@@ -11,29 +11,17 @@ import rootReducer from './redux/reducers/root'
 import { AppDispatch } from './redux/store'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
+import Home from './pages/Home'
 
 const App = () => {
-    const dispatch = useDispatch<AppDispatch>()
-    const { songs, isLoading, error } = useSelector(
-        (state: ReturnType<typeof rootReducer>) => state.songs
-    )
-
-    useEffect(() => {
-        // Fetch songs when the component mounts
-        dispatch(fetchSongs()) // Explicitly type dispatch as any
-    }, [dispatch])
-
+  
     return (
         <>
             <Routes>
                 <Route
                     path="/"
                     element={
-                        <SongList
-                            songs={songs}
-                            isLoading={isLoading}
-                            error={error}
-                        />
+                      <Home />  
                     }
                 />
                 <Route path="/signin" element={<SignIn />} />
