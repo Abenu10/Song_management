@@ -20,42 +20,38 @@ router.get('/', (req, res) => res.send('Songs route'));
 
 // TODO:Create song post
 
-router.post('/new/:id', upload.single('postAudio'), async (req, res) => {
+router.post('/new/:id', upload.fields([{ name: 'postAudio', maxCount: 1 }, { name: 'postImage', maxCount: 1 }]), async (req, res) => {
   try {
-    console.log('Uploading audio to Cloudinary...');
     // upload audio to cloudinary
-    const data = await uploadToCloudinary(req.file.path, 'post-songs');
-    console.log('Audio uploaded to Cloudinary:', data);
-    // create new post with audio url and public ID
+    const audioData = await uploadToCloudinary(req.files['postAudio'][0].path, 'post-songs');
+    // upload image to cloudinary
+    const imageData = await uploadToCloudinary(req.files['postImage'][0].path, 'post-images');
+
+    // create new song with audio url, image url and public ID
     const song = new Song({
       title: req.body.title,
       artist: req.body.artist,
       album: req.body.album,
       genre: req.body.genre,
-      songUrl: data.secure_url,
-      publicId: data.public_id,
+      songUrl: audioData.secure_url,
+      imageUrl: imageData.secure_url,
+      publicId: audioData.public_id,
       userId: req.params.id,
     });
 
-    // save songUrl  to database
-    const savedSong = await Song.updateOne(
-      {_id: req.params.id},
-      {$set: {songUrl: data.url, publicId: data.public_id}}
-    );
     // save song to database
-
-    const savedPOst = await song.save();
-    res.status(200).send(savedPOst);
+    const savedSong = await song.save();
+    res.status(200).json({message: 'song created', song: savedSong});
   } catch (error) {
-    console.log('Error:', error);
-    res.status(400).send(error);
+    console.error('Error:', error);
+    res.status(500).json({message: 'Server error'});
   }
 });
 // list all songs
 router.get('/list', async (req, res) => {
   try {
     const songs = await Song.find();
-    res.status(200).send(songs);
+    res.status(200).json({message: 'list of songs', song: songs});
   } catch (error) {
     res.status(400).send(error);
   }
@@ -65,7 +61,7 @@ router.get('/list', async (req, res) => {
 router.get('/list/:genre', async (req, res) => {
   try {
     const songs = await Song.find({genre: req.params.genre});
-    res.status(200).send(songs);
+    res.status(200).json({message: 'list of songs by genre', song: songs});
   } catch (error) {
     res.status(400).send(error);
   }
@@ -75,7 +71,7 @@ router.get('/list/:genre', async (req, res) => {
 router.get('/list/:id', async (req, res) => {
   try {
     const songs = await Song.find({userId: req.params.id});
-    res.status(200).send(songs);
+    res.status(200).json({message: 'list of songs by user', song: songs});
   } catch (error) {
     res.status(400).send(error);
   }
@@ -87,7 +83,7 @@ router.put('/:id', async (req, res) => {
     const song = await Song.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    res.status(200).send(song);
+    res.status(200).json({message: 'song updated', song: song});
   } catch (error) {
     res.status(400).send(error);
   }
@@ -102,7 +98,7 @@ router.delete('/:id', async (req, res) => {
     const publicId = song.publicId.split('/').pop();
     await removeFromCloudinary(publicId);
     const deletedSong = await Song.findByIdAndDelete(req.params.id);
-    res.status(200).send(deletedSong);
+    res.status(200).json({message: 'song updated', song: deletedSong});
   } catch (error) {
     res.status(400).send(error);
   }
@@ -120,6 +116,7 @@ router.get('/search', async (req, res) => {
 });
 
 // TODO: like song
+//song id on the parameter , user id in the req.body
 router.put('/:id/like', async (req, res) => {
   try {
     const song = await Song.findById(req.params.id);

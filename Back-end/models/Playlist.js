@@ -1,39 +1,44 @@
 const mongoose = require('mongoose');
 
-const PlaylistSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  songs: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Song',
+const PlaylistSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
     },
-  ],
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
-  collaborators: [
-    {
+    songs: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Song',
+      },
+    ],
+    owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
+      required: true,
     },
-  ],
-  requests: [
-    {
-      user: {
+    collaborators: [
+      {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
       },
-      message: {
-        type: String,
-        required: true,
+    ],
+    requests: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        message: {
+          type: String,
+          required: true,
+        },
       },
-    },
-  ],
-});
+    ],
+  },
+  {
+    timestamps: true, // This will add createdAt and updatedAt fields
+  }
+);
 
 module.exports = mongoose.model('Playlist', PlaylistSchema);

@@ -7,7 +7,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start": "node server",
+    "start": "nodemon server",
     "server": "nodemon server"
   },
   "dependencies": {
