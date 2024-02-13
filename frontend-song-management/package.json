@@ -50,5 +50,5 @@
         "typescript": "^5.2.2",
         "vite": "^5.0.8"
     },
-    "proxy": "http://localhost:8800"
+    "proxy": "http://localhost:8800/api"
 }
