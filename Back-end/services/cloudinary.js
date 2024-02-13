@@ -23,14 +23,14 @@ uploadToCloudinary = (path, folder) => {
     });
 };
 
-removeFromCloudinary = async (public_id) => {
-  try {
-    await cloudinary.v2.uploader.destroy(public_id);
-    console.log(`Deleted image from Cloudinary with public ID: ${public_id}`);
-  } catch (error) {
-    console.error(error);
-  }
-};
+// removeFromCloudinary = async (public_id) => {
+//   try {
+//     await cloudinary.v2.uploader.destroy(public_id);
+//     console.log(`Deleted image from Cloudinary with public ID: ${public_id}`);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 removeFromCloudinary = async (public_id) => {
   try {
@@ -44,58 +44,38 @@ removeFromCloudinary = async (public_id) => {
   }
 };
 
-removeFromCloudinary = async (publicId) => {
-  try {
-    await cloudinary.uploader.destroy(publicId);
-    console.log(`Deleted file from Cloudinary with public ID: ${publicId}`);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-module.exports = {
-  uploadToCloudinary,
-
-  removeFromCloudinary,
-};
-
-// uploadAudioToCloudinary = (path) => {
-//   return cloudinary.v2.uploader
-//     .upload(path, {
-//       resource_type: 'auto',
-//       folder: 'post-songs',
-//     })
-//     .then((data) => {
-//       return {
-//         audio_secure_url: data.secure_url,
-//         audio_public_id: data.public_id,
-//         audio_format: data.format,
-//       };
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
-
-// uploadImageToCloudinary = (path) => {
-//   return cloudinary.v2.uploader
-//     .upload(path, {
-//       resource_type: 'auto',
-//       folder: 'post-images',
-//     })
-//     .then((data) => {
-//       return {
-//         image_secure_url: data.secure_url,
-//         image_public_id: data.public_id,
-//         image_format: data.format,
-//       };
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
+// removeFromCloudinary = async (publicId) => {
+//   try {
+//     await cloudinary.uploader.destroy(publicId);
+//     console.log(`Deleted file from Cloudinary with public ID: ${publicId}`);
+//   } catch (error) {
+//     console.error(error);
+//   }
 // };
 
 // module.exports = {
-//   uploadAudioToCloudinary,
-//   uploadImageToCloudinary,
+//   uploadToCloudinary,
+
+//   removeFromCloudinary,
 // };
+
+// uploadAudioToCloudinary = (path) => {
+//   return cloudinary.v2.uploader.upload(path, {
+//     resource_type: 'auto',
+//     folder: 'post-songs',
+//   });
+// };
+
+// uploadImageToCloudinary = (path) => {
+//   return cloudinary.v2.uploader.upload(path, {
+//     resource_type: 'auto',
+//     folder: 'post-images',
+//   });
+// };
+
+module.exports = {
+  uploadToCloudinary, // Keep this if you still want a generic upload function
+  removeFromCloudinary,
+  // uploadAudioToCloudinary, // Uncommented and added to exports
+  // uploadImageToCloudinary,
+};

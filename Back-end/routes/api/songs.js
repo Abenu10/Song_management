@@ -6,6 +6,8 @@ const {
   uploadToCloudinaryV,
   removeFromCloudinary,
   uploadToCloudinaryA,
+  uploadAudioToCloudinary,
+  uploadImageToCloudinary,
 } = require('./../../services/cloudinary');
 const router = express.Router();
 const auth = require('../../middleware/auth');
@@ -18,33 +20,48 @@ const Song = require('../../models/Songs');
 
 router.get('/', (req, res) => res.send('Songs route'));
 
-// TODO:Create song post
-
-router.post('/new/:id', upload.fields([{ name: 'postAudio', maxCount: 1 }, { name: 'postImage', maxCount: 1 }]), async (req, res) => {
+router.post('/new/:id', upload.single('postAudio'), async (req, res) => {
   try {
+    console.log('Uploading audio to Cloudinary...');
     // upload audio to cloudinary
-    const audioData = await uploadToCloudinary(req.files['postAudio'][0].path, 'post-songs');
-    // upload image to cloudinary
-    const imageData = await uploadToCloudinary(req.files['postImage'][0].path, 'post-images');
-
-    // create new song with audio url, image url and public ID
+    const data = await uploadToCloudinary(req.file.path, 'post-songs');
+    console.log('Audio uploaded to Cloudinary:', data);
+    // create new post with audio url and public ID
     const song = new Song({
       title: req.body.title,
       artist: req.body.artist,
       album: req.body.album,
       genre: req.body.genre,
-      songUrl: audioData.secure_url,
-      imageUrl: imageData.secure_url,
-      publicId: audioData.public_id,
+      songUrl: data.secure_url,
+      publicId: data.public_id,
       userId: req.params.id,
     });
 
+    // save songUrl  to database
+    const savedSong = await Song.updateOne(
+      {_id: req.params.id},
+      {$set: {songUrl: data.url, publicId: data.public_id}}
+    );
     // save song to database
-    const savedSong = await song.save();
-    res.status(200).json({message: 'song created', song: savedSong});
+
+    const savedPOst = await song.save();
+    res.status(200).json({message: 'song created', song: savedPOst});
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({message: 'Server error'});
+    console.log('Error:', error);
+    res.status(400).send(error);
+  }
+});
+// add cover image to music
+router.put('/new/:id/cover', upload.single('coverImage'), async (req, res) => {
+  try {
+    const data = await uploadToCloudinary(req.file.path, 'post-images');
+    const updatedSong = await Song.updateOne(
+      {_id: req.params.id},
+      {$set: {imageUrl: data.secure_url}}
+    );
+    res.status(200).json({message: 'song cover updated', song: updatedSong});
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 // list all songs

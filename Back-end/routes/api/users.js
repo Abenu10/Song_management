@@ -8,7 +8,6 @@ const config = require('config');
 
 const User = require('./../../models/Users');
 
-
 // const User = require('../..model/Users');
 
 // @router POST api/users
@@ -73,7 +72,7 @@ router.post(
       };
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        process.env.JWT_SECRET,
         {expiresIn: 360000},
         (err, token) => {
           if (err) throw err;
@@ -88,7 +87,7 @@ router.post(
     }
   }
 );
-// TODO: delete a user 
+// TODO: delete a user
 router.delete('/:id', async (req, res) => {
   if (req.body.userId === req.params.id) {
     try {
@@ -101,6 +100,5 @@ router.delete('/:id', async (req, res) => {
     return res.status(403).json('You can delete only your account!');
   }
 });
-
 
 module.exports = router;
