@@ -1,14 +1,12 @@
-import { Routes, Route, Router } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Main from "./layout/Main";
 import Home from "./pages/Home";
 import GenrePage from "./pages/GenrePage";
 import StatisticsPage from "./pages/StatisticsPage";
 import FilteredSongsPage from "./pages/FilteredSongsPage";
-import AddSongPage from "./pages/AddSongPage";
+import AddSongPage from "./pages/AddSong/AddSongPage";
 import EditSongPage from "./pages/EditSongPage";
-import {RootState} from './state/store';
-import {getSongs} from './state/songs/songsSlice';
 // 
 
 import { useState, useEffect } from "react";
@@ -20,8 +18,6 @@ import { IoIosClose } from "react-icons/io";
 // Styled component should be defined outside of the component function
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Flex, Box, Text } from "rebass";
-import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -54,12 +50,6 @@ const CloseIcon = styled(IoIosClose)`
 function App() {
   const [openSidebar, setOpenSidebar] = useState(false);
 
-  // const data = useSelector((state : RootState) => state.songs.songs)
-  // const dispach = useDispatch()
-  // useEffect(() => {
-  //   dispach({ type: "songs/fetchSongs"})
-  // }, [])
-  // console.log(data)
 
   const sideBarStyle = css`
     position: fixed;

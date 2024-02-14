@@ -76,7 +76,7 @@ function* createSong(action: any) {
         try {
             const response: AxiosResponse = yield call(() => {
                 return axios.post(
-                    `${VITE_BASE_URL}/new/64f98c97dda5f4b550c00acc`,
+                    `${VITE_BASE_URL}/songs/new/64f98c97dda5f4b550c00acc`,
                     formData,
                     {
                         headers: {

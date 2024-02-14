@@ -19,7 +19,8 @@
             "@/*": ["./src/*"],
             "@components/*": ["./src/components/*"],
             "@assets/*": ["./src/assets/*"]
-        }
+        },
+        "noUnusedLocals": false
     },
     "include": ["src"],
     "references": [{ "path": "./tsconfig.node.json" }]

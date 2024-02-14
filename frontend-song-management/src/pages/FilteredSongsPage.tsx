@@ -5,17 +5,19 @@ import { UseSelector, useDispatch, useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { useEffect } from "react";
 import { useParams } from "react-router";
-import Music from "../components/Music";
+import Music from "../components/Music/Music";
 
 interface Song {
-  album: string;
-  artist: string;
-  coverImageUrl: string;
-  createdAt: string;
-  genre: string;
-  title: string;
-  updatedAt: string;
   _id: string;
+  title: string;
+  artist: string;
+  album: string;
+  genre: string;
+  songUrl: string; 
+  publicId?: string; 
+  userId: string; 
+  likes: string[]; 
+  __v?:Number;
 }
 
 function FilteredSongsPage() {
@@ -38,16 +40,21 @@ function FilteredSongsPage() {
         </Text>
       </Box>
       <Box>
+      // @ts-ignore
         {data.map((song: Song) => {
           return (
             <Music
-              key={song._id} // Remember to provide a unique key prop when rendering a list of components
-              artist={song.artist}
-              title={song.title}
-              album={song.album}
-              date={song.createdAt}
-              _id={song._id}
-            />
+                  key={song._id}
+                  artist={song.artist}
+                  title={song.title}
+                  album={song.album}
+                  genre={song.genre}
+                  songUrl={song.songUrl}
+                   // Add this line
+                  userId={song.userId} // Add this line
+                  likes={song.likes} // Add this line
+                  _id={song._id}
+                />
           );
         })}
       </Box>
