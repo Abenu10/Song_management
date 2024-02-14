@@ -32,6 +32,7 @@ import { RootState } from "../../state/store";
 import SuccessToast from "../Toasts/SuccessToast";
 import FailedToast from "../Toasts/FailedToast";
 
+
 type myComponentProp = {
   album: string;
   artist: string;
@@ -131,6 +132,7 @@ const StyledBackGround = styled.div`
 `;
   return (
     <>
+    
     <SuccessToast isToastVisible={showSuccessToast} />
     <FailedToast isToastVisible={showFailedToast} />
       

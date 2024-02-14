@@ -65,7 +65,6 @@ const initialState: Songs = {
   showFailedToast: false,
   // for modal
   showOpenDeleteModal: false,
-
 };
 
 const songsSlice = createSlice({
@@ -90,7 +89,6 @@ const songsSlice = createSlice({
     setAddSongButtonLoading: (state, action: PayloadAction<boolean>) => {
       state.addSongButtonLoading = action.payload;
     },
-    //
     setEditSongCauseAnError: (state, action: PayloadAction<boolean>) => {
       state.isEditSongCausingError = action.payload;
     },
@@ -98,16 +96,16 @@ const songsSlice = createSlice({
       state.EditSongButtonLoading = action.payload;
     },
     setShowSuccessToast: (state, action: PayloadAction<boolean>) => {
-      state.showSuccessToast = action.payload
+      state.showSuccessToast = action.payload;
     },
     setShowFailedToast: (state, action: PayloadAction<boolean>) => {
-      state.showFailedToast = action.payload
+      state.showFailedToast = action.payload;
     },
     setOpenDeleteModal: (state, action: PayloadAction<boolean>) => {
-      state.showOpenDeleteModal = action.payload
+      state.showOpenDeleteModal = action.payload;
     },
     setmarkDeletedItem: (state, action: PayloadAction<boolean>) => {
-      state.markDeletedItem = action.payload
+      state.markDeletedItem = action.payload;
     },
   },
 });
@@ -123,7 +121,7 @@ export const {
   setShowSuccessToast,
   setShowFailedToast,
   setOpenDeleteModal,
-  setmarkDeletedItem
+  setmarkDeletedItem,
 } = songsSlice.actions;
 
 export default songsSlice.reducer;

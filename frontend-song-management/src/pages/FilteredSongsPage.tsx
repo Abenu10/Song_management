@@ -6,6 +6,7 @@ import { RootState } from "../state/store";
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import Music from "../components/Music/Music";
+import Player from "@/components/Player/Player";
 
 interface Song {
   _id: string;
@@ -33,6 +34,8 @@ function FilteredSongsPage() {
   console.log(data);
 
   return (
+    <>
+    <Player />
     <Flex flexDirection={"column"}>
       <Box>
         <Text fontSize={6} fontWeight="bold" mb={2}>
@@ -40,7 +43,7 @@ function FilteredSongsPage() {
         </Text>
       </Box>
       <Box>
-      // @ts-ignore
+      
         {data.map((song: Song) => {
           return (
             <Music
@@ -50,15 +53,16 @@ function FilteredSongsPage() {
                   album={song.album}
                   genre={song.genre}
                   songUrl={song.songUrl}
-                   // Add this line
+                  // Add this line
                   userId={song.userId} // Add this line
                   likes={song.likes} // Add this line
                   _id={song._id}
-                />
-          );
-        })}
+                  />
+                  );
+                })}
       </Box>
     </Flex>
+                </>
   );
 }
 

@@ -6,6 +6,7 @@ import { css } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { Key } from "@mui/icons-material";
+import Player from "@/components/Player/Player";
 //
 
 interface Song {
@@ -41,8 +42,9 @@ function Home() {
   }, []);
   console.log(data);
 
-  return (
-    <>
+    return (
+      <>
+      <Player songs={data} />
       <Flex flexDirection={"column"} css={HomeStyle.styles}>
         <Box>
           <Text fontSize={5} fontWeight="bold">
@@ -53,26 +55,25 @@ function Home() {
           {isLoading
             ? "Loading"
             : data.map((song: Song) => {
-              return (
-                <Music
-                      key={song._id}
-                      artist={song.artist}
-                      title={song.title}
-                      album={song.album}
-                      genre={song.genre}
-                      songUrl={song.songUrl}
-                       // Add this line
-                      userId={song.userId} // Add this line
-                      likes={song.likes} // Add this line
-                      _id={song._id}
-                    />
-              );
-            })
-              }
+                return (
+                  <Music
+                    key={song._id}
+                    artist={song.artist}
+                    title={song.title}
+                    album={song.album}
+                    genre={song.genre}
+                    songUrl={song.songUrl}
+                    userId={song.userId}
+                    likes={song.likes}
+                    _id={song._id}
+                  />
+                );
+              })}
         </Box>
       </Flex>
-    </>
-  );
-}
+        </>
+    );
+  }
+  
 
-export default Home;
+  export default Home;
