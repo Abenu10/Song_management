@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import songsReducer from "./songs/songsSlice";
+import PlayerReducer from "./player/PlayerSlice"
 import songsStatisticsReducer from "./songs/songsStatisticsSlice"
 import songsDataStatisticsReducer from "./songs/songsDataStatisticsSlice";
 import createSagaMiddleware from "redux-saga";
@@ -11,7 +12,8 @@ export const store = configureStore({
   reducer: {
     songs: songsReducer,
     songsStatistics: songsStatisticsReducer,
-    songsDataStatistics: songsDataStatisticsReducer
+    songsDataStatistics: songsDataStatisticsReducer,
+    player: PlayerReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware)

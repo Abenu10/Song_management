@@ -21,6 +21,8 @@ interface Song {
 }
 
 export default function Player({ songs }: PlayerProps) {
+
+    
     const [trackIndex, setTrackIndex] = useState(0);
 
     useEffect(() => {

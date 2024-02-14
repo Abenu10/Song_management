@@ -4,8 +4,9 @@ import { FaPlay } from "react-icons/fa";
 import { FaPause } from "react-icons/fa6"
 import { Box, Flex, Text } from "rebass";
 
+import { setCurrentSong } from '../../state/player/PlayerSlice';
+
 import {
-  
   StyledOption,
   EditIcon,
   StyledRemoveIcon,
@@ -58,6 +59,11 @@ const Music: React.FC<myComponentProp> = ({
   userId,
   likes,
 })  => {
+  const dispatch = useDispatch();
+
+  const handlePlaySong = () => {
+    dispatch(setCurrentSong(song.songUrl));
+  };
   const [optionIsOpened, setOptionIsOpened] = useState(false);
   const [markedItem, setMarkedItem] = useState(false)
   const [openDeleteModal ,setOpenDeleteModal] = useState(false);
@@ -131,7 +137,7 @@ const StyledBackGround = styled.div`
   width: 100%;
 `;
   return (
-    <>
+    <div onClick={handlePlaySong}>
     
     <SuccessToast isToastVisible={showSuccessToast} />
     <FailedToast isToastVisible={showFailedToast} />
@@ -255,7 +261,7 @@ const StyledBackGround = styled.div`
           ): ""}
         </Box>
       </Flex>
-    </>
+    </div>
   );
 };
 
