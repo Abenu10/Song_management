@@ -14,16 +14,11 @@ import SignUp from './pages/SignUp'
 import Home from './pages/Home'
 
 const App = () => {
-  
     return (
         <>
+            <p>sdsdsdd</p>
             <Routes>
-                <Route
-                    path="/"
-                    element={
-                      <Home />  
-                    }
-                />
+                <Route path="/" element={<Home />} />
                 <Route path="/signin" element={<SignIn />} />
                 <Route path="/signup" element={<SignUp />} />
             </Routes>
