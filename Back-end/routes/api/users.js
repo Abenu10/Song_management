@@ -14,6 +14,7 @@ const User = require('./../../models/Users');
 // @desc Register router
 // @access Public
 
+// POST /api/users: register a new use
 router.post(
   '/',
   [

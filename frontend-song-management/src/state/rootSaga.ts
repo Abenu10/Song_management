@@ -5,12 +5,15 @@ import {
   createSongSaga,
   updateSongSaga,
   getSongByIdSaga,
-  deleteSongByIdSaga
+  deleteSongByIdSaga,
 } from "./songsSaga";
 import {
   fetchSongsStatisticsSaga,
   fetchSongsStatisticsDataSaga,
 } from "./songsStatisticsSaga";
+import {
+  watchLogin
+} from "./authSaga"
 
 export default function* rootSaga() {
   yield all([
@@ -21,6 +24,7 @@ export default function* rootSaga() {
     getSongByIdSaga(),
     fetchSongsStatisticsSaga(),
     fetchSongsStatisticsDataSaga(),
-    deleteSongByIdSaga()
+    deleteSongByIdSaga(),
+    watchLogin()
   ]);
 }

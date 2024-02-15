@@ -9,11 +9,11 @@ const {check, validationResult} = require('express-validator');
 // const User = require('../../models/User');
 // const User = require('../../models/Users')
 
-
 // @router GET api/auth
 // @desc Test router
 // @access Public
 
+// GET /api/auth: get the user's data
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
@@ -25,9 +25,8 @@ router.get('/', auth, async (req, res) => {
 });
 
 // TODO: @router POST api/auth
-// @desc Authenticate user & get token
+// @desc Authenticate user & get token or LOgin
 // @access Public
-
 router.post(
   '/',
   [
@@ -60,20 +59,26 @@ router.post(
 
       // Return jsonwebtoken
       // TODO:create payload
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
-      jwt.sign(
-        payload,
-        process.env.JWT_SECRET,
-        {expiresIn: 360000},
-        (err, token) => {
-          if (err) throw err;
-          res.json({token});
-        }
-      );
+      // const payload = {
+      //   user: {
+      //     id: user.id,
+      //   },
+      // };
+      // jwt.sign(
+      //   payload,
+      //   process.env.JWT_SECRET,
+      //   {expiresIn: 360000},
+      //   (err, token) => {
+      //     if (err) throw err;
+      //     res.json({token});
+      //   }
+      // );
+
+      const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {
+        expiresIn: '1h',
+      });
+      res.cookie('token', token, {httpOnly: true, sameSite: 'strict'});
+      res.status(200).send({message: 'User authenticated'});
 
       // res.send('User registered ');
     } catch (err) {
@@ -82,6 +87,12 @@ router.post(
     }
   }
 );
+
+// log out user
+router.get('/logout', (req, res) => {
+  res.clearCookie('token');
+  res.status(200).send({message: 'User logged out'});
+});
 
 module.exports = router;
 

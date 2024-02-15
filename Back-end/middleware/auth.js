@@ -3,7 +3,9 @@ const config = require('config');
 
 module.exports = function (req, res, next) {
   // Get token from header
-  const token = req.header('x-auth-token');
+  // const token = req.header('x-auth-token');
+  // get the token from the cookie instead,
+  const token = req.cookies.token;
 
   // Check if not token
   if (!token) {
