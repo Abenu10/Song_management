@@ -19,11 +19,13 @@ import { IoIosClose } from 'react-icons/io'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-import { useContext } from 'react'
-import { AuthContext } from './context/AuthContext'
+// import { useContext } from 'react'
+// import { AuthContext } from './context/AuthContext'
 import Login from './pages/login/Login'
 import Register from './pages/register/Register'
 import Profile from './pages/profile/Profile'
+import { RootState } from './state/store'
+import { useSelector } from 'react-redux'
 
 const StyledIcon = styled(IoMdHome)`
     margin-right: 10px;
@@ -51,7 +53,8 @@ const CloseIcon = styled(IoIosClose)`
 `
 
 function App() {
-    const { user } = useContext(AuthContext)
+    // const { user } = useContext(AuthContext)
+    const user = useSelector((state: RootState) => state.auth.user)
 
     const [openSidebar, setOpenSidebar] = useState(false)
 
@@ -135,7 +138,10 @@ function App() {
                     path="/register"
                     element={user ? <Navigate to="/" /> : <Register />}
                 />
-                <Route path="/profile" element={<Profile />} />
+                <Route
+                    path="/profile"
+                    element={user ? <Profile /> : <Navigate to="/login" />}
+                />
                 <Route path="/" element={<Main />}>
                     <Route index element={<Home />} />
                     <Route path="/genre" element={<GenrePage />} />

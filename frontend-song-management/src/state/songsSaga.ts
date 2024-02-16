@@ -1,4 +1,4 @@
-import { call, put, select, takeEvery } from 'redux-saga/effects'
+import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects'
 
 import {
     setSongs,
@@ -15,14 +15,13 @@ import {
 
 import axios, { AxiosResponse } from 'axios'
 import { RootState } from './store'
+import api from '../api/apiCalls'
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
 function* fetchSongs() {
     try {
-        const response: AxiosResponse = yield call(() =>
-            axios.get(`${VITE_BASE_URL}/songs/list`)
-        )
+        const response: AxiosResponse = yield call(() => api.get('/songs/list'))
         if (response.data.message === 'list of songs') {
             yield put(setSongs(response.data.song))
         } else {
@@ -171,6 +170,11 @@ function* deleteSongById(action: any) {
         console.log(error)
     }
 }
+
+export function* postLoginInitializationSaga() {
+    yield takeLatest('auth/postLoginInit', fetchSongs)
+}
+
 export function* fetchSongsSaga() {
     yield takeEvery('songs/fetchSongs', fetchSongs)
 }

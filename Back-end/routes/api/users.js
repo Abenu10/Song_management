@@ -66,20 +66,26 @@ router.post(
 
       // Return jsonwebtoken
       // TODO:create payload
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
-      jwt.sign(
-        payload,
-        process.env.JWT_SECRET,
-        {expiresIn: 360000},
-        (err, token) => {
-          if (err) throw err;
-          res.json({token});
-        }
-      );
+      // const payload = {
+      //   user: {
+      //     id: user.id,
+      //   },
+      // };
+      // jwt.sign(
+      //   payload,
+      //   process.env.JWT_SECRET,
+      //   {expiresIn: 360000},
+      //   (err, token) => {
+      //     if (err) throw err;
+      //     res.json({token});
+      //   }
+      // );
+
+      const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {
+        expiresIn: '1h',
+      });
+      res.cookie('token', token, {httpOnly: true, sameSite: 'strict'});
+      res.status(200).send({message: 'User authenticated'});
 
       // res.send('User registered ');
     } catch (err) {

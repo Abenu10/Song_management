@@ -14,7 +14,10 @@ interface DispatchAction {
 
 const api = axios.create({
     baseURL: VITE_BASE_URL,
+    withCredentials: true,
 })
+
+export default api
 
 export const loginCall = async (
     userCredential: UserCredential,
