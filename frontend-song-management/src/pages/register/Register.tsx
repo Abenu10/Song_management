@@ -5,7 +5,6 @@ import { RootState } from '../../state/store'
 // const api = axios.create({
 //     baseURL: import.meta.env.VITE_BASE_URL,
 // })
-
 import { FormEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerStart } from '../../state/auth/authSlice'
@@ -37,6 +36,7 @@ function Register() {
                         name: name.current?.value,
                     })
                 )
+                // can't load songs if navigate is called on homepage
                 navigate('/login')
             } catch (err) {
                 console.log(err)
