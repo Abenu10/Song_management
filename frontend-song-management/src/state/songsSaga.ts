@@ -35,7 +35,7 @@ function* fetchSongsByGenre(action: any) {
     const { genre }: { genre: string } = action.payload
     try {
         const response: AxiosResponse = yield call(() =>
-            axios.get(`${VITE_BASE_URL}/songs/list/${genre}`)
+            api.get(`${VITE_BASE_URL}/songs/list/${genre}`)
         )
 
         if (response.data.message === 'list of songs by genre') {
@@ -73,9 +73,15 @@ function* createSong(action: any) {
         })
 
         try {
+            // Get user ID from server
+            const userIdResponse: AxiosResponse = yield call(() => {
+                return api.get('/user/id') // Replace '/user/id' with your actual route
+            })
+            const userId = userIdResponse.data.userId
+
             const response: AxiosResponse = yield call(() => {
-                return axios.post(
-                    `${VITE_BASE_URL}/songs/new/64f98c97dda5f4b550c00acc`,
+                return api.post(
+                    `${VITE_BASE_URL}/songs/new/${userId}`,
                     formData,
                     {
                         headers: {
@@ -105,7 +111,7 @@ function* updateSong(action: any) {
         console.log(data)
         try {
             const response: AxiosResponse = yield call(() => {
-                return axios.put(`${VITE_BASE_URL}/songs/${id}`, data)
+                return api.put(`${VITE_BASE_URL}/songs/${id}`, data)
             })
             yield put(setEditSongCauseAnError(false))
             console.log(response.data)
@@ -124,7 +130,7 @@ function* getSongById(action: any) {
     const { id }: { id: string } = action.payload
     try {
         const response: AxiosResponse = yield call(() => {
-            return axios.get(`${VITE_BASE_URL}/searchSong/${id}`)
+            return api.get(`${VITE_BASE_URL}/searchSong/${id}`)
         })
         yield put(setSearchSong(response.data.song))
     } catch (error) {
@@ -139,7 +145,7 @@ function* deleteSongById(action: any) {
 
         // Send a request to delete the song
         const response: AxiosResponse = yield call(() => {
-            return axios.delete(`${VITE_BASE_URL}/${songid}`)
+            return api.delete(`${VITE_BASE_URL}/${songid}`)
         })
         console.log(response.data.message)
         const songToRemove = response.data.song

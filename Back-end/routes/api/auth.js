@@ -94,6 +94,10 @@ router.get('/logout', (req, res) => {
   res.status(200).send({message: 'User logged out'});
 });
 
+router.get('/user/id', auth, (req, res) => {
+  // Now req.user contains the decoded token (user data)
+  res.json({userId: req.user._id});
+});
 module.exports = router;
 
 // function to add two numbers

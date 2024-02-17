@@ -55,6 +55,7 @@ const CloseIcon = styled(IoIosClose)`
 function App() {
     // const { user } = useContext(AuthContext)
     const user = useSelector((state: RootState) => state.auth.user)
+    console.log(user)
 
     const [openSidebar, setOpenSidebar] = useState(false)
 
@@ -132,11 +133,13 @@ function App() {
                     path="/login"
                     element={user ? <Navigate to="/" /> : <Login />}
                 />
-                <Route path="/" element={user ? <Home /> : <Register />} />
-
                 <Route
                     path="/register"
                     element={user ? <Navigate to="/" /> : <Register />}
+                />
+                <Route
+                    path="/"
+                    element={user ? <Home /> : <Navigate to="/login" />}
                 />
                 <Route
                     path="/profile"
