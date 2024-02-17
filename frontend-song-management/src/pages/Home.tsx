@@ -1,44 +1,79 @@
-import React, { useEffect } from 'react'
+import { useEffect } from "react";
+import { Flex, Box, Text } from "rebass";
+import Music from "../components/Music/Music";
+import { css } from "@emotion/react";
+//
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../state/store";
+import { Key } from "@mui/icons-material";
+import Player from "@/components/Player/Player";
+//
 
-import SongList from '@/components/SongList/SongList'
-import { useDispatch, useSelector } from 'react-redux'
-// import { Switch } from 'react-router'
-import { Routes, Route } from 'react-router-dom'
-import { ThunkDispatch } from '@reduxjs/toolkit'
-
-import { fetchSongs } from '../services/songService'
-import rootReducer from '../redux/reducers/root'
-import { AppDispatch } from '../redux/store'
-import { Song, Playlist, User } from './types' // Replace './types' with the actual path to the file where these types are defined
-
-const Home = () => {
-
-    
-    const dispatch = useDispatch<AppDispatch>()
-    // Define the state type
-    interface RootState {
-        router: RootState;
-        songs: { songs: Song[]; isLoading: boolean; error: null }
-        playlists: Playlist[]
-        user: User | null
-        auth: { isAuthenticated: boolean; token: string | null }
-    }
-
-    // Use the state type in useSelector
-    const { songs, isLoading, error } = useSelector(
-        (state: RootState) => state.songs
-    )
-
-    useEffect(() => {
-        // Fetch songs when the component mounts
-        dispatch(fetchSongs()) // Explicitly type dispatch as any
-    }, [dispatch])
-
-    return (
-        <div>
-            <SongList songs={songs} isLoading={isLoading} error={error} />
-        </div>
-    )
+interface Song {
+  _id: string;
+  title: string;
+  artist: string;
+  album: string;
+  genre: string;
+  songUrl: string;
+  publicId?: string;
+  userId: string;
+  likes: string[];
+  __v?:Number;
 }
 
-export default Home
+
+function Home() {
+  const data = useSelector((state: RootState) => state.songs.songs);
+
+  const isLoading = useSelector(
+    (state: RootState) => state.songs.getSongsLoading
+  );
+  const dispatch = useDispatch();
+  const HomeStyle = css`
+    width: 100%;
+  `;
+
+  useEffect(() => {
+    dispatch({ type: "songs/fetchSongs" });
+  }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  console.log(data);
+
+    return (
+      <>
+      <Player songs={data} />
+      <Flex flexDirection={"column"} css={HomeStyle.styles}>
+        <Box>
+          <Text fontSize={5} fontWeight="bold">
+            All Songs
+          </Text>
+        </Box>
+        <Box>
+          {isLoading
+            ? "Loading"
+            : data.map((song: Song) => {
+                return (
+                  <Music
+                    key={song._id}
+                    artist={song.artist}
+                    title={song.title}
+                    album={song.album}
+                    genre={song.genre}
+                    songUrl={song.songUrl}
+                    userId={song.userId}
+                    likes={song.likes}
+                    _id={song._id}
+                  />
+                );
+              })}
+        </Box>
+      </Flex>
+        </>
+    );
+  }
+  
+
+  export default Home;
