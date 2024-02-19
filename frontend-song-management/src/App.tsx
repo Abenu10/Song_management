@@ -128,34 +128,32 @@ function App() {
 
     return (
         <>
-            <p>sdsdsdd</p>
             <Routes>
                 <Route
-                    path="/login"
-                    element={user ? <Navigate to="/" /> : <Login />}
+                    path="/"
+                    element={user ? <Navigate to="/home" /> : <Login />}
                 />
                 <Route
                     path="/register"
-                    element={user ? <Navigate to="/" /> : <Register />}
-                />
-                <Route
-                    path="/"
-                    element={user ? <Home /> : <Navigate to="/login" />}
+                    element={user ? <Navigate to="/home" /> : <Register />}
                 />
                 <Route
                     path="/profile"
-                    element={user ? <Profile /> : <Navigate to="/login" />}
+                    element={user ? <Profile /> : <Navigate to="/" />}
                 />
-                <Route path="/" element={<Main />}>
+                <Route
+                    path="/home"
+                    element={user ? <Main /> : <Navigate to="/" />}
+                >
                     <Route index element={<Home />} />
-                    <Route path="/genre" element={<GenrePage />} />
+                    <Route path="genre" element={<GenrePage />} />
                     <Route
-                        path="/genre/:genre"
+                        path="genre/:genre"
                         element={<FilteredSongsPage />}
                     />
-                    <Route path="/Statistics" element={<StatisticsPage />} />
-                    {/* <Route path="/addSong" element={<AddSongPage />} /> */}
-                    <Route path="/editSong/:id" element={<EditSongPage />} />
+                    <Route path="Statistics" element={<StatisticsPage />} />
+                    {/* <Route path="addSong" element={<AddSongPage />} /> */}
+                    <Route path="editSong/:id" element={<EditSongPage />} />
                 </Route>
             </Routes>
         </>

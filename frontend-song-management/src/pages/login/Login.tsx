@@ -1,9 +1,9 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import './login.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { loginStart } from '../../state/auth/authSlice'
+import { loginStart, loginSuccess } from '../../state/auth/authSlice'
 import { CircularProgress } from '@mui/material'
 
 import { FormEvent } from 'react'
@@ -26,7 +26,15 @@ function Login() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { isFetching } = useSelector((state: RootState) => state.auth)
-    
+
+    const { user } = useSelector((state: RootState) => state.auth)
+
+    useEffect(() => {
+        if (user) {
+            navigate('/')
+            checkToken()
+        }
+    }, [user, navigate])
     // how are we going to handle the form submission?
     // can also use usestate but every time you type it will rerender you should prevent that as much as you can
     const email = useRef<HTMLInputElement>(null)
@@ -36,7 +44,7 @@ function Login() {
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
         // loginCall(
-    //     { email: email.current.value, password: password.current.value },
+        //     { email: email.current.value, password: password.current.value },
         //     dispatch
         // )
         try {
@@ -46,8 +54,8 @@ function Login() {
                     password: password.current?.value,
                 })
             )
-            navigate('/')
-            checkToken()
+            // navigate('/')
+            // checkToken()
         } catch (error) {
             console.log(error)
         }
