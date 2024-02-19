@@ -30,6 +30,8 @@ interface Songs {
     showFailedToast: boolean
     showOpenDeleteModal: boolean
     markDeletedItem: boolean
+
+    newSongId: string
 }
 
 const initialState: Songs = {
@@ -65,6 +67,7 @@ const initialState: Songs = {
     showFailedToast: false,
     // for modal
     showOpenDeleteModal: false,
+    newSongId: '',
 }
 
 const songsSlice = createSlice({
@@ -107,6 +110,9 @@ const songsSlice = createSlice({
         setmarkDeletedItem: (state, action: PayloadAction<boolean>) => {
             state.markDeletedItem = action.payload
         },
+        createSongSuccess: (state, action: PayloadAction<string>) => {
+            state.newSongId = action.payload
+        },
     },
 })
 
@@ -122,6 +128,7 @@ export const {
     setShowFailedToast,
     setOpenDeleteModal,
     setmarkDeletedItem,
+    createSongSuccess,
 } = songsSlice.actions
 
 export default songsSlice.reducer

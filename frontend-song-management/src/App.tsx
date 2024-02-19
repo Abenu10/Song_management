@@ -5,7 +5,7 @@ import Home from './pages/Home'
 import GenrePage from './pages/GenrePage'
 import StatisticsPage from './pages/StatisticsPage'
 import FilteredSongsPage from './pages/FilteredSongsPage'
-import AddSongPage from './pages/AddSong/AddSongPage'
+// import AddSongPage from './pages/AddSong delete❌/AddSongPage'
 import EditSongPage from './pages/EditSongPage'
 //
 
@@ -153,7 +153,7 @@ function App() {
                         element={<FilteredSongsPage />}
                     />
                     <Route path="/Statistics" element={<StatisticsPage />} />
-                    <Route path="/addSong" element={<AddSongPage />} />
+                    {/* <Route path="/addSong" element={<AddSongPage />} /> */}
                     <Route path="/editSong/:id" element={<EditSongPage />} />
                 </Route>
             </Routes>

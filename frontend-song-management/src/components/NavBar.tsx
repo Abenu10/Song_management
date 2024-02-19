@@ -8,7 +8,7 @@ import { IoIosSearch } from 'react-icons/io'
 import { useLocation } from 'react-router'
 import SmallScreenSidebar from './SmallScreen/SmallScreenSidebar'
 import { useState } from 'react'
-import SongModal from './SongModal'
+import SongModal from './MultiStep/SongModal'
 
 
 const AddSongButton = styled.button`

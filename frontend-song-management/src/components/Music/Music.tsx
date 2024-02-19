@@ -57,10 +57,14 @@ const Music: React.FC<myComponentProp> = ({
     userId,
     likes,
 }) => {
+    // get the songs object state useselector
+    const songs = useSelector((state: RootState) => state.songs.songs)
     const dispatch = useDispatch()
 
     const handlePlaySong = () => {
-        dispatch(setCurrentSong(song.songUrl))
+        if (songUrl) {
+            dispatch(setCurrentSong(songUrl))
+        }
     }
     const [optionIsOpened, setOptionIsOpened] = useState(false)
     const [markedItem, setMarkedItem] = useState(false)

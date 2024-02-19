@@ -93,15 +93,49 @@ function* createSong(action: any) {
             yield put(setCreateSongCauseAnError(false))
             console.log(response.data)
             yield put(setAddSongButtonLoading(false))
+            const songId = response.data.song._id
+            yield put({ type: 'songs/createSongSuccess', payload: songId })
         } catch (error) {
             yield put(setCreateSongCauseAnError(true))
             yield put(setAddSongButtonLoading(false))
+            console.log(error)
+            console.log('Payload is undefined')
+        }
+    } else {
+        console.log('Payload is undefined')
+    }
+}
+function* updateSongCover(action: any) {
+    // Check if action.payload exists before destructuring
+    if (action.payload) {
+        const { id, file }: { id: string; file: File } = action.payload
+
+        // Create a new FormData instance
+        const formData = new FormData()
+        // Append the file to the FormData instance
+        formData.append('coverImage', file)
+
+        try {
+            const response: AxiosResponse = yield call(() => {
+                return api.put(
+                    `${VITE_BASE_URL}/songs/new/${id}/cover`,
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                    }
+                )
+            })
+            console.log(response.data)
+        } catch (error) {
             console.log(error)
         }
     } else {
         console.log('Payload is undefined')
     }
 }
+
 function* updateSong(action: any) {
     yield put(setEditSongButtonLoading(true))
 
@@ -191,6 +225,9 @@ export function* fetchSongsByGenreSaga() {
 
 export function* createSongSaga() {
     yield takeEvery('song/createSong', createSong)
+}
+export function* updateSongCoverSaga() {
+    yield takeEvery('song/updateSongCover', updateSongCover)
 }
 export function* updateSongSaga() {
     yield takeEvery('song/updateSong', updateSong)
