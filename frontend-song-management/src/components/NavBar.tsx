@@ -10,7 +10,6 @@ import SmallScreenSidebar from './SmallScreen/SmallScreenSidebar'
 import { useState } from 'react'
 import SongModal from './MultiStep/SongModal'
 
-
 const AddSongButton = styled.button`
     background: #007bff;
     color: #fff;

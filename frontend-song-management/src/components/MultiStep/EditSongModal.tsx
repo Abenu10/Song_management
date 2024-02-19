@@ -17,6 +17,8 @@ const ModalBackground = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
+
 `
 
 const ModalContent = styled.div`
@@ -110,7 +112,7 @@ const StyledInput = styled.input`
         border-color: #9090ff;
     }
 `
-const SongModal = ({
+const EditSongModal = ({
     isOpen,
     onClose,
 }: {
@@ -270,7 +272,7 @@ const SongModal = ({
     }, [isOpen, onClose])
 
     return isOpen ? (
-        <ModalBackground>
+        <ModalBackground onClick={onClose} >
             <ModalContent ref={modalRef}>
                 <MultiStepProgressBar
                     page={page}
@@ -279,112 +281,106 @@ const SongModal = ({
                 {
                     {
                         pageone: (
-                            <>
-                                <h2 style={{ color: '#fff' }}>Add Song</h2>
-
-                                <form onSubmit={handleSubmitPageOne}>
-                                    <FormLabel>Title:</FormLabel>
-                                    <InputField
-                                        type="text"
-                                        name="title"
-                                        value={formData.title}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
-                                    <FormLabel>Artist:</FormLabel>
-                                    <InputField
-                                        type="text"
-                                        name="artist"
-                                        value={formData.artist}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
-                                    <FormLabel>Album:</FormLabel>
-                                    <InputField
-                                        type="text"
-                                        name="album"
-                                        value={formData.album}
-                                        onChange={handleInputChange}
-                                        required
-                                    />
-                                    <FormLabel>Genre:</FormLabel>
-                                    <Text fontSize={2} fontWeight="bold" mb={0}>
-                                        Select Song Genre
-                                    </Text>
-                                    <StyledSelect
-                                        required
-                                        name="genre"
-                                        onChange={handleInputChange}
-                                        value={formData.genre}
-                                    >
-                                        {Categories.map((category, index) => (
-                                            <StyledOption
-                                                key={index}
-                                                value={category}
-                                            >
-                                                {category}
-                                            </StyledOption>
-                                        ))}
-                                    </StyledSelect>
-                                    {/* Input field for uploading music files */}
-                                    <FormLabel>Upload Music:</FormLabel>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                        }}
-                                    >
-                                        {/* <InputField
+                            <form onSubmit={handleSubmitPageOne}>
+                                <FormLabel>Title:</FormLabel>
+                                <InputField
+                                    type="text"
+                                    name="title"
+                                    value={formData.title}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                                <FormLabel>Artist:</FormLabel>
+                                <InputField
+                                    type="text"
+                                    name="artist"
+                                    value={formData.artist}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                                <FormLabel>Album:</FormLabel>
+                                <InputField
+                                    type="text"
+                                    name="album"
+                                    value={formData.album}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                                <FormLabel>Genre:</FormLabel>
+                                <Text fontSize={2} fontWeight="bold" mb={0}>
+                                    Select Song Genre
+                                </Text>
+                                <StyledSelect
+                                    required
+                                    name="genre"
+                                    onChange={handleInputChange}
+                                    value={formData.genre}
+                                >
+                                    {Categories.map((category, index) => (
+                                        <StyledOption
+                                            key={index}
+                                            value={category}
+                                        >
+                                            {category}
+                                        </StyledOption>
+                                    ))}
+                                </StyledSelect>
+                                {/* Input field for uploading music files */}
+                                <FormLabel>Upload Music:</FormLabel>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    {/* <InputField
                             type="file"
                             name="musicFile"
                             accept="audio/*"
                             onChange={handleInputChange}
                             required
                         /> */}
-                                        <StyledInput
-                                            required
-                                            type="file"
-                                            placeholder="audio file"
-                                            name="postAudio"
-                                            onChange={handleInputChange}
-                                        />
-                                        {/* <FileName>
+                                    <StyledInput
+                                        required
+                                        type="file"
+                                        placeholder="audio file"
+                                        name="postAudio"
+                                        onChange={handleInputChange}
+                                    />
+                                    {/* <FileName>
                             {formData.musicFile ? formData.musicFile.name : ''}
                         </FileName> */}
-                                    </div>
-                                    <Button type="submit">Next</Button>
-                                </form>
-                            </>
+                                </div>
+                                <Button type="submit">Next</Button>
+                            </form>
                         ),
                         pagetwo: (
-                            <>
-                                <h2 style={{ color: '#fff' }}>Add Song</h2>
-                                <form onSubmit={handleSubmitPageTwo}>
-                                    <FormLabel>Upload Image:</FormLabel>
-                                    <div
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                        }}
-                                    >
-                                        <StyledInput
-                                            required
-                                            type="file"
-                                            placeholder="image file"
-                                            name="postImage"
-                                            accept="image/*"
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-                                    <Button type="submit">Submit</Button>
-                                </form>
-                            </>
+                            <form onSubmit={handleSubmitPageTwo}>
+                                <FormLabel>Upload Image:</FormLabel>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <StyledInput
+                                        required
+                                        type="file"
+                                        placeholder="image file"
+                                        name="postImage"
+                                        accept="image/*"
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                                <Button type="submit">Submit</Button>
+                            </form>
                         ),
                     }[page]
                 }
+                <h2 style={{ color: '#fff' }}>Add Song</h2>
             </ModalContent>
         </ModalBackground>
     ) : null
 }
 
-export default SongModal
+export default EditSongModal
