@@ -17,7 +17,7 @@ import {
     StyledForm,
     genreStyles,
     spinnerStyles,
-} from './AddSong.style';
+} from '../../components/AddSong.style';
 
 function AddSongPage() {
     const [file, setFile] = useState<File | null>(null);
