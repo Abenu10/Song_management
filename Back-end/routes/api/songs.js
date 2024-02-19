@@ -20,7 +20,7 @@ const Song = require('../../models/Songs');
 
 router.get('/', (req, res) => res.send('Songs route'));
 
-router.post('/new/:id', upload.single('postAudio'), async (req, res) => {
+router.post('/new/:id', auth, upload.single('postAudio'), async (req, res) => {
   try {
     console.log('Uploading audio to Cloudinary...');
     // upload audio to cloudinary
@@ -65,7 +65,7 @@ router.put('/new/:id/cover', upload.single('coverImage'), async (req, res) => {
   }
 });
 // list all songs
-router.get('/list', async (req, res) => {
+router.get('/list', auth, async (req, res) => {
   try {
     const songs = await Song.find();
     res.status(200).json({message: 'list of songs', song: songs});
@@ -115,7 +115,7 @@ router.delete('/:id', async (req, res) => {
     const publicId = song.publicId.split('/').pop();
     await removeFromCloudinary(publicId);
     const deletedSong = await Song.findByIdAndDelete(req.params.id);
-    res.status(200).json({message: 'song updated', song: deletedSong});
+    res.status(200).json({message: 'song Deleted', song: deletedSong});
   } catch (error) {
     res.status(400).send(error);
   }

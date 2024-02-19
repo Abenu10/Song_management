@@ -1,30 +1,33 @@
-import { all } from "redux-saga/effects";
+import { all } from 'redux-saga/effects'
 import {
-  fetchSongsSaga,
-  fetchSongsByGenreSaga,
-  createSongSaga,
-  updateSongSaga,
-  getSongByIdSaga,
-  deleteSongByIdSaga,
-} from "./songsSaga";
+    fetchSongsSaga,
+    fetchSongsByGenreSaga,
+    createSongSaga,
+    updateSongCoverSaga,
+    updateSongSaga,
+    getSongByIdSaga,
+    deleteSongByIdSaga,
+    postLoginInitializationSaga,
+} from './songsSaga'
 import {
-  fetchSongsStatisticsSaga,
-  fetchSongsStatisticsDataSaga,
-} from "./songsStatisticsSaga";
-import {
-  watchLogin
-} from "./authSaga"
+    fetchSongsStatisticsSaga,
+    fetchSongsStatisticsDataSaga,
+} from './songsStatisticsSaga'
+import { watchLogin, watchRegister } from './authSaga'
 
 export default function* rootSaga() {
-  yield all([
-    fetchSongsSaga(),
-    fetchSongsByGenreSaga(),
-    createSongSaga(),
-    updateSongSaga(),
-    getSongByIdSaga(),
-    fetchSongsStatisticsSaga(),
-    fetchSongsStatisticsDataSaga(),
-    deleteSongByIdSaga(),
-    watchLogin()
-  ]);
+    yield all([
+        watchLogin(),
+        postLoginInitializationSaga(),
+        watchRegister(),
+        fetchSongsSaga(),
+        fetchSongsByGenreSaga(),
+        createSongSaga(),
+        updateSongCoverSaga(),
+        updateSongSaga(),
+        getSongByIdSaga(),
+        fetchSongsStatisticsSaga(),
+        fetchSongsStatisticsDataSaga(),
+        deleteSongByIdSaga(),
+    ])
 }

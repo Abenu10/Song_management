@@ -32,6 +32,8 @@ import { RootState } from '../../state/store'
 import SuccessToast from '../Toasts/SuccessToast'
 import FailedToast from '../Toasts/FailedToast'
 
+import EditSongModal from '../MultiStep/EditSongModal'
+
 type myComponentProp = {
     album: string
     artist: string
@@ -57,10 +59,25 @@ const Music: React.FC<myComponentProp> = ({
     userId,
     likes,
 }) => {
+    const [open, setOpen] = useState(false)
+
+    const openEditModal = () => {
+        setModalOpen(true)
+        setOptionIsOpened(false)
+    }
+
+    // Function to open modal
+    const closeEditModal = () => setModalOpen(false) // Function to close modal
+    const [modalOpen, setModalOpen] = useState(false) // State to manage modal visibility
+
+    // FIXME: get the songs object state useselector
+    const songs = useSelector((state: RootState) => state.songs.songs)
     const dispatch = useDispatch()
 
     const handlePlaySong = () => {
-        dispatch(setCurrentSong(song.songUrl))
+        if (songUrl) {
+            dispatch(setCurrentSong(songUrl))
+        }
     }
     const [optionIsOpened, setOptionIsOpened] = useState(false)
     const [markedItem, setMarkedItem] = useState(false)
@@ -234,8 +251,8 @@ const Music: React.FC<myComponentProp> = ({
                     <StyledOption onClick={handleOptionClick} />
                     {optionIsOpened === true ? (
                         <StyledContent onClick={(e) => e.stopPropagation()}>
-                            <Link
-                                to={`/editSong/${_id}`}
+                            <div
+                                onClick={openEditModal}
                                 style={{
                                     textDecoration: 'none',
                                     color: '#1f3044',
@@ -255,7 +272,7 @@ const Music: React.FC<myComponentProp> = ({
                                         <StyledButton>Edit</StyledButton>
                                     </Box>
                                 </Flex>
-                            </Link>
+                            </div>
                             <Flex
                                 flexDirection={'row'}
                                 alignItems={'center'}
@@ -275,6 +292,7 @@ const Music: React.FC<myComponentProp> = ({
                         ''
                     )}
                 </Box>
+                <EditSongModal isOpen={modalOpen} onClose={closeModal} />{' '}
             </Flex>
         </div>
     )

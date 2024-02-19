@@ -1,4 +1,4 @@
-import { call, put, select, takeEvery } from 'redux-saga/effects'
+import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects'
 
 import {
     setSongs,
@@ -15,14 +15,13 @@ import {
 
 import axios, { AxiosResponse } from 'axios'
 import { RootState } from './store'
+import api from '../api/apiCalls'
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
 function* fetchSongs() {
     try {
-        const response: AxiosResponse = yield call(() =>
-            axios.get(`${VITE_BASE_URL}/songs/list`)
-        )
+        const response: AxiosResponse = yield call(() => api.get('/songs/list'))
         if (response.data.message === 'list of songs') {
             yield put(setSongs(response.data.song))
         } else {
@@ -36,7 +35,7 @@ function* fetchSongsByGenre(action: any) {
     const { genre }: { genre: string } = action.payload
     try {
         const response: AxiosResponse = yield call(() =>
-            axios.get(`${VITE_BASE_URL}/songs/list/${genre}`)
+            api.get(`${VITE_BASE_URL}/songs/list/${genre}`)
         )
 
         if (response.data.message === 'list of songs by genre') {
@@ -74,9 +73,15 @@ function* createSong(action: any) {
         })
 
         try {
+            // Get user ID from server
+            const userIdResponse: AxiosResponse = yield call(() => {
+                return api.get('/auth/user/id') // Replace '/user/id' with your actual route
+            })
+            const userId = userIdResponse.data.userId
+
             const response: AxiosResponse = yield call(() => {
-                return axios.post(
-                    `${VITE_BASE_URL}/songs/new/64f98c97dda5f4b550c00acc`,
+                return api.post(
+                    `${VITE_BASE_URL}/songs/new/${userId}`,
                     formData,
                     {
                         headers: {
@@ -88,15 +93,49 @@ function* createSong(action: any) {
             yield put(setCreateSongCauseAnError(false))
             console.log(response.data)
             yield put(setAddSongButtonLoading(false))
+            const songId = response.data.song._id
+            yield put({ type: 'songs/createSongSuccess', payload: songId })
         } catch (error) {
             yield put(setCreateSongCauseAnError(true))
             yield put(setAddSongButtonLoading(false))
+            console.log(error)
+            console.log('Payload is undefined')
+        }
+    } else {
+        console.log('Payload is undefined')
+    }
+}
+function* updateSongCover(action: any) {
+    // Check if action.payload exists before destructuring
+    if (action.payload) {
+        const { id, file }: { id: string; file: File } = action.payload
+
+        // Create a new FormData instance
+        const formData = new FormData()
+        // Append the file to the FormData instance
+        formData.append('coverImage', file)
+
+        try {
+            const response: AxiosResponse = yield call(() => {
+                return api.put(
+                    `${VITE_BASE_URL}/songs/new/${id}/cover`,
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                    }
+                )
+            })
+            console.log(response.data)
+        } catch (error) {
             console.log(error)
         }
     } else {
         console.log('Payload is undefined')
     }
 }
+
 function* updateSong(action: any) {
     yield put(setEditSongButtonLoading(true))
 
@@ -106,7 +145,7 @@ function* updateSong(action: any) {
         console.log(data)
         try {
             const response: AxiosResponse = yield call(() => {
-                return axios.put(`${VITE_BASE_URL}/songs/${id}`, data)
+                return api.put(`${VITE_BASE_URL}/songs/${id}`, data)
             })
             yield put(setEditSongCauseAnError(false))
             console.log(response.data)
@@ -125,7 +164,7 @@ function* getSongById(action: any) {
     const { id }: { id: string } = action.payload
     try {
         const response: AxiosResponse = yield call(() => {
-            return axios.get(`${VITE_BASE_URL}/searchSong/${id}`)
+            return api.get(`${VITE_BASE_URL}/searchSong/${id}`)
         })
         yield put(setSearchSong(response.data.song))
     } catch (error) {
@@ -140,7 +179,7 @@ function* deleteSongById(action: any) {
 
         // Send a request to delete the song
         const response: AxiosResponse = yield call(() => {
-            return axios.delete(`${VITE_BASE_URL}/${songid}`)
+            return api.delete(`${VITE_BASE_URL}/songs/${songid}`)
         })
         console.log(response.data.message)
         const songToRemove = response.data.song
@@ -171,6 +210,11 @@ function* deleteSongById(action: any) {
         console.log(error)
     }
 }
+
+export function* postLoginInitializationSaga() {
+    yield takeLatest('auth/postLoginInit', fetchSongs)
+}
+
 export function* fetchSongsSaga() {
     yield takeEvery('songs/fetchSongs', fetchSongs)
 }
@@ -181,6 +225,9 @@ export function* fetchSongsByGenreSaga() {
 
 export function* createSongSaga() {
     yield takeEvery('song/createSong', createSong)
+}
+export function* updateSongCoverSaga() {
+    yield takeEvery('song/updateSongCover', updateSongCover)
 }
 export function* updateSongSaga() {
     yield takeEvery('song/updateSong', updateSong)

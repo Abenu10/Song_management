@@ -5,7 +5,7 @@ import Home from './pages/Home'
 import GenrePage from './pages/GenrePage'
 import StatisticsPage from './pages/StatisticsPage'
 import FilteredSongsPage from './pages/FilteredSongsPage'
-import AddSongPage from './pages/AddSong/AddSongPage'
+// import AddSongPage from './pages/AddSong delete❌/AddSongPage'
 import EditSongPage from './pages/EditSongPage'
 //
 
@@ -19,11 +19,13 @@ import { IoIosClose } from 'react-icons/io'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
-import { useContext } from 'react'
-import { AuthContext } from './context/AuthContext'
+// import { useContext } from 'react'
+// import { AuthContext } from './context/AuthContext'
 import Login from './pages/login/Login'
 import Register from './pages/register/Register'
 import Profile from './pages/profile/Profile'
+import { RootState } from './state/store'
+import { useSelector } from 'react-redux'
 
 const StyledIcon = styled(IoMdHome)`
     margin-right: 10px;
@@ -51,7 +53,9 @@ const CloseIcon = styled(IoIosClose)`
 `
 
 function App() {
-    const { user } = useContext(AuthContext)
+    // const { user } = useContext(AuthContext)
+    const user = useSelector((state: RootState) => state.auth.user)
+    console.log(user)
 
     const [openSidebar, setOpenSidebar] = useState(false)
 
@@ -130,13 +134,18 @@ function App() {
                     path="/login"
                     element={user ? <Navigate to="/" /> : <Login />}
                 />
-                <Route path="/" element={user ? <Home /> : <Register />} />
-
                 <Route
                     path="/register"
                     element={user ? <Navigate to="/" /> : <Register />}
                 />
-                <Route path="/profile" element={<Profile />} />
+                <Route
+                    path="/"
+                    element={user ? <Home /> : <Navigate to="/login" />}
+                />
+                <Route
+                    path="/profile"
+                    element={user ? <Profile /> : <Navigate to="/login" />}
+                />
                 <Route path="/" element={<Main />}>
                     <Route index element={<Home />} />
                     <Route path="/genre" element={<GenrePage />} />
@@ -145,7 +154,7 @@ function App() {
                         element={<FilteredSongsPage />}
                     />
                     <Route path="/Statistics" element={<StatisticsPage />} />
-                    <Route path="/addSong" element={<AddSongPage />} />
+                    {/* <Route path="/addSong" element={<AddSongPage />} /> */}
                     <Route path="/editSong/:id" element={<EditSongPage />} />
                 </Route>
             </Routes>
