@@ -75,7 +75,7 @@ function* createSong(action: any) {
         try {
             // Get user ID from server
             const userIdResponse: AxiosResponse = yield call(() => {
-                return api.get('/user/id') // Replace '/user/id' with your actual route
+                return api.get('/auth/user/id') // Replace '/user/id' with your actual route
             })
             const userId = userIdResponse.data.userId
 
