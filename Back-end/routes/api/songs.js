@@ -115,7 +115,7 @@ router.delete('/:id', async (req, res) => {
     const publicId = song.publicId.split('/').pop();
     await removeFromCloudinary(publicId);
     const deletedSong = await Song.findByIdAndDelete(req.params.id);
-    res.status(200).json({message: 'song updated', song: deletedSong});
+    res.status(200).json({message: 'song Deleted', song: deletedSong});
   } catch (error) {
     res.status(400).send(error);
   }

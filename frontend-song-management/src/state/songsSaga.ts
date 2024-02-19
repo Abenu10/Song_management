@@ -179,7 +179,7 @@ function* deleteSongById(action: any) {
 
         // Send a request to delete the song
         const response: AxiosResponse = yield call(() => {
-            return api.delete(`${VITE_BASE_URL}/${songid}`)
+            return api.delete(`${VITE_BASE_URL}/songs/${songid}`)
         })
         console.log(response.data.message)
         const songToRemove = response.data.song
