@@ -9,6 +9,8 @@ import {
     registerFailure,
 } from '../state/auth/authSlice'
 import axios, { AxiosResponse } from 'axios'
+import Cookies from 'js-cookie'
+import * as jwt_decode from 'jwt-decode'
 
 import { fetchSongsSaga } from './songsSaga'
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
@@ -55,9 +57,22 @@ function* handleRegister(action: any) {
 //   }
 // }
 
+// Fetch user from cookie
+
+function* fetchUserFromCookie() {
+    const token = Cookies.get('token')
+    if (token) {
+        const user = jwt_decode(token)
+        yield put(loginSuccess(user))
+    }
+}
+
 export function* watchLogin() {
     yield takeLatest(loginStart.type, handleLogin)
 }
 export function* watchRegister() {
     yield takeLatest(registerStart.type, handleRegister)
+}
+export function* watchFetchUserFromCookie() {
+    yield takeLatest('FETCH_USER_FROM_COOKIE', fetchUserFromCookie)
 }

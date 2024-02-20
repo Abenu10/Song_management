@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../state/store'
 import { Key } from '@mui/icons-material'
 import Player from '@/components/Player/Player'
+import { backgroundColor } from 'styled-system'
 //
 
 interface Song {
@@ -43,14 +44,17 @@ function Home() {
 
     return (
         <>
-            <Player songs={data} />
-            <Flex flexDirection={'column'} css={HomeStyle.styles}>
+            <Flex
+                flexDirection={'column'}
+                css={HomeStyle.styles}
+                style={{ backgroundColor: '#1d1e22' }}
+            >
                 <Box>
                     <Text fontSize={5} fontWeight="bold">
                         All Songs
                     </Text>
                 </Box>
-              <Box>
+                <Box>
                     {isLoading
                         ? 'Loading'
                         : data.map((song: Song) => {
@@ -71,6 +75,7 @@ function Home() {
                           })}
                 </Box>
             </Flex>
+            {/* <Player songs={data} /> */}
         </>
     )
 }

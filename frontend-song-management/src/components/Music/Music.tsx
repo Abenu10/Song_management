@@ -140,7 +140,7 @@ const Music: React.FC<myComponentProp> = ({
         background-color: ${markedItem ? '#a8bcc3' : ''};
         max-width: 800px;
         &:hover {
-            background-color: #a8bcc3;
+            background-color: #53555c;
         }
         transition: all 0.5s ease;
     `

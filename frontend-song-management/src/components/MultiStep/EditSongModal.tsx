@@ -278,6 +278,8 @@ const EditSongModal = ({
                     page={page}
                     onPageNumberClick={nextPageNumber}
                 />
+                <h2 style={{ color: '#fff' }}>Edit Song</h2> 
+
                 {
                     {
                         pageone: (
@@ -377,7 +379,6 @@ const EditSongModal = ({
                         ),
                     }[page]
                 }
-                <h2 style={{ color: '#fff' }}>Add Song</h2>
             </ModalContent>
         </ModalBackground>
     ) : null

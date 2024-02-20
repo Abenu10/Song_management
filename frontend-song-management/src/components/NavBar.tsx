@@ -6,18 +6,21 @@ import { TbMenu2 } from 'react-icons/tb'
 import { IoIosClose } from 'react-icons/io'
 import { IoIosSearch } from 'react-icons/io'
 import { useLocation } from 'react-router'
+import { IoIosAddCircleOutline } from 'react-icons/io'
 import SmallScreenSidebar from './SmallScreen/SmallScreenSidebar'
 import { useState } from 'react'
 import SongModal from './MultiStep/SongModal'
 
 const AddSongButton = styled.button`
-    background: #007bff;
-    color: #fff;
+    background: #53555c;
+    color: rgb(230, 230, 230);
     border: none;
     padding: 10px 20px;
     font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 `
 const MenuIcon = styled(TbMenu2)`
     cursor: pointer;
@@ -46,8 +49,12 @@ export default function NavBar() {
 
     const NavStyle = css`
         // background: #1F3044;
-        background: #a8bcc3;
-        margin: 10px 0px;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
+        color: rgba(255, 255, 255, 0.75);
+        margin: 0px 0px;
         padding: 10px 20px;
         border-radius: 10px;
         position: sticky;
@@ -60,7 +67,8 @@ export default function NavBar() {
         padding: 10px 32px;
 
         /* Add playful spirit: */
-        background-color: #f0f8ff;
+        background-color: #1d1e22;
+        color: rgb(230, 230, 230);
         border: 1px solid #c0c0ff;
         font-size: 16px;
         outline: none;
@@ -73,6 +81,10 @@ export default function NavBar() {
             box-shadow: 0 0 4px rgba(0, 0, 255, 0.2);
             border-color: #9090ff;
         }
+    `
+    const StyledIcon4 = styled(IoIosAddCircleOutline)`
+        margin-right: 10px;
+        font-size: 30px;
     `
 
     return (
@@ -103,7 +115,12 @@ export default function NavBar() {
                 </Box>
                 <Box>
                     {/* <MenuIcon onClick={() => setOpen(true)} /> */}
-                    <AddSongButton onClick={openModal}>Add Song</AddSongButton>
+                    {/* <Flex> */}
+                    <AddSongButton onClick={openModal}>
+                        <StyledIcon4 />
+                        Add Song
+                    </AddSongButton>
+                    {/* </Flex> */}
                 </Box>
                 <SongModal isOpen={modalOpen} onClose={closeModal} />{' '}
             </Flex>

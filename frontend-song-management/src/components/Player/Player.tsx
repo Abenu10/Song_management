@@ -1,74 +1,87 @@
-// https://github.com/lhz516/react-h5-audio-player#readme
-// https://www.bensound.com/
-
-import { useState, useEffect } from "react";
-import AudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
+import { useState, useEffect } from 'react'
+import AudioPlayer from 'react-h5-audio-player'
+import 'react-h5-audio-player/lib/styles.css'
+import styled from 'styled-components'
 
 interface PlayerProps {
-    songs: Song[];
+    songs: Song[]
 }
 
 interface Song {
-    _id: string;
-    artist: string;
-    title: string;
-    album: string;
-    genre: string;
-    songUrl: string;
-    userId: string;
-    likes: number;
+    _id: string
+    artist: string
+    title: string
+    album: string
+    genre: string
+    songUrl: string
+    userId: string
+    likes: number
 }
-
+const Playercontainer = styled.div`
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+`
 export default function Player({ songs }: PlayerProps) {
-
-    
-    const [trackIndex, setTrackIndex] = useState(0);
+    const [trackIndex, setTrackIndex] = useState(0)
 
     useEffect(() => {
         if (songs) {
-            const index = songs.findIndex((song) => song.songUrl === musicTracks[trackIndex].songUrl);
+            const index = songs.findIndex(
+                (song) => song.songUrl === musicTracks[trackIndex].songUrl
+            )
             if (index !== -1) {
-                setTrackIndex(index);
+                setTrackIndex(index)
             }
         }
-    }, [songs]);
+    }, [songs])
 
-    const musicTracks = songs ? songs.map((song) => ({
-        title: song.title,
-        songUrl: song.songUrl
-    })) : [];
+    const musicTracks = songs
+        ? songs.map((song) => ({
+              title: song.title,
+              songUrl: song.songUrl,
+          }))
+        : []
 
     const handleClickPrevious = () => {
         setTrackIndex((currentTrack) =>
             currentTrack === 0 ? musicTracks.length - 1 : currentTrack - 1
-        );
-    };
+        )
+    }
 
     const handleClickNext = () => {
         setTrackIndex((currentTrack) =>
             currentTrack < musicTracks.length - 1 ? currentTrack + 1 : 0
-        );
-    };
+        )
+    }
 
     return (
-        <div className="App">
-            <h1>Hello CodeSandbox</h1>
-            {musicTracks[trackIndex] && (
-                <AudioPlayer
-                    style={{ borderRadius: "1rem" }}
-                    autoPlay
-                    src={musicTracks[trackIndex].songUrl}
-                    onPlay={(e) => console.log("onPlay")}
-                    showSkipControls={true}
-                    showJumpControls={false}
-                    header={`Now playing: ${musicTracks[trackIndex].title}`}
-                    footer="All music from: www.bensound.com"
-                    onClickPrevious={handleClickPrevious}
-                    onClickNext={handleClickNext}
-                    onEnded={handleClickNext}
-                />
-            )}
-        </div>
-    );
+        <>
+            <Playercontainer>
+                {musicTracks[trackIndex] && (
+                    <AudioPlayer
+                        style={{
+                            borderRadius: '1rem',
+                            background: 'rgba(0, 0, 0, 0.4)',
+                            backdropFilter: 'blur(10px)',
+                            // borderRadius: '10px',
+                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+                            color: 'rgba(255, 255, 255, 0.75)',
+                        }}
+                        autoPlay
+                        src={musicTracks[trackIndex].songUrl}
+                        onPlay={(e) => console.log('onPlay')}
+                        showSkipControls={true}
+                        showJumpControls={false}
+                        header={`Now playing: ${musicTracks[trackIndex].title}`}
+                        footer="music app"
+                        onClickPrevious={handleClickPrevious}
+                        onClickNext={handleClickNext}
+                        onEnded={handleClickNext}
+                    />
+                )}
+            </Playercontainer>
+        </>
+    )
 }

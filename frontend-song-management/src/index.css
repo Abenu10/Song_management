@@ -1,11 +1,12 @@
 * {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-  }
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: rgb(230, 230, 230);
+}
 
-  body {
-    background-color: #E1F2F7;
-    /* background-color: #a8bcc3; */
-  }
+body {
+  /* background-color: #404647; */
+  /* background-color: #a8bcc3; */
+}

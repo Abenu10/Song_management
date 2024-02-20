@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
 import Main from './layout/Main'
 import Home from './pages/Home'
@@ -26,6 +26,8 @@ import Register from './pages/register/Register'
 import Profile from './pages/profile/Profile'
 import { RootState } from './state/store'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import Spinner from './components/spinner/Spinner'
 
 const StyledIcon = styled(IoMdHome)`
     margin-right: 10px;
@@ -53,9 +55,33 @@ const CloseIcon = styled(IoIosClose)`
 `
 
 function App() {
-    // const { user } = useContext(AuthContext)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_USER_FROM_COOKIE' })
+    }, [dispatch])
+
     const user = useSelector((state: RootState) => state.auth.user)
+    const isFetching = useSelector((state: RootState) => state.auth.isFetching)
+
+    useEffect(() => {
+        if (user) {
+            navigate('/') // navigate to home if user exists
+        } else {
+            navigate('/login') // navigate to login if user does not exist
+        }
+    }, [user, navigate])
+    // const { user } = useContext(AuthContext)
     console.log(user)
+    console.log(isFetching)
+
+    // useEffect(() => {
+    //     // Simulate a network request
+    //     setTimeout(() => {
+    //       setIsFetching(false);
+    //     }, 2000);
+    //   }, []);
 
     const [openSidebar, setOpenSidebar] = useState(false)
 
@@ -128,22 +154,34 @@ function App() {
 
     return (
         <>
+            {/* {isFetching ? (
+                <Spinner />
+            ) : ( */}
             <Routes>
+                <Route path="/login" element={<Login />} />
                 <Route
                     path="/"
-                    element={user ? <Navigate to="/home" /> : <Login />}
+                    element={
+                        user ? <Navigate to="/" /> : <Navigate to="/login" />
+                    }
                 />
+
+                {/* <Route
+                    path="/login"
+                    element={user ? <Navigate to="/home" /> : <Login />}
+                /> */}
                 <Route
                     path="/register"
-                    element={user ? <Navigate to="/home" /> : <Register />}
+                    element={user ? <Navigate to="/" /> : <Register />}
                 />
                 <Route
                     path="/profile"
                     element={user ? <Profile /> : <Navigate to="/" />}
                 />
+
                 <Route
-                    path="/home"
-                    element={user ? <Main /> : <Navigate to="/" />}
+                    path="/"
+                    element={user ? <Main /> : <Navigate to="/login" />}
                 >
                     <Route index element={<Home />} />
                     <Route path="genre" element={<GenrePage />} />
@@ -156,6 +194,7 @@ function App() {
                     <Route path="editSong/:id" element={<EditSongPage />} />
                 </Route>
             </Routes>
+            {/* )} */}
         </>
     )
 }
