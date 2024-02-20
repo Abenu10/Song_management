@@ -66,10 +66,10 @@ function Login() {
         <div className="login">
             <div className="loginWrapper">
                 <div className="loginLeft">
-                    <div className="loginLogo">HabeshaNet</div>
+                    <div className="loginLogo">MuzikaBet</div>
                     <span className="loginDesc">
-                        Connect with friends and the world around you on
-                        HabeshaNet.
+                        Discover new music, create your own playlists, and
+                        explore the vast collection of free music and audio.
                     </span>
                 </div>
                 <div className="loginRight">

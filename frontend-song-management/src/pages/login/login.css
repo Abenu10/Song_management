@@ -16,7 +16,7 @@
 .login {
     width: 100vw;
     height: 100vh;
-    background-color: #f0f2f5;
+    background-color: #1d1e22;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,7 +51,7 @@
 .loginBox {
     height: 400px;
     padding: 20px;
-    background-color: white;
+    background-color: #010101;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -68,8 +68,9 @@
     border-radius: 10px;
     border: 1px solid gray;
     font-size: 18px;
+    ;
     padding-left: 20px;
-
+    background-color: #1d1e22;
 }
 
 .loginInput:focus {
