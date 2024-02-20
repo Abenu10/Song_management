@@ -60,7 +60,7 @@ export default function NavBar() {
         position: sticky;
         top: 0;
         height: 70px;
-        z-index: 20;
+        z-index: 200;
         gap: 20px;
     `
     const SearchStyleInput = styled.input`

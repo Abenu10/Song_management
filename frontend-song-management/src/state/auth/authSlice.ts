@@ -42,6 +42,18 @@ export const authSlice = createSlice({
             state.isFetching = false
             state.error = true
         },
+        verifyToken: (state) => {
+            state.isFetching = true
+        },
+        verifyTokenSuccess: (state, action: PayloadAction<any>) => {
+            state.isFetching = false
+            state.user = action.payload
+            state.error = false
+        },
+        verifyTokenFailure: (state) => {
+            state.isFetching = false
+            state.error = true
+        },
     },
 })
 
@@ -53,6 +65,9 @@ export const {
     registerStart,
     registerSuccess,
     registerFailure,
+    verifyToken,
+    verifyTokenSuccess,
+    verifyTokenFailure,
 } = authSlice.actions
 
 export default authSlice.reducer

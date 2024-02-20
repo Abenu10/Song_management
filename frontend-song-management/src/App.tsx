@@ -28,6 +28,7 @@ import { RootState } from './state/store'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import Spinner from './components/spinner/Spinner'
+import { verifyToken } from './state/auth/authSlice'
 
 const StyledIcon = styled(IoMdHome)`
     margin-right: 10px;
@@ -61,6 +62,9 @@ function App() {
     useEffect(() => {
         dispatch({ type: 'FETCH_USER_FROM_COOKIE' })
     }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(verifyToken())
+    // }, [dispatch])
 
     const user = useSelector((state: RootState) => state.auth.user)
     const isFetching = useSelector((state: RootState) => state.auth.isFetching)
