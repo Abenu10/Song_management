@@ -9,6 +9,9 @@ import NavBar from '../components/NavBar'
 import Player from '@/components/Player/Player'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/state/store'
+import SongModal from '@/components/MultiStep/SongModal'
+import { useState } from 'react'
+import { Navigate, useLocation, useNavigate } from 'react-router'
 
 interface Song {
     _id: string
@@ -40,6 +43,12 @@ export default function Main() {
 
         border-radius: 10px;
     `
+    const [open, setOpen] = useState(false)
+    const location = useLocation()
+
+    const openModal = () => setModalOpen(true) // Function to open modal
+    const closeModal = () => setModalOpen(false) // Function to close modal
+    const [modalOpen, setModalOpen] = useState(false) // State to manage modal visibility
 
     return (
         <>
@@ -48,12 +57,13 @@ export default function Main() {
                     <SideBar />
                 </Box>
                 <Box flex={2}>
-                    <NavBar />
-
+                    {/* <NavBar /> */}
+                    <NavBar openModal={openModal} />
                     <Outlet />
                 </Box>
             </Flex>
             <Player songs={data} />
+            <SongModal isOpen={modalOpen} onClose={closeModal} />{' '}
         </>
     )
 }

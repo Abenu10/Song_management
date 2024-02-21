@@ -53,15 +53,15 @@ const SearchContainer = styled.div`
     align-items: center;
 `
 
-export default function NavBar() {
+export default function NavBar({ openModal }: { openModal: any }) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [open, setOpen] = useState(false)
     const location = useLocation()
 
-    const openModal = () => setModalOpen(true) // Function to open modal
-    const closeModal = () => setModalOpen(false) // Function to close modal
-    const [modalOpen, setModalOpen] = useState(false) // State to manage modal visibility
+    // const openModal = () => setModalOpen(true) // Function to open modal
+    // const closeModal = () => setModalOpen(false) // Function to close modal
+    // const [modalOpen, setModalOpen] = useState(false) // State to manage modal visibility
 
     const NavStyle = css`
         // background: #1F3044;
@@ -76,7 +76,7 @@ export default function NavBar() {
         position: sticky;
         top: 0;
         height: 70px;
-        z-index: 20;
+        z-index: 0;
         gap: 20px;
     `
     const SearchStyleInput = styled.input`
@@ -119,6 +119,15 @@ export default function NavBar() {
                 alignItems={'center'}
             >
                 <Box>
+                    {/* <MenuIcon onClick={() => setOpen(true)} /> */}
+                    {/* <Flex> */}
+                    <AddSongButton onClick={openModal}>
+                        <StyledIcon4 />
+                        Add Song
+                    </AddSongButton>
+                    {/* </Flex> */}
+                </Box>
+                <Box>
                     <SearchContainer
                         style={{
                             display:
@@ -133,18 +142,9 @@ export default function NavBar() {
                     </SearchContainer>
                 </Box>
                 <Box>
-                    {/* <MenuIcon onClick={() => setOpen(true)} /> */}
-                    {/* <Flex> */}
-                    <AddSongButton onClick={openModal}>
-                        <StyledIcon4 />
-                        Add Song
-                    </AddSongButton>
-                    {/* </Flex> */}
-                </Box>
-                <Box>
                     <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
                 </Box>
-                <SongModal isOpen={modalOpen} onClose={closeModal} />{' '}
+                {/* <SongModal isOpen={modalOpen} onClose={closeModal} />{' '} */}
             </Flex>
         </>
     )
