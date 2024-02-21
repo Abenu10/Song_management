@@ -12,16 +12,16 @@ const CloseIcon = styled(IoIosClose)`
 `;
 
 const ErrorMessageContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #d0e3f0;
-  border-radius: 10px;
-  padding: 10px;
-  transition: all 0.5s ease;
-  margin-bottom: 5px;
-`;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #010101;
+    border-radius: 10px;
+    padding: 10px;
+    transition: all 0.5s ease;
+    margin-bottom: 5px;
+`
 
 type myComponentProp = {
     message: string;

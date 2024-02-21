@@ -18,7 +18,6 @@ const ModalBackground = styled.div`
     justify-content: center;
     align-items: center;
     z-index: 1000;
-
 `
 
 const ModalContent = styled.div`
@@ -272,13 +271,13 @@ const EditSongModal = ({
     }, [isOpen, onClose])
 
     return isOpen ? (
-        <ModalBackground onClick={onClose} >
+        <ModalBackground onClick={onClose}>
             <ModalContent ref={modalRef}>
                 <MultiStepProgressBar
                     page={page}
                     onPageNumberClick={nextPageNumber}
                 />
-                <h2 style={{ color: '#fff' }}>Edit Song</h2> 
+                <h2 style={{ color: '#fff' }}>Edit Song</h2>
 
                 {
                     {

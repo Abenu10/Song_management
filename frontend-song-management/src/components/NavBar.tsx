@@ -1,3 +1,4 @@
+import { Cookies } from 'js-cookie'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Flex, Box, Text } from 'rebass'
@@ -15,14 +16,15 @@ import { logoutStart } from '@/state/auth/authSlice'
 
 const LogoutButton = styled.button`
     // Add your styles here. For example:
-    background-color: #f44336; // Red
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
+    background: #26408b;
+    color: rgb(230, 230, 230);
     border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
     cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
+    display: flex;
+    align-items: center;
 `
 
 const AddSongButton = styled.button`
@@ -104,6 +106,7 @@ export default function NavBar({ openModal }: { openModal: any }) {
     `
     const handleLogout = () => {
         dispatch(logoutStart())
+        Cookies.remove('token',{httpOnly: true, sameSite: 'strict'})
         navigate('/')
     }
     return (

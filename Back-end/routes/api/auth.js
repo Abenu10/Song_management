@@ -100,8 +100,7 @@ router.get('/logout', (req, res) => {
     expires: new Date(Date.now() - 1000),
     httpOnly: true,
     sameSite: 'strict',
-    path: '/',
-    domain: 'localhost',
+   
   });
   res.status(200).send({message: 'User logged out'});
 });

@@ -1,54 +1,41 @@
-/* :root{
-  --secondary-color:#fff;
+import styled from 'styled-components'
 
-} */
-.progress {
-    color: "#fff";
-    height: "5px";
-    width: "5px";
-}
-
-.secondary-color {
-    color: #fff;
-    size: 20px;
-}
-
-.login {
+export const LoginContainer = styled.div`
     width: 100vw;
     height: 100vh;
     background-color: #f0f2f5;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+`
 
-.loginWrapper {
+export const LoginWrapper = styled.div`
     width: 70%;
     height: 70%;
     display: flex;
-}
+`
 
-.loginLeft,
-.loginRight {
+export const LoginLeft = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* margin-right: 15px; */
-}
+`
 
-.loginLogo {
+export const LoginRight = styled(LoginLeft)``
+
+export const LoginLogo = styled.div`
     font-size: 50px;
     font-weight: 800;
     color: #1775ee;
     margin-bottom: 10px;
-}
+`
 
-.loginDesc {
+export const LoginDesc = styled.span`
     font-size: 24px;
-}
+`
 
-.loginBox {
+export const LoginBox = styled.form`
     height: 400px;
     padding: 20px;
     background-color: white;
@@ -56,27 +43,20 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
+`
 
-/* select all children of the class loginBox and apply margin bottom of 10px */
-.loginBox>* {
-    margin-bottom: 20px;
-}
-
-.loginInput {
+export const LoginInput = styled.input`
     height: 50px;
     border-radius: 10px;
     border: 1px solid gray;
     font-size: 18px;
     padding-left: 20px;
+    &:focus {
+        outline: none;
+    }
+`
 
-}
-
-.loginInput:focus {
-    outline: none;
-}
-
-.loginButton {
+export const LoginButton = styled.button`
     height: 50px;
     border-radius: 10px;
     border: none;
@@ -85,31 +65,21 @@
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
-}
+    &:focus {
+        outline: none;
+    }
+    &:disabled {
+        cursor: not-allowed;
+    }
+`
 
-.loginButton:focus {
-    outline: none;
-}
-
-.loginButton:disabled {
-    cursor: not-allowed;
-}
-
-
-.loginForgot {
+export const LoginForgot = styled.span`
     text-align: center;
     color: #1775ee;
-}
+`
 
-.loginRegisterButton {
+export const LoginRegisterButton = styled(LoginButton)`
     width: 60%;
     align-self: center;
-    height: 50px;
-    border-radius: 10px;
-    border: none;
     background-color: #42b72a;
-    color: white;
-    font-size: 20px;
-    font-weight: 500;
-    cursor: pointer;
-}
+`

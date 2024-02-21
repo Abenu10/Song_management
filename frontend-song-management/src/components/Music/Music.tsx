@@ -20,7 +20,7 @@ import {
     StyledOptionContainer,
     StyledlementsMenuebarContent,
     Overlay,
-    ModalContent,
+ModalContent,
     formatDate,
     StyledSpan,
 } from './Music.style'
@@ -68,6 +68,7 @@ const Music: React.FC<myComponentProp> = ({
 
     // Function to open modal
     const closeEditModal = () => setModalOpen(false) // Function to close modal
+    // const openEditModal = () => setModalOpen(true) // Function to open modal
     const [modalOpen, setModalOpen] = useState(false) // State to manage modal visibility
 
     // FIXME: get the songs object state useselector
@@ -123,7 +124,7 @@ const Music: React.FC<myComponentProp> = ({
         font-size: 17px;
         position: absolute;
         min-width: 100px;
-        background-color: #d0e3f0;
+        background-color: #010101;
         box-shadow: 2px 2px 5px rgba(0, 0, 255, 0.1);
         border-radius: 10px;
         margin-right: 5px;
@@ -292,7 +293,7 @@ const Music: React.FC<myComponentProp> = ({
                         ''
                     )}
                 </Box>
-                <EditSongModal isOpen={modalOpen} onClose={closeModal} />{' '}
+                <EditSongModal isOpen={modalOpen} onClose={closeEditModal} />{' '}
             </Flex>
         </div>
     )
