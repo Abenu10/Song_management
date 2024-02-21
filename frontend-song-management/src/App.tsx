@@ -157,8 +157,12 @@ function App() {
             {/* {isFetching ? (
                 <Spinner />
             ) : ( */}
+
             <Routes>
-                <Route path="/login" element={<Login />} />
+                <Route
+                    path="/login"
+                    element={user ? <Navigate to="/" /> : <Login />}
+                />
                 <Route
                     path="/"
                     element={
@@ -166,10 +170,6 @@ function App() {
                     }
                 />
 
-                {/* <Route
-                    path="/login"
-                    element={user ? <Navigate to="/home" /> : <Login />}
-                /> */}
                 <Route
                     path="/register"
                     element={user ? <Navigate to="/" /> : <Register />}
@@ -194,6 +194,7 @@ function App() {
                     <Route path="editSong/:id" element={<EditSongPage />} />
                 </Route>
             </Routes>
+
             {/* )} */}
         </>
     )

@@ -5,11 +5,25 @@ import { Flex, Box, Text } from 'rebass'
 import { TbMenu2 } from 'react-icons/tb'
 import { IoIosClose } from 'react-icons/io'
 import { IoIosSearch } from 'react-icons/io'
-import { useLocation } from 'react-router'
+import { Navigate, useLocation, useNavigate } from 'react-router'
 import { IoIosAddCircleOutline } from 'react-icons/io'
 import SmallScreenSidebar from './SmallScreen/SmallScreenSidebar'
 import { useState } from 'react'
 import SongModal from './MultiStep/SongModal'
+import { useDispatch } from 'react-redux'
+import { logoutStart } from '@/state/auth/authSlice'
+
+const LogoutButton = styled.button`
+    // Add your styles here. For example:
+    background-color: #f44336; // Red
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+`
 
 const AddSongButton = styled.button`
     background: #53555c;
@@ -40,6 +54,8 @@ const SearchContainer = styled.div`
 `
 
 export default function NavBar() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [open, setOpen] = useState(false)
     const location = useLocation()
 
@@ -86,7 +102,10 @@ export default function NavBar() {
         margin-right: 10px;
         font-size: 30px;
     `
-
+    const handleLogout = () => {
+        dispatch(logoutStart())
+        navigate('/')
+    }
     return (
         <>
             {/* Nav bar */}
@@ -121,6 +140,9 @@ export default function NavBar() {
                         Add Song
                     </AddSongButton>
                     {/* </Flex> */}
+                </Box>
+                <Box>
+                    <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
                 </Box>
                 <SongModal isOpen={modalOpen} onClose={closeModal} />{' '}
             </Flex>

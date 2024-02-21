@@ -89,8 +89,20 @@ router.post(
 );
 
 // log out user
+// router.get('/logout', (req, res) => {
+//   res.clearCookie('token');
+//   res.status(200).send({message: 'User logged out'});
+// });
+
+// log out user
 router.get('/logout', (req, res) => {
-  res.clearCookie('token');
+  res.clearCookie('token', {
+    expires: new Date(Date.now() - 1000),
+    httpOnly: true,
+    sameSite: 'strict',
+    path: '/',
+    domain: 'localhost',
+  });
   res.status(200).send({message: 'User logged out'});
 });
 
