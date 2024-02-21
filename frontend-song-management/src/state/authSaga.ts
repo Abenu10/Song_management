@@ -7,9 +7,6 @@ import {
     registerStart,
     registerSuccess,
     registerFailure,
-    verifyToken,
-    verifyTokenSuccess,
-    verifyTokenFailure,
 } from '../state/auth/authSlice'
 import axios, { AxiosResponse } from 'axios'
 import Cookies from 'js-cookie'
@@ -53,20 +50,12 @@ function* handleRegister(action: any) {
 
 // function* fetchUserDataSaga() {
 //   try {
-//     const response: AxiosResponse = yield call(axios.get, '/api/auth');
+//     const response = yield call(axios.get, '/api/auth');
 //     yield put({ type: 'user/fetchSuccess', payload: response.data });
 //   } catch (err) {
 //     yield put({ type: 'user/fetchFailure', payload: err.message });
 //   }
 // }
-function* verifyTokenSaga() {
-    try {
-        const res: AxiosResponse = yield call(axios.get, '/api/auth')
-        yield put(verifyTokenSuccess(res.data))
-    } catch (err) {
-        yield put(verifyTokenFailure(err.message))
-    }
-}
 
 // Fetch user from cookie
 
@@ -86,9 +75,4 @@ export function* watchRegister() {
 }
 export function* watchFetchUserFromCookie() {
     yield takeLatest('FETCH_USER_FROM_COOKIE', fetchUserFromCookie)
-}
-
-
-export function* watchVerifyToken() {
-    yield takeLatest(verifyToken.type, verifyTokenSaga)
 }

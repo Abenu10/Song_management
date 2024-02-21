@@ -8,12 +8,12 @@ import { Flex, Box, Text } from 'rebass'
 import MultiStepProgressBar from './MultiStepProgressBar'
 
 const ModalBackground = styled.div`
-    position: fixed;
+     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* background-color: rgba(0, 0, 50, 0.5); Blue-black background color */
+    background-color: rgba(0, 0, 50, 0.5); /* Blue-black background color */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,7 +25,6 @@ const ModalContent = styled.div`
     border-radius: 10px;
     width: 80%; /* Adjusted width */
     max-width: 400px; /* Maximum width */
-    margin: auto;
 `
 
 const FormLabel = styled.label`
