@@ -7,13 +7,15 @@ import { useDispatch } from 'react-redux'
 import { Flex, Box, Text } from 'rebass'
 import MultiStepProgressBar from './MultiStepProgressBar'
 
-const ModalBackground = styled.div`
+const ModalBackgrounds = styled.div`
     position: fixed;
     top: 0;
+    right: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* background-color: rgba(0, 0, 50, 0.5); Blue-black background color */
+    background-color: #0000327f; /* Blue-black background color */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,7 +27,6 @@ const ModalContent = styled.div`
     border-radius: 10px;
     width: 80%; /* Adjusted width */
     max-width: 400px; /* Maximum width */
-    margin: auto;
 `
 
 const FormLabel = styled.label`
@@ -40,6 +41,7 @@ const InputField = styled.input`
     margin-bottom: 20px;
     border: none;
     border-radius: 5px;
+    color: #000; /* Black text color */
 `
 export const StyledSelect = styled.select`
     padding: 10px;
@@ -52,6 +54,7 @@ export const StyledSelect = styled.select`
     box-shadow: 0 0 2px rgba(0, 0, 255, 0.1);
     transition: 0.2s ease-in-out;
     border-radius: 8px; /* Rounded corners */
+    color: black;
 
     /* Playful font */
     font-size: 18px;
@@ -271,7 +274,7 @@ const SongModal = ({
     }, [isOpen, onClose])
 
     return isOpen ? (
-        <ModalBackground>
+        <ModalBackgrounds>
             <ModalContent ref={modalRef}>
                 <MultiStepProgressBar
                     page={page}
@@ -384,7 +387,7 @@ const SongModal = ({
                     }[page]
                 }
             </ModalContent>
-        </ModalBackground>
+        </ModalBackgrounds>
     ) : null
 }
 

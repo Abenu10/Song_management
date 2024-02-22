@@ -23,7 +23,7 @@ export const authSlice = createSlice({
         loginSuccess: (state, action: PayloadAction<any>) => {
             // Specify the user type
             state.isFetching = false
-            state.user = action.payload
+            state.user = action.payload.user
             state.error = false
         },
         loginFailure: (state) => {
@@ -35,22 +35,22 @@ export const authSlice = createSlice({
         },
         registerSuccess: (state, action) => {
             state.isFetching = false
-            state.user = action.payload
+            state.user = action.payload.user
             state.error = false
         },
         registerFailure: (state) => {
             state.isFetching = false
             state.error = true
         },
-        verifyToken: (state) => {
+        logoutStart: (state) => {
             state.isFetching = true
         },
-        verifyTokenSuccess: (state, action: PayloadAction<any>) => {
+        logoutSuccess: (state) => {
             state.isFetching = false
-            state.user = action.payload
+            state.user = null
             state.error = false
         },
-        verifyTokenFailure: (state) => {
+        logoutFailure: (state) => {
             state.isFetching = false
             state.error = true
         },
@@ -65,9 +65,9 @@ export const {
     registerStart,
     registerSuccess,
     registerFailure,
-    verifyToken,
-    verifyTokenSuccess,
-    verifyTokenFailure,
+    logoutStart,
+    logoutSuccess,
+    logoutFailure,
 } = authSlice.actions
 
 export default authSlice.reducer

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import './login.css'
+
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -8,7 +8,23 @@ import { CircularProgress } from '@mui/material'
 
 import { FormEvent } from 'react'
 import { RootState } from '../../state/store'
+
 import axios from 'axios'
+import {
+    LoginContainer,
+    LoginWrapper,
+    LoginLeft,
+    LoginRight,
+    LoginLogo,
+    LoginDesc,
+    LoginBox,
+    LoginInput,
+    LoginButton,
+    LoginForgot,
+    LoginRegisterButton,
+} from './Login.style'
+import { fetchUserDetailsStart } from '../../state/user/userSlice'
+
 // Call this function after login
 const checkToken = async () => {
     try {
@@ -33,8 +49,9 @@ function Login() {
         if (user) {
             navigate('/')
             checkToken()
+            dispatch(fetchUserDetailsStart())
         }
-    }, [user, navigate])
+    }, [user, navigate, dispatch])
     // how are we going to handle the form submission?
     // can also use usestate but every time you type it will rerender you should prevent that as much as you can
     const email = useRef<HTMLInputElement>(null)
@@ -63,37 +80,31 @@ function Login() {
     // console.log(user)
 
     return (
-        <div className="login">
-            <div className="loginWrapper">
-                <div className="loginLeft">
-                    <div className="loginLogo">MuzikaBet</div>
-                    <span className="loginDesc">
-                        Discover new music, create your own playlists, and
-                        explore the vast collection of free music and audio.
-                    </span>
-                </div>
-                <div className="loginRight">
-                    <form className="loginBox" onSubmit={handleSubmit}>
-                        <input
+        <LoginContainer>
+            <LoginWrapper>
+                <LoginLeft>
+                    <LoginLogo>HabeshaNet</LoginLogo>
+                    <LoginDesc>
+                        Connect with friends and the world around you on
+                        HabeshaNet.
+                    </LoginDesc>
+                </LoginLeft>
+                <LoginRight>
+                    <LoginBox onSubmit={handleSubmit}>
+                        <LoginInput
                             placeholder="Email"
                             type="email"
-                            className="loginInput"
                             required
                             ref={email}
                         />
-                        <input
+                        <LoginInput
                             placeholder="Password"
                             type="password"
                             minLength="6"
-                            className="loginInput"
                             required
                             ref={password}
                         />
-                        <button
-                            className="loginButton"
-                            type="submit"
-                            disabled={isFetching}
-                        >
+                        <LoginButton type="submit" disabled={isFetching}>
                             {isFetching ? (
                                 <CircularProgress
                                     color="secondary"
@@ -102,9 +113,9 @@ function Login() {
                             ) : (
                                 'Log In'
                             )}
-                        </button>
-                        <span className="loginForgot">Forgot Password?</span>
-                        <button className="loginRegisterButton">
+                        </LoginButton>
+                        <LoginForgot>Forgot Password?</LoginForgot>
+                        <LoginRegisterButton>
                             {isFetching ? (
                                 <CircularProgress
                                     color="secondary"
@@ -113,11 +124,11 @@ function Login() {
                             ) : (
                                 'Create a New Account'
                             )}
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
+                        </LoginRegisterButton>
+                    </LoginBox>
+                </LoginRight>
+            </LoginWrapper>
+        </LoginContainer>
     )
 }
 

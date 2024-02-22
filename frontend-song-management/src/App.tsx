@@ -28,7 +28,10 @@ import { RootState } from './state/store'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import Spinner from './components/spinner/Spinner'
-import { verifyToken } from './state/auth/authSlice'
+
+import { jwtDecode } from 'jwt-decode'
+import { loginSuccess } from './state/auth/authSlice'
+import { fetchUserDetailsStart } from './state/user/userSlice'
 
 const StyledIcon = styled(IoMdHome)`
     margin-right: 10px;
@@ -59,23 +62,32 @@ function App() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_USER_FROM_COOKIE' })
-    }, [dispatch])
     // useEffect(() => {
-    //     dispatch(verifyToken())
+    //     dispatch({ type: 'FETCH_USER_FROM_COOKIE' })
     // }, [dispatch])
+
+    // ...
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if (token) {
+            const decodedToken = jwtDecode(token)
+            dispatch(loginSuccess({ user: decodedToken }))
+            dispatch(fetchUserDetailsStart())
+        }
+        setIsLoading(false)
+    }, [dispatch])
 
     const user = useSelector((state: RootState) => state.auth.user)
     const isFetching = useSelector((state: RootState) => state.auth.isFetching)
-
-    useEffect(() => {
-        if (user) {
-            navigate('/') // navigate to home if user exists
-        } else {
-            navigate('/login') // navigate to login if user does not exist
-        }
-    }, [user, navigate])
+    const [isLoading, setIsLoading] = useState(true)
+    // useEffect(() => {
+    //     if (user) {
+    //         navigate('/') // navigate to home if user exists
+    //     } else {
+    //         navigate('/login') // navigate to login if user does not exist
+    //     }
+    // }, [user, navigate])
     // const { user } = useContext(AuthContext)
     console.log(user)
     console.log(isFetching)
@@ -155,38 +167,29 @@ function App() {
             window.removeEventListener('resize', handleResize)
         }
     }, [])
+    // if (isLoading) {
+    //     return // Or your own loading spinner
+    // }
 
     return (
         <>
-            {/* {isFetching ? (
-                <Spinner />
+            {/* {isLoading ? (
+                <div>Loading...</div>
             ) : ( */}
             <Routes>
-                <Route path="/login" element={<Login />} />
                 <Route
-                    path="/"
-                    element={
-                        user ? <Navigate to="/" /> : <Navigate to="/login" />
-                    }
-                />
-
-                {/* <Route
                     path="/login"
-                    element={user ? <Navigate to="/home" /> : <Login />}
-                /> */}
+                    element={!user ? <Login /> : <Navigate to="/" />}
+                />
                 <Route
                     path="/register"
-                    element={user ? <Navigate to="/" /> : <Register />}
+                    element={!user ? <Register /> : <Navigate to="/" />}
                 />
                 <Route
                     path="/profile"
-                    element={user ? <Profile /> : <Navigate to="/" />}
+                    element={user ? <Profile /> : <Navigate to="/login" />}
                 />
-
-                <Route
-                    path="/"
-                    element={user ? <Main /> : <Navigate to="/login" />}
-                >
+                <Route path="/" element={<Main />}>
                     <Route index element={<Home />} />
                     <Route path="genre" element={<GenrePage />} />
                     <Route
@@ -194,10 +197,12 @@ function App() {
                         element={<FilteredSongsPage />}
                     />
                     <Route path="Statistics" element={<StatisticsPage />} />
-                    {/* <Route path="addSong" element={<AddSongPage />} /> */}
                     <Route path="editSong/:id" element={<EditSongPage />} />
                 </Route>
             </Routes>
+            {/* ) */}
+            {/* } */}
+
             {/* )} */}
         </>
     )

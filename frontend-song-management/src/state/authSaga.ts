@@ -7,15 +7,22 @@ import {
     registerStart,
     registerSuccess,
     registerFailure,
-    verifyToken,
-    verifyTokenSuccess,
-    verifyTokenFailure,
+    logoutStart,
+    logoutSuccess,
+    logoutFailure,
 } from '../state/auth/authSlice'
+import {
+    fetchUserDetailsStart,
+    fetchUserDetailsSuccess,
+    fetchUserDetailsFailure,
+} from '../state/user/userSlice'
 import axios, { AxiosResponse } from 'axios'
-import Cookies from 'js-cookie'
-import * as jwt_decode from 'jwt-decode'
+// import Cookies from 'js-cookie'
+import { jwtDecode } from 'jwt-decode'
 
 import { fetchSongsSaga } from './songsSaga'
+import api from '../api/apiCalls'
+
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
 function* handleLogin(action: any) {
@@ -23,10 +30,15 @@ function* handleLogin(action: any) {
         const res: AxiosResponse = yield call(
             axios.post,
             `${VITE_BASE_URL}/auth`,
-            action.payload,
-            { withCredentials: true }
+            action.payload
+            // ,
+            // { withCredentials: true }
         )
+        // Set the token in the local storage
+        localStorage.setItem('token', res.data.token)
         yield put(loginSuccess(res.data))
+        // const token = localStorage.getItem('token')
+        // console.log('Token:', token)
         yield put(postLoginInit())
     } catch (err) {
         yield put(loginFailure())
@@ -39,9 +51,12 @@ function* handleRegister(action: any) {
         const res: AxiosResponse = yield call(
             axios.post,
             `${VITE_BASE_URL}/users`,
-            action.payload,
-            { withCredentials: true }
+            action.payload
+            // ,
+            // { withCredentials: true }
         )
+        localStorage.setItem('token', res.data.token)
+
         yield put(registerSuccess(res.data))
         // yield put(postLoginInit())
     } catch (err) {
@@ -51,30 +66,42 @@ function* handleRegister(action: any) {
 
 // FIXME: get autnticated user
 
-// function* fetchUserDataSaga() {
-//   try {
-//     const response: AxiosResponse = yield call(axios.get, '/api/auth');
-//     yield put({ type: 'user/fetchSuccess', payload: response.data });
-//   } catch (err) {
-//     yield put({ type: 'user/fetchFailure', payload: err.message });
-//   }
-// }
-function* verifyTokenSaga() {
+function* fetchUserDetails() {
     try {
-        const res: AxiosResponse = yield call(axios.get, '/api/auth')
-        yield put(verifyTokenSuccess(res.data))
+        const token = localStorage.getItem('token')
+        const response: AxiosResponse = yield call(() =>
+            axios.get(`${VITE_BASE_URL}/auth`, {
+                headers: {
+                    Authorization: token ? `Bearer ${token}` : '',
+                },
+            })
+        )
+        yield put(fetchUserDetailsSuccess(response.data))
+        console.log(response.data)
+        // yield put({ type: 'user/fetchSuccess', payload: response.data });
     } catch (err) {
-        yield put(verifyTokenFailure(err.message))
+        yield put(fetchUserDetailsFailure())
+        // yield put({ type: 'user/fetchFailure', payload: err.message });
     }
 }
 
 // Fetch user from cookie
 
-function* fetchUserFromCookie() {
-    const token = Cookies.get('token')
-    if (token) {
-        const user = jwt_decode(token)
-        yield put(loginSuccess(user))
+// function* fetchUserFromCookie() {
+//     const token = Cookies.get('token')
+//     if (token) {
+//         const user = jwtDecode(token)
+//         yield put(loginSuccess(user))
+//     }
+// }
+
+function* logoutSaga() {
+    try {
+        yield call(axios.get, '/api/auth/logout')
+        localStorage.removeItem('token')
+        yield put(logoutSuccess())
+    } catch (err) {
+        yield put(logoutFailure(err.message))
     }
 }
 
@@ -84,11 +111,13 @@ export function* watchLogin() {
 export function* watchRegister() {
     yield takeLatest(registerStart.type, handleRegister)
 }
-export function* watchFetchUserFromCookie() {
-    yield takeLatest('FETCH_USER_FROM_COOKIE', fetchUserFromCookie)
+// export function* watchFetchUserFromCookie() {
+//     yield takeLatest('FETCH_USER_FROM_COOKIE', fetchUserFromCookie)
+// }
+export function* watchFetchUserDetails() {
+    yield takeLatest(fetchUserDetailsStart.type, fetchUserDetails)
 }
 
-
-export function* watchVerifyToken() {
-    yield takeLatest(verifyToken.type, verifyTokenSaga)
+export function* watchLogout() {
+    yield takeLatest(logoutStart.type, logoutSaga)
 }

@@ -1,3 +1,4 @@
+// import Cookies from 'js-cookie'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Flex, Box, Text } from 'rebass'
@@ -5,11 +6,26 @@ import { Flex, Box, Text } from 'rebass'
 import { TbMenu2 } from 'react-icons/tb'
 import { IoIosClose } from 'react-icons/io'
 import { IoIosSearch } from 'react-icons/io'
-import { useLocation } from 'react-router'
+import { Navigate, useLocation, useNavigate } from 'react-router'
 import { IoIosAddCircleOutline } from 'react-icons/io'
 import SmallScreenSidebar from './SmallScreen/SmallScreenSidebar'
 import { useState } from 'react'
 import SongModal from './MultiStep/SongModal'
+import { useDispatch } from 'react-redux'
+import { logoutStart } from '@/state/auth/authSlice'
+
+const LogoutButton = styled.button`
+    // Add your styles here. For example:
+    background: #26408b;
+    color: rgb(230, 230, 230);
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+`
 
 const AddSongButton = styled.button`
     background: #53555c;
@@ -39,13 +55,15 @@ const SearchContainer = styled.div`
     align-items: center;
 `
 
-export default function NavBar() {
+export default function NavBar({ openModal }: { openModal: any }) {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [open, setOpen] = useState(false)
     const location = useLocation()
 
-    const openModal = () => setModalOpen(true) // Function to open modal
-    const closeModal = () => setModalOpen(false) // Function to close modal
-    const [modalOpen, setModalOpen] = useState(false) // State to manage modal visibility
+    // const openModal = () => setModalOpen(true) // Function to open modal
+    // const closeModal = () => setModalOpen(false) // Function to close modal
+    // const [modalOpen, setModalOpen] = useState(false) // State to manage modal visibility
 
     const NavStyle = css`
         // background: #1F3044;
@@ -60,7 +78,7 @@ export default function NavBar() {
         position: sticky;
         top: 0;
         height: 70px;
-        z-index: 200;
+        z-index: 0;
         gap: 20px;
     `
     const SearchStyleInput = styled.input`
@@ -86,7 +104,11 @@ export default function NavBar() {
         margin-right: 10px;
         font-size: 30px;
     `
-
+    const handleLogout = () => {
+        dispatch(logoutStart())
+        // Cookies.remove('token', { httpOnly: true, sameSite: 'strict' })
+        navigate('/login')
+    }
     return (
         <>
             {/* Nav bar */}
@@ -99,6 +121,15 @@ export default function NavBar() {
                 justifyContent={'space-between'}
                 alignItems={'center'}
             >
+                <Box>
+                    {/* <MenuIcon onClick={() => setOpen(true)} /> */}
+                    {/* <Flex> */}
+                    <AddSongButton onClick={openModal}>
+                        <StyledIcon4 />
+                        Add Song
+                    </AddSongButton>
+                    {/* </Flex> */}
+                </Box>
                 <Box>
                     <SearchContainer
                         style={{
@@ -114,15 +145,9 @@ export default function NavBar() {
                     </SearchContainer>
                 </Box>
                 <Box>
-                    {/* <MenuIcon onClick={() => setOpen(true)} /> */}
-                    {/* <Flex> */}
-                    <AddSongButton onClick={openModal}>
-                        <StyledIcon4 />
-                        Add Song
-                    </AddSongButton>
-                    {/* </Flex> */}
+                    <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
                 </Box>
-                <SongModal isOpen={modalOpen} onClose={closeModal} />{' '}
+                {/* <SongModal isOpen={modalOpen} onClose={closeModal} />{' '} */}
             </Flex>
         </>
     )
