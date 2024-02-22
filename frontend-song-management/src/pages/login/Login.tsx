@@ -23,6 +23,7 @@ import {
     LoginForgot,
     LoginRegisterButton,
 } from './Login.style'
+import { fetchUserDetailsStart } from '../../state/user/userSlice'
 
 // Call this function after login
 const checkToken = async () => {
@@ -48,8 +49,9 @@ function Login() {
         if (user) {
             navigate('/')
             checkToken()
+            dispatch(fetchUserDetailsStart())
         }
-    }, [user, navigate])
+    }, [user, navigate, dispatch])
     // how are we going to handle the form submission?
     // can also use usestate but every time you type it will rerender you should prevent that as much as you can
     const email = useRef<HTMLInputElement>(null)

@@ -23,6 +23,7 @@ function* fetchSongs() {
     try {
         const response: AxiosResponse = yield call(() => api.get('/songs/list'))
         if (response.data.message === 'list of songs') {
+            console.log(response)
             yield put(setSongs(response.data.song))
         } else {
             console.log('Unexpected response message:', response.data.message)

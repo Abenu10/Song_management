@@ -31,6 +31,7 @@ import Spinner from './components/spinner/Spinner'
 
 import { jwtDecode } from 'jwt-decode'
 import { loginSuccess } from './state/auth/authSlice'
+import { fetchUserDetailsStart } from './state/user/userSlice'
 
 const StyledIcon = styled(IoMdHome)`
     margin-right: 10px;
@@ -72,19 +73,21 @@ function App() {
         if (token) {
             const decodedToken = jwtDecode(token)
             dispatch(loginSuccess({ user: decodedToken }))
+            dispatch(fetchUserDetailsStart())
         }
+        setIsLoading(false)
     }, [dispatch])
 
     const user = useSelector((state: RootState) => state.auth.user)
     const isFetching = useSelector((state: RootState) => state.auth.isFetching)
-
-    useEffect(() => {
-        if (user) {
-            navigate('/') // navigate to home if user exists
-        } else {
-            navigate('/login') // navigate to login if user does not exist
-        }
-    }, [user, navigate])
+    const [isLoading, setIsLoading] = useState(true)
+    // useEffect(() => {
+    //     if (user) {
+    //         navigate('/') // navigate to home if user exists
+    //     } else {
+    //         navigate('/login') // navigate to login if user does not exist
+    //     }
+    // }, [user, navigate])
     // const { user } = useContext(AuthContext)
     console.log(user)
     console.log(isFetching)
@@ -164,53 +167,41 @@ function App() {
             window.removeEventListener('resize', handleResize)
         }
     }, [])
+    // if (isLoading) {
+    //     return // Or your own loading spinner
+    // }
 
     return (
         <>
-            {isFetching ? (
-                <Spinner />
-            ) : (
-                <Routes>
+            {/* {isLoading ? (
+                <div>Loading...</div>
+            ) : ( */}
+            <Routes>
+                <Route
+                    path="/login"
+                    element={!user ? <Login /> : <Navigate to="/" />}
+                />
+                <Route
+                    path="/register"
+                    element={!user ? <Register /> : <Navigate to="/" />}
+                />
+                <Route
+                    path="/profile"
+                    element={user ? <Profile /> : <Navigate to="/login" />}
+                />
+                <Route path="/" element={<Main />}>
+                    <Route index element={<Home />} />
+                    <Route path="genre" element={<GenrePage />} />
                     <Route
-                        path="/login"
-                        element={user ? <Navigate to="/" /> : <Login />}
+                        path="genre/:genre"
+                        element={<FilteredSongsPage />}
                     />
-                    <Route
-                        path="/"
-                        element={
-                            user ? (
-                                <Navigate to="/" />
-                            ) : (
-                                <Navigate to="/login" />
-                            )
-                        }
-                    />
-
-                    <Route
-                        path="/register"
-                        element={user ? <Navigate to="/" /> : <Register />}
-                    />
-                    <Route
-                        path="/profile"
-                        element={user ? <Profile /> : <Navigate to="/" />}
-                    />
-
-                    <Route
-                        path="/"
-                        element={user ? <Main /> : <Navigate to="/login" />}
-                    >
-                        <Route index element={<Home />} />
-                        <Route path="genre" element={<GenrePage />} />
-                        <Route
-                            path="genre/:genre"
-                            element={<FilteredSongsPage />}
-                        />
-                        <Route path="Statistics" element={<StatisticsPage />} />
-                        {/* <Route path="addSong" element={<AddSongPage />} /> */}
-                        <Route path="editSong/:id" element={<EditSongPage />} />
-                    </Route>
-                </Routes>
-            )}
+                    <Route path="Statistics" element={<StatisticsPage />} />
+                    <Route path="editSong/:id" element={<EditSongPage />} />
+                </Route>
+            </Routes>
+            {/* ) */}
+            {/* } */}
 
             {/* )} */}
         </>

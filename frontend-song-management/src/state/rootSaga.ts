@@ -18,6 +18,7 @@ import {
     watchRegister,
     // watchFetchUserFromCookie,
     watchLogout,
+    watchFetchUserDetails,
 } from './authSaga'
 
 export default function* rootSaga() {
@@ -34,6 +35,7 @@ export default function* rootSaga() {
         fetchSongsStatisticsSaga(),
         fetchSongsStatisticsDataSaga(),
         deleteSongByIdSaga(),
+        watchFetchUserDetails(),
         // watchFetchUserFromCookie(),
         watchLogout(),
     ])

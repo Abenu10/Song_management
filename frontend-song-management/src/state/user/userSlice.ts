@@ -1,29 +1,36 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
-  data: any;
-  error: string | null;
+  user: any;
+  isFetching: boolean
+    error: boolean
 }
 
 const initialState: UserState = {
-  data: null,
-  error: null,
+  user: null,
+  error: false,
+  isFetching:false,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    fetchSuccess(state, action: PayloadAction<any>) {
-      state.data = action.payload;
-      state.error = null;
+    fetchUserDetailsStart: (state) => {
+      state.isFetching = true;
     },
-    fetchFailure(state, action: PayloadAction<string>) {
-      state.error = action.payload;
+    fetchUserDetailsSuccess: (state, action: PayloadAction<any>) => {
+      state.isFetching = false;
+      state.user = action.payload;
+      state.error = false;
+    },
+    fetchUserDetailsFailure: (state) => {
+      state.isFetching = false;
+      state.error = true;
     },
   },
 });
 
-export const { fetchSuccess, fetchFailure } = userSlice.actions;
+export const { fetchUserDetailsStart, fetchUserDetailsSuccess, fetchUserDetailsFailure } = userSlice.actions;
 
 export default userSlice.reducer;

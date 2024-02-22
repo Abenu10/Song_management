@@ -34,7 +34,7 @@ module.exports = function (req, res, next) {
       return res.status(500).json({error: 'Failed to authenticate token'});
 
     // if everything is good, save to request for use in other routes
-    req.userId = decoded.id;
+    req.userId = decoded.userId;
     next();
   });
 };

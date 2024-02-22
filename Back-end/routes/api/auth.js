@@ -16,7 +16,7 @@ const {check, validationResult} = require('express-validator');
 // GET /api/auth: get the user's data
 router.get('/', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.userId).select('-password');
     res.json(user);
   } catch (err) {
     console.error(err.message);
