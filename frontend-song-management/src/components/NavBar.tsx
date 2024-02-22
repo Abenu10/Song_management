@@ -1,4 +1,4 @@
-import { Cookies } from 'js-cookie'
+// import Cookies from 'js-cookie'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Flex, Box, Text } from 'rebass'
@@ -106,7 +106,7 @@ export default function NavBar({ openModal }: { openModal: any }) {
     `
     const handleLogout = () => {
         dispatch(logoutStart())
-        Cookies.remove('token',{httpOnly: true, sameSite: 'strict'})
+        // Cookies.remove('token', { httpOnly: true, sameSite: 'strict' })
         navigate('/')
     }
     return (

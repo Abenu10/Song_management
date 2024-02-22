@@ -84,9 +84,8 @@ router.post(
       const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {
         expiresIn: '1h',
       });
-      res.cookie('token', token, {httpOnly: true, sameSite: 'strict'});
-      res.status(200).send({message: 'User authenticated'});
-
+      // res.cookie('token', token, {httpOnly: true, sameSite: 'strict'});
+      res.status(200).json({token, message: 'User authenticated', user: user});
       // res.send('User registered ');
     } catch (err) {
       console.log(err.message);

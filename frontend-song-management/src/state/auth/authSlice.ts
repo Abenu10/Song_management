@@ -23,7 +23,7 @@ export const authSlice = createSlice({
         loginSuccess: (state, action: PayloadAction<any>) => {
             // Specify the user type
             state.isFetching = false
-            state.user = action.payload
+            state.user = action.payload.user
             state.error = false
         },
         loginFailure: (state) => {
@@ -35,7 +35,7 @@ export const authSlice = createSlice({
         },
         registerSuccess: (state, action) => {
             state.isFetching = false
-            state.user = action.payload
+            state.user = action.payload.user
             state.error = false
         },
         registerFailure: (state) => {

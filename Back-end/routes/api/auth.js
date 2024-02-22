@@ -77,9 +77,8 @@ router.post(
       const token = jwt.sign({userId: user.id}, process.env.JWT_SECRET, {
         expiresIn: '1h',
       });
-      res.cookie('token', token, {httpOnly: true, sameSite: 'strict'});
-      res.status(200).send({message: 'User authenticated', user: user});
-
+      // res.cookie('token', token, {httpOnly: true, sameSite: 'strict'});
+      res.status(200).json({token, message: 'User authenticated', user: user});
       // res.send('User registered ');
     } catch (err) {
       console.log(err.message);
@@ -96,12 +95,12 @@ router.post(
 
 // log out user
 router.get('/logout', (req, res) => {
-  res.clearCookie('token', {
-    expires: new Date(Date.now() - 1000),
-    httpOnly: true,
-    sameSite: 'strict',
+  // res.clearCookie('token', {
+  //   expires: new Date(Date.now() - 1000),
+  //   httpOnly: true,
+  //   sameSite: 'strict',
    
-  });
+  // });
   res.status(200).send({message: 'User logged out'});
 });
 

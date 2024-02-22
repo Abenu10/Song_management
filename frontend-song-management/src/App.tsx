@@ -29,6 +29,9 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import Spinner from './components/spinner/Spinner'
 
+import { jwtDecode } from 'jwt-decode'
+import { loginSuccess } from './state/auth/authSlice'
+
 const StyledIcon = styled(IoMdHome)`
     margin-right: 10px;
     font-size: 30px;
@@ -58,8 +61,18 @@ function App() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    // useEffect(() => {
+    //     dispatch({ type: 'FETCH_USER_FROM_COOKIE' })
+    // }, [dispatch])
+
+    // ...
+
     useEffect(() => {
-        dispatch({ type: 'FETCH_USER_FROM_COOKIE' })
+        const token = localStorage.getItem('token')
+        if (token) {
+            const decodedToken = jwtDecode(token)
+            dispatch(loginSuccess({ user: decodedToken }))
+        }
     }, [dispatch])
 
     const user = useSelector((state: RootState) => state.auth.user)
@@ -154,46 +167,50 @@ function App() {
 
     return (
         <>
-            {/* {isFetching ? (
+            {isFetching ? (
                 <Spinner />
-            ) : ( */}
-
-            <Routes>
-                <Route
-                    path="/login"
-                    element={user ? <Navigate to="/" /> : <Login />}
-                />
-                <Route
-                    path="/"
-                    element={
-                        user ? <Navigate to="/" /> : <Navigate to="/login" />
-                    }
-                />
-
-                <Route
-                    path="/register"
-                    element={user ? <Navigate to="/" /> : <Register />}
-                />
-                <Route
-                    path="/profile"
-                    element={user ? <Profile /> : <Navigate to="/" />}
-                />
-
-                <Route
-                    path="/"
-                    element={user ? <Main /> : <Navigate to="/login" />}
-                >
-                    <Route index element={<Home />} />
-                    <Route path="genre" element={<GenrePage />} />
+            ) : (
+                <Routes>
                     <Route
-                        path="genre/:genre"
-                        element={<FilteredSongsPage />}
+                        path="/login"
+                        element={user ? <Navigate to="/" /> : <Login />}
                     />
-                    <Route path="Statistics" element={<StatisticsPage />} />
-                    {/* <Route path="addSong" element={<AddSongPage />} /> */}
-                    <Route path="editSong/:id" element={<EditSongPage />} />
-                </Route>
-            </Routes>
+                    <Route
+                        path="/"
+                        element={
+                            user ? (
+                                <Navigate to="/" />
+                            ) : (
+                                <Navigate to="/login" />
+                            )
+                        }
+                    />
+
+                    <Route
+                        path="/register"
+                        element={user ? <Navigate to="/" /> : <Register />}
+                    />
+                    <Route
+                        path="/profile"
+                        element={user ? <Profile /> : <Navigate to="/" />}
+                    />
+
+                    <Route
+                        path="/"
+                        element={user ? <Main /> : <Navigate to="/login" />}
+                    >
+                        <Route index element={<Home />} />
+                        <Route path="genre" element={<GenrePage />} />
+                        <Route
+                            path="genre/:genre"
+                            element={<FilteredSongsPage />}
+                        />
+                        <Route path="Statistics" element={<StatisticsPage />} />
+                        {/* <Route path="addSong" element={<AddSongPage />} /> */}
+                        <Route path="editSong/:id" element={<EditSongPage />} />
+                    </Route>
+                </Routes>
+            )}
 
             {/* )} */}
         </>
