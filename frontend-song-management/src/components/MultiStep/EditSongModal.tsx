@@ -183,12 +183,12 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
         (state: RootState) => state.songs.addSongButtonLoading
     )
     const initialFormData = {
-        title: '',
-        artist: '',
-        album: '',
-        genre: '',
-        postAudio: '',
-        postImage: '',
+        title: song?.title || '',
+        artist: song?.artist || '',
+        album: song?.album || '',
+        genre: song?.genre || '',
+        // postAudio: song.postAudio || '',
+        // postImage: song.postImage || '',
     }
     const [formData, setFormData] = useState(initialFormData)
 
@@ -220,7 +220,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
         } else {
             setFormData({
                 ...formData,
-                [name]: value,
+                [name]: value || song?.[name],
             })
         }
     }
@@ -242,22 +242,21 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
         //     type: 'song/createSong',
         //     payload: { data: formData },
         // })
-        dispatch(updateSong({ id: songId._id, data: formData }))
+        dispatch({
+            type: 'song/updateSong',
+            payload: { id: songId._id, data: formData },
+        })
         // setSongId(songId);
         setPage('pagetwo')
     }
 
-    // function handleSubmitPageOne(e: FormEvent<HTMLFormElement>) {
-    //     e.preventDefault()
-    //     setPage('pagetwo')
-    // }
     async function handleSubmitPageTwo(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
         if (formData.postImage) {
             dispatch({
                 type: 'song/updateSongCover',
-                payload: { id: newSongId, file: formData.postImage },
+                payload: { id: songId._id, file: formData.postImage },
             })
         }
         console.log(newSongId)
@@ -320,46 +319,40 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
                                 <InputField
                                     type="text"
                                     name="title"
-                                    // value={formData.title}
-                                    // onChange={handleInputChange}
-                                    value={song?.title}
-                                    onChange={(e) =>
-                                        handleTitleChange(e, setSong)
-                                    }
-                                    required
+                                    value={formData.title}
+                                    onChange={handleInputChange}
+                                    placeholder={song?.title}
+                                    // required
                                 />
                                 <FormLabel>Artist:</FormLabel>
                                 <InputField
                                     type="text"
                                     name="artist"
-                                    // value={formData.artist}
-                                    // onChange={handleInputChange}
-                                    value={song?.artist}
-                                    onChange={(e) =>
-                                        handleArtistChange(e, setSong)
-                                    }
-                                    required
+                                    value={formData.artist}
+                                    onChange={handleInputChange}
+                                    placeholder={song?.artist}
+                                    // required
                                     // value={song.artist}
                                 />
                                 <FormLabel>Album:</FormLabel>
                                 <InputField
                                     type="text"
                                     name="album"
-                                    // value={formData.album}
+                                    value={formData.album}
                                     onChange={handleInputChange}
-                                    required
-                                    value={song?.album}
+                                    // required
+                                    placeholder={song?.album}
                                 />
                                 <FormLabel>Genre:</FormLabel>
                                 <Text fontSize={2} fontWeight="bold" mb={0}>
                                     Select Song Genre
                                 </Text>
                                 <StyledSelect
-                                    required
+                                    // required
                                     name="genre"
                                     onChange={handleInputChange}
-                                    // value={formData.genre}
-                                    value={song?.genre}
+                                    value={formData.genre}
+                                    // placeholder={song?.genre}
                                 >
                                     {Categories.map((category, index) => (
                                         <StyledOption
@@ -425,14 +418,6 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
             </ModalContent>
         </ModalBackground>
     ) : null
-}
-
-function handleTitleChange(e, setSong) {
-    setSong((prevSong) => ({ ...prevSong, title: e.target.value }))
-}
-
-function handleArtistChange(e, setSong) {
-    setSong((prevSong) => ({ ...prevSong, artist: e.target.value }))
 }
 
 export default EditSongModal

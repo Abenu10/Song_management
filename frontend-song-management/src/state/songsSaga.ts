@@ -145,6 +145,7 @@ function* updateSong(action: any) {
     if (action.payload) {
         const { id, data }: { id: string; data: formdData } = action.payload
         console.log(data)
+        console.log(id)
         try {
             const response: AxiosResponse = yield call(() => {
                 return api.put(`${VITE_BASE_URL}/songs/${id}`, data)
