@@ -99,14 +99,14 @@ router.get('/logout', (req, res) => {
   //   expires: new Date(Date.now() - 1000),
   //   httpOnly: true,
   //   sameSite: 'strict',
-   
+
   // });
   res.status(200).send({message: 'User logged out'});
 });
 
 router.get('/user/id', auth, (req, res) => {
-  // Now req.user contains the decoded token (user data)
-  res.json({userId: req.user._id});
+  // Now req.userId contains the decoded token (user data)
+  res.json({userId: req.userId});
 });
 module.exports = router;
 

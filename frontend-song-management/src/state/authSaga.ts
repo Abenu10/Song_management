@@ -99,6 +99,7 @@ function* logoutSaga() {
     try {
         yield call(axios.get, '/api/auth/logout')
         localStorage.removeItem('token')
+          action.payload.history.push('/login')
         yield put(logoutSuccess())
     } catch (err) {
         yield put(logoutFailure(err.message))

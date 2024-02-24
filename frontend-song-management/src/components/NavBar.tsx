@@ -12,6 +12,7 @@ import SmallScreenSidebar from './SmallScreen- ❌/SmallScreenSidebar'
 import { useState } from 'react'
 import SongModal from './MultiStep/SongModal'
 import { useDispatch } from 'react-redux'
+
 import { logoutStart } from '@/state/auth/authSlice'
 
 const LogoutButton = styled.button`
@@ -105,7 +106,7 @@ export default function NavBar({ openModal }: { openModal: any }) {
         font-size: 30px;
     `
     const handleLogout = () => {
-        dispatch(logoutStart())
+        dispatch(logoutStart({ history }))
         // Cookies.remove('token', { httpOnly: true, sameSite: 'strict' })
         navigate('/login')
     }
