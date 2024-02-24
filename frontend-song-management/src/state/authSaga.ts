@@ -73,7 +73,7 @@ function* fetchUserDetails() {
             axios.get(`${VITE_BASE_URL}/auth`, {
                 headers: {
                     Authorization: token ? `Bearer ${token}` : '',
-                }
+                },
             })
         )
         yield put(fetchUserDetailsSuccess(response.data))
@@ -99,7 +99,6 @@ function* logoutSaga() {
     try {
         yield call(axios.get, '/api/auth/logout')
         localStorage.removeItem('token')
-          action.payload.history.push('/login')
         yield put(logoutSuccess())
     } catch (err) {
         yield put(logoutFailure(err.message))

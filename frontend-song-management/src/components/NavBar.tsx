@@ -106,7 +106,7 @@ export default function NavBar({ openModal }: { openModal: any }) {
         font-size: 30px;
     `
     const handleLogout = () => {
-        dispatch(logoutStart({ history }))
+        dispatch(logoutStart())
         // Cookies.remove('token', { httpOnly: true, sameSite: 'strict' })
         navigate('/login')
     }
