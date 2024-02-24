@@ -52,18 +52,26 @@ router.post('/new/:id', auth, upload.single('postAudio'), async (req, res) => {
   }
 });
 // add cover image to music
-router.put('/new/:id/cover', upload.single('coverImage'), async (req, res) => {
-  try {
-    const data = await uploadToCloudinary(req.file.path, 'post-images');
-    const updatedSong = await Song.updateOne(
-      {_id: req.params.id},
-      {$set: {imageUrl: data.secure_url}}
-    );
-    res.status(200).json({message: 'song cover updated', song: updatedSong});
-  } catch (error) {
-    res.status(400).send(error);
+router.put(
+  '/new/:id/cover',
+  auth,
+  upload.single('coverImage'),
+  async (req, res) => {
+    try {
+      console.log(req.headers);
+      const data = await uploadToCloudinary(req.file.path, 'post-images');
+      console.log(req.headers);
+      const updatedSong = await Song.updateOne(
+        {_id: req.params.id},
+        {$set: {imageUrl: data.url}}
+      );
+      console.log(req.headers);
+      res.status(200).json({message: 'song cover updated', song: updatedSong});
+    } catch (error) {
+      res.status(400).send(error);
+    }
   }
-});
+);
 // list all songs
 router.get('/list', auth, async (req, res) => {
   try {
