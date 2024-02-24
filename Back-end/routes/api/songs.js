@@ -73,18 +73,7 @@ router.get('/list', auth, async (req, res) => {
     res.status(400).send(error);
   }
 });
-// Get a song by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const song = await Song.findById(req.params.id);
-    if (!song) {
-      return res.status(404).json({message: 'Song not found'});
-    }
-    res.status(200).json(song);
-  } catch (error) {
-    res.status(500).json({message: error.message});
-  }
-});
+
 // Filter by genre and list all songs
 router.get('/list/:genre', async (req, res) => {
   try {
