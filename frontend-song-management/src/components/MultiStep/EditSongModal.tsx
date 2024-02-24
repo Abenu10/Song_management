@@ -229,22 +229,16 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
         e.preventDefault()
         handleClick()
 
-        // if (createSongCauseAnError === false && buttonIsLoading === false) {
-        //     await dispatch({
-        //         type: 'song/createSong',
-        //         payload: { data: formData },
-        //     })
+        const finalData = {
+            title: formData.title !== '' ? formData.title : song?.title,
+            artist: formData.artist !== '' ? formData.artist : song?.artist,
+            album: formData.album !== '' ? formData.album : song?.album,
+            genre: formData.genre !== '' ? formData.genre : song?.genre,
+        }
 
-        // } else {
-        //     // dispatch({ type: 'song/createSong', payload: { data: formData } })
-        // }
-        // const response = await dispatch({
-        //     type: 'song/createSong',
-        //     payload: { data: formData },
-        // })
         dispatch({
             type: 'song/updateSong',
-            payload: { id: songId._id, data: formData },
+            payload: { id: songId._id, data: finalData },
         })
         // setSongId(songId);
         setPage('pagetwo')
