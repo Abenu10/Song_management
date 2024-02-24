@@ -27,7 +27,7 @@ import Profile from './pages/profile/Profile'
 import { RootState } from './state/store'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import Spinner from './components/spinner/Spinner'
+import Spinner from './components/spinner❌/Spinner'
 
 import { jwtDecode } from 'jwt-decode'
 import { loginSuccess } from './state/auth/authSlice'
@@ -185,10 +185,7 @@ function App() {
                     path="/register"
                     element={!user ? <Register /> : <Navigate to="/" />}
                 />
-                <Route
-                    path="/profile"
-                    element={user ? <Profile /> : <Navigate to="/login" />}
-                />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Main />}>
                     <Route index element={<Home />} />
                     <Route path="genre" element={<GenrePage />} />

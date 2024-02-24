@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef, FormEvent } from 'react'
 import styled from 'styled-components'
-import { RootState } from '@/state/store'
+import { RootState } from '../../state/store'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { useDispatch } from 'react-redux'
 import { Flex, Box, Text } from 'rebass'
 import MultiStepProgressBar from './MultiStepProgressBar'
-
+import { fetchSongById } from '@/state/songs/songsSlice'
+import axios from 'axios'
+import { updateSong } from '../../state/songs/songsSlice'
 const ModalBackground = styled.div`
     position: fixed;
     top: 0;
@@ -40,6 +42,7 @@ const InputField = styled.input`
     margin-bottom: 20px;
     border: none;
     border-radius: 5px;
+    color: black;
 `
 export const StyledSelect = styled.select`
     padding: 10px;
@@ -111,13 +114,44 @@ const StyledInput = styled.input`
         border-color: #9090ff;
     }
 `
-const EditSongModal = ({
-    isOpen,
-    onClose,
-}: {
+interface EditSongModalProps {
+    songId: string
     isOpen: boolean
     onClose: () => void
+}
+
+const EditSongModal: React.FC<EditSongModalProps> = ({
+    songId,
+    isOpen,
+    onClose,
 }) => {
+    console.log('songId:', songId)
+    const [song, setSong] = useState(null)
+    useEffect(() => {
+        const fetchSongById = async () => {
+            try {
+                const response = await axios.get(
+                    `http://localhost:8800/api/songs/${songId._id}`
+                )
+                setSong(response.data)
+                console.log(response.data)
+            } catch (error) {
+                console.error('Failed to fetch song:', error)
+            }
+        }
+
+        if (isOpen) {
+            fetchSongById()
+        }
+    }, [isOpen, songId])
+    // if (!song) {
+    //     return null // Or a loading spinner
+    // }
+
+    const dispatch = useDispatch()
+    // const song = useSelector((state: RootState) => state.songs.byId[songId])
+    // console.log(song)
+
     const [page, setPage] = useState('pageone')
 
     const nextPage = (page) => {
@@ -142,7 +176,6 @@ const EditSongModal = ({
     const [showErrorMessage, setShowErrorMessage] = useState(false)
 
     const navigate = useNavigate()
-    const dispatch = useDispatch()
     const createSongCauseAnError = useSelector(
         (state: RootState) => state.songs.isCreateSongCausingError
     )
@@ -205,11 +238,11 @@ const EditSongModal = ({
         // } else {
         //     // dispatch({ type: 'song/createSong', payload: { data: formData } })
         // }
-        const response = await dispatch({
-            type: 'song/createSong',
-            payload: { data: formData },
-        })
-
+        // const response = await dispatch({
+        //     type: 'song/createSong',
+        //     payload: { data: formData },
+        // })
+        dispatch(updateSong({ id: songId._id, data: formData }))
         // setSongId(songId);
         setPage('pagetwo')
     }
@@ -272,7 +305,7 @@ const EditSongModal = ({
 
     return isOpen ? (
         <ModalBackground onClick={onClose}>
-            <ModalContent ref={modalRef}>
+            <ModalContent ref={modalRef} onClick={(e) => e.stopPropagation()}>
                 <MultiStepProgressBar
                     page={page}
                     onPageNumberClick={nextPageNumber}
@@ -287,25 +320,35 @@ const EditSongModal = ({
                                 <InputField
                                     type="text"
                                     name="title"
-                                    value={formData.title}
-                                    onChange={handleInputChange}
+                                    // value={formData.title}
+                                    // onChange={handleInputChange}
+                                    value={song?.title}
+                                    onChange={(e) =>
+                                        handleTitleChange(e, setSong)
+                                    }
                                     required
                                 />
                                 <FormLabel>Artist:</FormLabel>
                                 <InputField
                                     type="text"
                                     name="artist"
-                                    value={formData.artist}
-                                    onChange={handleInputChange}
+                                    // value={formData.artist}
+                                    // onChange={handleInputChange}
+                                    value={song?.artist}
+                                    onChange={(e) =>
+                                        handleArtistChange(e, setSong)
+                                    }
                                     required
+                                    // value={song.artist}
                                 />
                                 <FormLabel>Album:</FormLabel>
                                 <InputField
                                     type="text"
                                     name="album"
-                                    value={formData.album}
+                                    // value={formData.album}
                                     onChange={handleInputChange}
                                     required
+                                    value={song?.album}
                                 />
                                 <FormLabel>Genre:</FormLabel>
                                 <Text fontSize={2} fontWeight="bold" mb={0}>
@@ -315,7 +358,8 @@ const EditSongModal = ({
                                     required
                                     name="genre"
                                     onChange={handleInputChange}
-                                    value={formData.genre}
+                                    // value={formData.genre}
+                                    value={song?.genre}
                                 >
                                     {Categories.map((category, index) => (
                                         <StyledOption
@@ -381,6 +425,14 @@ const EditSongModal = ({
             </ModalContent>
         </ModalBackground>
     ) : null
+}
+
+function handleTitleChange(e, setSong) {
+    setSong((prevSong) => ({ ...prevSong, title: e.target.value }))
+}
+
+function handleArtistChange(e, setSong) {
+    setSong((prevSong) => ({ ...prevSong, artist: e.target.value }))
 }
 
 export default EditSongModal

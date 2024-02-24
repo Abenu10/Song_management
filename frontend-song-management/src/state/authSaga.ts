@@ -73,7 +73,7 @@ function* fetchUserDetails() {
             axios.get(`${VITE_BASE_URL}/auth`, {
                 headers: {
                     Authorization: token ? `Bearer ${token}` : '',
-                },
+                }
             })
         )
         yield put(fetchUserDetailsSuccess(response.data))

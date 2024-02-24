@@ -20,7 +20,7 @@ import {
     StyledOptionContainer,
     StyledlementsMenuebarContent,
     Overlay,
-ModalContent,
+    ModalContent,
     formatDate,
     StyledSpan,
 } from './Music.style'
@@ -59,13 +59,27 @@ const Music: React.FC<myComponentProp> = ({
     userId,
     likes,
 }) => {
-    const [open, setOpen] = useState(false)
+    console.log('_id:', _id) // Log the _id value
+    console.log('song data:', {
+        album,
+        artist,
+        genre,
+        imageUrl,
+        songUrl,
+        date,
+        title,
+        _id,
+        userId,
+        likes,
+    }) // Log the song data
 
-    const openEditModal = () => {
+    const [open, setOpen] = useState(false)
+    const [editSongId, setEditSongId] = useState<string | null>(null)
+    const openEditModal = (songId: string | undefined) => {
+        setEditSongId(songId ?? null)
         setModalOpen(true)
         setOptionIsOpened(false)
     }
-
     // Function to open modal
     const closeEditModal = () => setModalOpen(false) // Function to close modal
     // const openEditModal = () => setModalOpen(true) // Function to open modal
@@ -73,6 +87,7 @@ const Music: React.FC<myComponentProp> = ({
 
     // FIXME: get the songs object state useselector
     const songs = useSelector((state: RootState) => state.songs.songs)
+
     const dispatch = useDispatch()
 
     const handlePlaySong = () => {
@@ -270,7 +285,11 @@ const Music: React.FC<myComponentProp> = ({
                                     </Box>
 
                                     <Box>
-                                        <StyledButton>Edit</StyledButton>
+                                        <StyledButton
+                                            onClick={() => openEditModal(_id)}
+                                        >
+                                            Edit
+                                        </StyledButton>
                                     </Box>
                                 </Flex>
                             </div>
@@ -293,7 +312,11 @@ const Music: React.FC<myComponentProp> = ({
                         ''
                     )}
                 </Box>
-                <EditSongModal isOpen={modalOpen} onClose={closeEditModal} />{' '}
+                <EditSongModal
+                    songId={{_id}}
+                    isOpen={modalOpen}
+                    onClose={closeEditModal}
+                />{' '}
             </Flex>
         </div>
     )

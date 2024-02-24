@@ -5,9 +5,9 @@ import {
     createSongSaga,
     updateSongCoverSaga,
     updateSongSaga,
-    getSongByIdSaga,
     deleteSongByIdSaga,
     postLoginInitializationSaga,
+    watchFetchSongByIdSaga,
 } from './songsSaga'
 import {
     fetchSongsStatisticsSaga,
@@ -31,12 +31,12 @@ export default function* rootSaga() {
         createSongSaga(),
         updateSongCoverSaga(),
         updateSongSaga(),
-        getSongByIdSaga(),
         fetchSongsStatisticsSaga(),
         fetchSongsStatisticsDataSaga(),
         deleteSongByIdSaga(),
         watchFetchUserDetails(),
         // watchFetchUserFromCookie(),
         watchLogout(),
+        watchFetchSongByIdSaga(),
     ])
 }

@@ -14,6 +14,7 @@ interface Song {
 
 interface Songs {
     songs: Song[]
+    song: Song
     songsByGenre: Song[]
     searchedSong: Song
     getSongsLoading: boolean
@@ -78,6 +79,9 @@ const songsSlice = createSlice({
             state.getSongsLoading = false
             state.songs = action.payload
         },
+        setSong: (state, action: PayloadAction<Song | null>) => {
+            state.song = action.payload ?? state.song
+        },
         setSongsByGenre: (state, action: PayloadAction<Song[]>) => {
             state.songsByGenreLoading = false
             state.songsByGenre = action.payload
@@ -113,11 +117,21 @@ const songsSlice = createSlice({
         createSongSuccess: (state, action: PayloadAction<string>) => {
             state.newSongId = action.payload
         },
+        fetchSongById: (state, action: PayloadAction<string>) => {},
+        updateSong: (state, action: PayloadAction<Song>) => {
+            const index = state.songs.findIndex(
+                (song) => song._id === action.payload._id
+            )
+            if (index !== -1) {
+                state.songs[index] = action.payload
+            }
+        },
     },
 })
 
 export const {
     setSongs,
+    setSong,
     setSongsByGenre,
     setSearchSong,
     setCreateSongCauseAnError,
@@ -129,6 +143,8 @@ export const {
     setOpenDeleteModal,
     setmarkDeletedItem,
     createSongSuccess,
+    fetchSongById,
+    updateSong,
 } = songsSlice.actions
 
 export default songsSlice.reducer

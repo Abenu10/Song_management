@@ -11,6 +11,7 @@ import {
     setShowSuccessToast,
     setShowFailedToast,
     setOpenDeleteModal,
+    setSong,
 } from './songs/songsSlice'
 
 import axios, { AxiosResponse } from 'axios'
@@ -161,15 +162,15 @@ function* updateSong(action: any) {
     }
 }
 // FIXME:
-function* getSongById(action: any) {
-    const { id }: { id: string } = action.payload
+function* fetchSongById(action) {
     try {
-        const response: AxiosResponse = yield call(() => {
-            return api.get(`${VITE_BASE_URL}/searchSong/${id}`)
-        })
-        yield put(setSearchSong(response.data.song))
+        const response: AxiosResponse = yield call(
+            axios.get,
+            `/api/songs/${action.payload}`
+        )
+        yield put(setSong(response.data))
     } catch (error) {
-        console.log(error)
+        console.error('Failed to fetch song:', error)
     }
 }
 
@@ -234,9 +235,12 @@ export function* updateSongSaga() {
     yield takeEvery('song/updateSong', updateSong)
 }
 
-export function* getSongByIdSaga() {
-    yield takeEvery('song/getSongById', getSongById)
-}
+// export function* getSongByIdSaga() {
+//     yield takeEvery('song/getSongById', fetchSongById)
+// }
 export function* deleteSongByIdSaga() {
     yield takeEvery('song/deleteSongById', deleteSongById)
+}
+export function* watchFetchSongByIdSaga() {
+    yield takeLatest('FETCH_SONG_BY_ID', fetchSongById)
 }
