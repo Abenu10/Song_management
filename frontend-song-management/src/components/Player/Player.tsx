@@ -61,13 +61,14 @@ export default function Player({ songs }: PlayerProps) {
                 {musicTracks[trackIndex] && (
                     <AudioPlayer
                         style={{
-                            borderRadius: '1rem',
+                            // borderRadius: '1rem',
                             background: 'rgba(0, 0, 0, 0.4)',
                             backdropFilter: 'blur(10px)',
                             // borderRadius: '10px',
                             border: '1px solid rgba(255, 255, 255, 0.1)',
-                            boxShadow: '0 8px 32px 0 rgba(31, 111, 208, 0.20)',
+                            // boxShadow: '0 8px 32px 0 rgba(31, 111, 208, 0.20)',
                             color: 'rgba(255, 255, 255, 0.75)',
+                            height: '8rem',
                         }}
                         autoPlay
                         src={musicTracks[trackIndex].songUrl}

@@ -150,7 +150,7 @@ export default function NavBar({ openModal }: { openModal: any }) {
                         <SearchIcon />
                         <SearchStyleInput
                             type="text"
-                            placeholder="Search your Songs here..."
+                            placeholder="Search for songs, artists etc..."
                         />
                     </SearchContainer>
                 </Box>
