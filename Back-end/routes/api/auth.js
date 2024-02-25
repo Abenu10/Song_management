@@ -104,10 +104,30 @@ router.get('/logout', (req, res) => {
   res.status(200).send({message: 'User logged out'});
 });
 
-router.get('/user/id', auth, (req, res) => {
-  // Now req.userId contains the decoded token (user data)
-  res.json({userId: req.userId});
-});
+// router.post('/refresh-token', async (req, res) => {
+//   // Get the refresh token from the request
+//   const refreshToken = req.body.refreshToken;
+
+//   // Check if the refresh token is valid
+//   if (!refreshToken) {
+//     return res.status(403).json({ error: 'No refresh token provided' });
+//   }
+
+//   // Verify the refresh token
+//   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+//     if (err) {
+//       return res.status(403).json({ error: 'Invalid refresh token' });
+//     }
+
+//     // If the refresh token is valid, issue a new JWT
+//     const newToken = jwt.sign({ userId: user.userId }, process.env.JWT_SECRET, {
+//       expiresIn: '1h',
+//     });
+
+//     res.json({ token: newToken });
+//   });
+// });
+
 module.exports = router;
 
 // function to add two numbers

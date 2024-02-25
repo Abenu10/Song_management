@@ -17,7 +17,7 @@ import { logoutStart } from '@/state/auth/authSlice'
 
 const LogoutButton = styled.button`
     // Add your styles here. For example:
-    background: #26408b;
+    background: #1f6fd0;
     color: rgb(230, 230, 230);
     border: none;
     padding: 10px 20px;
@@ -29,7 +29,7 @@ const LogoutButton = styled.button`
 `
 
 const AddSongButton = styled.button`
-    background: #53555c;
+    background: #1f6fd0;
     color: rgb(230, 230, 230);
     border: none;
     padding: 10px 20px;
@@ -68,15 +68,15 @@ export default function NavBar({ openModal }: { openModal: any }) {
 
     const NavStyle = css`
         // background: #1F3044;
-        background: rgba(0, 0, 0, 0.4);
+        background: transparent;
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        /* border: 1px solid rgba(255, 255, 255, 0.1); */
         /* box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
         color: rgba(255, 255, 255, 0.75);
         margin: 0px 0px;
         padding: 10px 20px;
         border-radius: 10px;
-        position: sticky;
+        /* position: sticky; */
         top: 0;
         height: 70px;
         z-index: 0;
@@ -86,19 +86,28 @@ export default function NavBar({ openModal }: { openModal: any }) {
         padding: 10px 32px;
 
         /* Add playful spirit: */
-        background-color: #1d1e22;
+        background: linear-gradient(
+            to right,
+
+            rgb(31, 111, 208, 0.5),
+            transparent
+        );
         color: rgb(230, 230, 230);
-        border: 1px solid #c0c0ff;
+        /* border: 1px solid #c0c0ff; */
+        border: none;
+        outline: none;
+
         font-size: 16px;
         outline: none;
-        box-shadow: 0 0 2px rgba(0, 0, 255, 0.1);
+        box-shadow: none;
         transition: 0.2s ease-in-out;
         border-radius: 8px; /* Rounded corners */
         width: 300px;
 
         &:focus {
             box-shadow: 0 0 4px rgba(0, 0, 255, 0.2);
-            border-color: #9090ff;
+            border-color: #53555c;
+            outline: auto;
         }
     `
     const StyledIcon4 = styled(IoIosAddCircleOutline)`

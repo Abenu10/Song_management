@@ -156,9 +156,10 @@ const Music: React.FC<myComponentProp> = ({
         background-color: ${markedItem ? '#a8bcc3' : ''};
         max-width: 800px;
         &:hover {
-            background-color: #53555c;
+            background-color: #161b22;
         }
-        transition: all 0.5s ease;
+        transition: all 0.1s ease;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     `
     const StyledBackGround = styled.div`
         position: fixed;
@@ -313,7 +314,7 @@ const Music: React.FC<myComponentProp> = ({
                     )}
                 </Box>
                 <EditSongModal
-                    songId={{_id}}
+                    songId={{ _id }}
                     isOpen={modalOpen}
                     onClose={closeEditModal}
                 />{' '}

@@ -31,7 +31,10 @@ module.exports = function (req, res, next) {
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err)
-      return res.status(500).json({error: 'Failed to authenticate token'});
+      return res.status(500).json({
+        error: 'Failed to authenticate token',
+        message: 'Token is invalid',
+      });
 
     // if everything is good, save to request for use in other routes
     req.userId = decoded.userId;

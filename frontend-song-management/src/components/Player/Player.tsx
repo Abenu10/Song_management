@@ -66,7 +66,7 @@ export default function Player({ songs }: PlayerProps) {
                             backdropFilter: 'blur(10px)',
                             // borderRadius: '10px',
                             border: '1px solid rgba(255, 255, 255, 0.1)',
-                            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+                            boxShadow: '0 8px 32px 0 rgba(31, 111, 208, 0.20)',
                             color: 'rgba(255, 255, 255, 0.75)',
                         }}
                         autoPlay

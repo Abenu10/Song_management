@@ -47,11 +47,11 @@ function Home() {
             <Flex
                 flexDirection={'column'}
                 css={HomeStyle.styles}
-                style={{ backgroundColor: '#1d1e22' }}
+                style={{ backgroundColor: '#0d1117' }}
             >
                 <Box>
                     <Text fontSize={5} fontWeight="bold">
-                        All Songs
+                        Songs
                     </Text>
                 </Box>
                 <Box>

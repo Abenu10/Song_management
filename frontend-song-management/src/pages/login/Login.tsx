@@ -83,10 +83,10 @@ function Login() {
         <LoginContainer>
             <LoginWrapper>
                 <LoginLeft>
-                    <LoginLogo>HabeshaNet</LoginLogo>
+                    <LoginLogo>Muzikabet</LoginLogo>
                     <LoginDesc>
-                        Connect with friends and the world around you on
-                        HabeshaNet.
+                        Listen to music with others, discover new tracks, and
+                        share your passion for music on Muzikabet.
                     </LoginDesc>
                 </LoginLeft>
                 <LoginRight>

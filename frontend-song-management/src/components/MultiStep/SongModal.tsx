@@ -15,7 +15,13 @@ const ModalBackgrounds = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #0000327f; /* Blue-black background color */
+    background-color: rgba(
+        31,
+        111,
+        208,
+        0.1
+    ); // Use rgba to make the color semi-transparent
+    backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;

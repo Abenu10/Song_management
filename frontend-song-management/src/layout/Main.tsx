@@ -34,7 +34,7 @@ export default function Main() {
             gap: 15px; /* Adjust width for larger screens */
             padding: 0px;
             padding-right: 15px;
-            background-color: #1d1e22;
+            background-color: #0d1117;
         }
     `
     const contentStyle = css`

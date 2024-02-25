@@ -97,7 +97,7 @@ function* fetchUserDetails() {
 
 function* logoutSaga() {
     try {
-        yield call(axios.get, '/api/auth/logout')
+        yield call(api.get, `${VITE_BASE_URL}/auth/logout`)
         localStorage.removeItem('token')
         yield put(logoutSuccess())
     } catch (err) {

@@ -6,7 +6,7 @@ import { fetchUserDetailsStart } from '@/state/user/userSlice'
 const Profile = () => {
     const dispatch = useDispatch()
     const userDetails = useSelector((state: RootState) => state.user.user)
-
+    console.log('userDetails:', userDetails)
     useEffect(() => {
         dispatch(fetchUserDetailsStart()) // Dispatch the fetch user details action
     }, [dispatch]) // The empty array means this effect runs once when the component mounts

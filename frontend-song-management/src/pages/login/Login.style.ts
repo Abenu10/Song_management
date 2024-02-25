@@ -7,6 +7,7 @@ export const LoginContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #0d1117;
 `
 
 export const LoginWrapper = styled.div`
@@ -25,9 +26,9 @@ export const LoginLeft = styled.div`
 export const LoginRight = styled(LoginLeft)``
 
 export const LoginLogo = styled.div`
+    color: #1f6fd0;
     font-size: 50px;
     font-weight: 800;
-    color: #1775ee;
     margin-bottom: 10px;
 `
 
@@ -46,6 +47,7 @@ export const LoginBox = styled.form`
 `
 
 export const LoginInput = styled.input`
+    color: #010409;
     height: 50px;
     border-radius: 10px;
     border: 1px solid gray;
@@ -57,10 +59,10 @@ export const LoginInput = styled.input`
 `
 
 export const LoginButton = styled.button`
+    background-color: #1f6fd0;
     height: 50px;
     border-radius: 10px;
     border: none;
-    background-color: #1775ee;
     color: white;
     font-size: 20px;
     font-weight: 500;

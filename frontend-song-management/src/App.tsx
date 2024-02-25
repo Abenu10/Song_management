@@ -2,7 +2,7 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
 import Main from './layout/Main'
 import Home from './pages/Home'
-import GenrePage from './pages/GenrePage'
+import GenrePage from './pages/PlaylistPage'
 import StatisticsPage from './pages/StatisticsPage'
 import FilteredSongsPage from './pages/FilteredSongsPage'
 // import AddSongPage from './pages/AddSong delete❌/AddSongPage'
@@ -32,6 +32,9 @@ import Spinner from './components/spinner❌/Spinner'
 import { jwtDecode } from 'jwt-decode'
 import { loginSuccess } from './state/auth/authSlice'
 import { fetchUserDetailsStart } from './state/user/userSlice'
+import axios, { AxiosResponse } from 'axios'
+
+const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
 const StyledIcon = styled(IoMdHome)`
     margin-right: 10px;
@@ -48,7 +51,7 @@ const StyledIcon3 = styled(IoStatsChart)`
 const MenuIcon = styled(TbMenu2)`
     position: absolute;
     cursor: pointer;
-    left: 40px;
+    left: 0;
     top: 25px;
     font-size: 35px;
 `
@@ -61,12 +64,61 @@ const CloseIcon = styled(IoIosClose)`
 function App() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    useEffect(() => {
+        const handleResize = () => {
+            // Check the screen width and update the state accordingly
+            if (window.innerWidth <= 992) {
+                setOpenSidebar(true)
+            } else {
+                setOpenSidebar(false)
+            }
+        }
 
-    // useEffect(() => {
-    //     dispatch({ type: 'FETCH_USER_FROM_COOKIE' })
-    // }, [dispatch])
+        // Add event listener for window resize
+        window.addEventListener('resize', handleResize)
 
-    // ...
+        // Initial check for screen width when component mounts
+        handleResize()
+
+        // Clean up the event listener
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+        let timeoutId: NodeJS.Timeout
+
+        function resetTimeout() {
+            // Clear the previous timeout
+            clearTimeout(timeoutId)
+
+            // Set a new timeout
+            timeoutId = setTimeout(() => {
+                // Remove the token from local storage
+                localStorage.removeItem('token')
+
+                // Navigate to login page
+                navigate('/login')
+            }, 36000) // 1 hour
+        }
+
+        // Call resetTimeout whenever the user interacts with the application
+        window.onmousemove = resetTimeout
+        window.onmousedown = resetTimeout
+        window.onclick = resetTimeout
+        window.onscroll = resetTimeout
+        window.onkeypress = resetTimeout
+
+        // Set the initial timeout
+        resetTimeout()
+
+        // Clean up function to remove the event listeners when the component unmounts
+        return () => {
+            window.onmousemove = null
+            window.onmousedown = null
+            window.onclick = null
+            window.onscroll = null
+            window.onkeypress = null
+        }
+    }, [])
 
     useEffect(() => {
         const token = localStorage.getItem('token')
@@ -81,13 +133,12 @@ function App() {
     const user = useSelector((state: RootState) => state.auth.user)
     const isFetching = useSelector((state: RootState) => state.auth.isFetching)
     const [isLoading, setIsLoading] = useState(true)
-    // useEffect(() => {
-    //     if (user) {
-    //         navigate('/') // navigate to home if user exists
-    //     } else {
-    //         navigate('/login') // navigate to login if user does not exist
-    //     }
-    // }, [user, navigate])
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login')
+        }
+    }, [user, navigate])
     // const { user } = useContext(AuthContext)
     console.log(user)
     console.log(isFetching)
@@ -146,30 +197,6 @@ function App() {
             display: none;
         }
     `
-    useEffect(() => {
-        const handleResize = () => {
-            // Check the screen width and update the state accordingly
-            if (window.innerWidth <= 992) {
-                setOpenSidebar(true)
-            } else {
-                setOpenSidebar(false)
-            }
-        }
-
-        // Add event listener for window resize
-        window.addEventListener('resize', handleResize)
-
-        // Initial check for screen width when component mounts
-        handleResize()
-
-        // Clean up the event listener
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    }, [])
-    // if (isLoading) {
-    //     return // Or your own loading spinner
-    // }
 
     return (
         <>
@@ -188,7 +215,7 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Main />}>
                     <Route index element={<Home />} />
-                    <Route path="genre" element={<GenrePage />} />
+                    <Route path="playlist" element={<GenrePage />} />
                     <Route
                         path="genre/:genre"
                         element={<FilteredSongsPage />}
