@@ -11,7 +11,7 @@ const SongTableTitle = () => {
     return (
         <Flex
             flexDirection="row"
-            justifyContent="space-between"
+            justifyContent="start"
             css={titleStyle.styles}
             p={[2]}
         >
@@ -21,7 +21,7 @@ const SongTableTitle = () => {
                 </Text>
             </Box>
             <Box flex={1}>
-                <Flex justifyContent={'center'}>
+                <Flex justifyContent={'start'}>
                     <Box>
                         <Text fontSize={[2, 3, 4]} fontWeight="bold">
                             Album
@@ -30,7 +30,7 @@ const SongTableTitle = () => {
                 </Flex>
             </Box>
             <Box flex={1}>
-                <Flex justifyContent={'end'}>
+                <Flex justifyContent={'start'}>
                     <Box>
                         <Text fontSize={[2, 3, 4]} fontWeight="bold">
                             Date Added

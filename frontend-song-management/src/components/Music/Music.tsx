@@ -290,6 +290,7 @@ const Music: React.FC<myComponentProp> = ({
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
+                            marginLeft: '90px',
                         }}
                     >
                         {album}
@@ -299,7 +300,17 @@ const Music: React.FC<myComponentProp> = ({
                     css={[boxStyle.styles, hiddenOnSmallScreen.styles]}
                     flex={1}
                 >
-                    <Text fontSize={14}>{date}</Text>
+                    <Text
+                        fontSize={14}
+                        style={{
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            marginLeft: '90px',
+                        }}
+                    >
+                        {date}
+                    </Text>
                 </Box>
                 <Box css={StyledOptionContainer.styles}>
                     <StyledOption onClick={handleOptionClick} />
