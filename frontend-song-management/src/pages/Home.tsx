@@ -23,6 +23,7 @@ interface Song {
     likes: string[]
     __v?: Number
     createdAt: Date
+    imageUrl:string
 }
 
 function Home() {
@@ -76,6 +77,7 @@ function Home() {
                                           _id={song._id}
                                           //   date={song.createdAt.toISOString()}
                                           date={format(song.createdAt)}
+                                          imageUrl={song.imageUrl}
                                       />
                                   </>
                               )

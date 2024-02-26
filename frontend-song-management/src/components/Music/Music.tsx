@@ -85,7 +85,7 @@ const Music: React.FC<myComponentProp> = ({
         userId,
         likes,
     }) // Log the song data
-
+    console.log(title)
     const [open, setOpen] = useState(false)
     const [editSongId, setEditSongId] = useState<string | null>(null)
     const openEditModal = (songId: string | undefined) => {
@@ -261,7 +261,10 @@ const Music: React.FC<myComponentProp> = ({
                                 height: '45px',
                                 borderRadius: '5px',
                             }}
-                            src={imageUrl}
+                            src={
+                                imageUrl ||
+                                'https://th.bing.com/th/id/OIP.keIG-gLYH4XdTkLvAFqI2QHaEo?rs=1&pid=ImgDetMain'
+                            }
                         />
                     </Box>
                     <Flex
