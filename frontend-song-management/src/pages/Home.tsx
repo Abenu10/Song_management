@@ -75,7 +75,7 @@ function Home() {
                           })}
                 </Box>
             </Flex>
-            {/* <Player songs={data} /> */}
+            
         </>
     )
 }

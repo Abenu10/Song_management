@@ -4,7 +4,11 @@ import { FaPlay } from 'react-icons/fa'
 import { FaPause } from 'react-icons/fa6'
 import { Box, Flex, Text } from 'rebass'
 
-import { setCurrentSong } from '../../state/player/PlayerSlice'
+import {
+    pauseSong,
+    playSong,
+    setCurrentSong,
+} from '../../state/player/PlayerSlice'
 
 import {
     StyledOption,
@@ -59,6 +63,13 @@ const Music: React.FC<myComponentProp> = ({
     userId,
     likes,
 }) => {
+    const isPlaying = useSelector((state: RootState) => state.player.isPlaying)
+    const currentSong = useSelector(
+        (state: RootState) => state.player.currentSong
+    )
+    const [previousPlayingState, setPreviousPlayingState] =
+        useState<boolean>(false) // Store the previous playing state
+
     console.log('_id:', _id) // Log the _id value
     console.log('song data:', {
         album,
@@ -91,10 +102,16 @@ const Music: React.FC<myComponentProp> = ({
     const dispatch = useDispatch()
 
     const handlePlaySong = () => {
-        if (songUrl) {
-            dispatch(setCurrentSong(songUrl))
-        }
+        console.log('handlePlaySong is called')
+        dispatch(setCurrentSong(songUrl))
+        dispatch(playSong())
     }
+
+    const handlePauseSong = () => {
+        console.log('handlePauseSong is called')
+        dispatch(pauseSong())
+    }
+
     const [optionIsOpened, setOptionIsOpened] = useState(false)
     const [markedItem, setMarkedItem] = useState(false)
     const [openDeleteModal, setOpenDeleteModal] = useState(false)
@@ -121,15 +138,12 @@ const Music: React.FC<myComponentProp> = ({
         setOpenDeleteModal(true)
         setOptionIsOpened(false)
         setMarkedItem(true)
-        // dispatch(setOpenDeleteModal(true))
-        // dispatch(setmarkDeletedItem(true))
     }
 
     const closeModal = () => {
         setMarkedItem(false)
         setOpenDeleteModal(false)
-        // dispatch(setOpenDeleteModal(false))
-        // dispatch(setmarkDeletedItem(false))
+
         console.log('close')
     }
     console.log(markedItem)
@@ -169,8 +183,23 @@ const Music: React.FC<myComponentProp> = ({
         height: 100vh;
         width: 100%;
     `
+
+    const handlePlayPause = () => {
+        if (isPlaying && currentSong === songUrl) {
+            // Only set previous state if it was previously playing
+            if (previousPlayingState) {
+                setPreviousPlayingState(false)
+            }
+            dispatch(pauseSong())
+        } else {
+            setPreviousPlayingState(isPlaying) // Remember the previous state before playing
+            dispatch(setCurrentSong(songUrl))
+            dispatch(playSong())
+        }
+    }
+
     return (
-        <div onClick={handlePlaySong}>
+        <div onClick={handlePlayPause} style={{ cursor: 'pointer' }}>
             <SuccessToast isToastVisible={showSuccessToast} />
             <FailedToast isToastVisible={showFailedToast} />
 
@@ -214,7 +243,13 @@ const Music: React.FC<myComponentProp> = ({
                     flex={1.5}
                     css={playTitle.styles}
                 >
-                    <Box ml={2}>{true ? <FaPlay /> : <FaPause />}</Box>
+                    <Box ml={2}>
+                        {isPlaying && currentSong === songUrl ? (
+                            <FaPause />
+                        ) : (
+                            <FaPlay />
+                        )}
+                    </Box>
                     <Box>
                         <img
                             style={{
