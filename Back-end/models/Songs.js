@@ -18,20 +18,20 @@ const SongSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-  //   genre: {
-  //   type: String,
-  //   required: true,
-  //   // trim: true,
-  //   enum: [
-  //     "Rock",
-  //     "Pop",
-  //     "Hip-Hop",
-  //     "Electronic",
-  //     "Classical",
-  //     "Jazz",
-  //     "Other",
-  //   ], // Predefined genres with validation
-  // },
+    //   genre: {
+    //   type: String,
+    //   required: true,
+    //   // trim: true,
+    //   enum: [
+    //     "Rock",
+    //     "Pop",
+    //     "Hip-Hop",
+    //     "Electronic",
+    //     "Classical",
+    //     "Jazz",
+    //     "Other",
+    //   ], // Predefined genres with validation
+    // },
     songUrl: {
       type: String,
       required: true,

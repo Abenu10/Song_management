@@ -32,7 +32,8 @@ interface Songs {
     showOpenDeleteModal: boolean
     markDeletedItem: boolean
 
-    newSongId: string
+    newSongId: string | null
+    newSongIds: string | null
 }
 
 const initialState: Songs = {
@@ -69,6 +70,7 @@ const initialState: Songs = {
     // for modal
     showOpenDeleteModal: false,
     newSongId: '',
+    newSongIds: '',
 }
 
 const songsSlice = createSlice({
@@ -125,6 +127,12 @@ const songsSlice = createSlice({
             if (index !== -1) {
                 state.songs[index] = action.payload
             }
+        },
+        setNewSongId: (state, action: PayloadAction<string>) => {
+            state.newSongIds = action.payload
+        },
+        resetNewSongId: (state) => {
+            state.newSongId = null
         },
     },
 })

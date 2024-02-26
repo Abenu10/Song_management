@@ -96,7 +96,15 @@ function* createSong(action: any) {
             console.log(response.data)
             yield put(setAddSongButtonLoading(false))
             const songId = response.data.song._id
-            yield put({ type: 'songs/createSongSuccess', payload: songId })
+            console.log(songId)
+            yield put({
+                type: 'songs/createSongSuccess',
+                payload: response.data.song,
+            })
+            yield put({
+                type: 'songs/setNewSongId',
+                payload: songId,
+            })
         } catch (error) {
             yield put(setCreateSongCauseAnError(true))
             yield put(setAddSongButtonLoading(false))
@@ -244,4 +252,10 @@ export function* deleteSongByIdSaga() {
 }
 export function* watchFetchSongByIdSaga() {
     yield takeLatest('FETCH_SONG_BY_ID', fetchSongById)
+}
+
+function* watchResetNewSongId() {
+    yield takeEvery('song/resetNewSongId', function* () {
+        // additional logic here...
+    })
 }

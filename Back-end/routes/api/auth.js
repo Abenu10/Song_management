@@ -127,7 +127,10 @@ router.get('/logout', (req, res) => {
 //     res.json({ token: newToken });
 //   });
 // });
-
+router.get('/user/id', auth, (req, res) => {
+  // Now req.userId contains the decoded token (user data)
+  res.json({userId: req.userId});
+});
 module.exports = router;
 
 // function to add two numbers

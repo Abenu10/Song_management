@@ -4,7 +4,11 @@ import { FaPlay } from 'react-icons/fa'
 import { FaPause } from 'react-icons/fa6'
 import { Box, Flex, Text } from 'rebass'
 
-import { setCurrentSong } from '../../state/player/PlayerSlice'
+import {
+    pauseSong,
+    playSong,
+    setCurrentSong,
+} from '../../state/player/PlayerSlice'
 
 import {
     StyledOption,
@@ -24,6 +28,8 @@ import {
     formatDate,
     StyledSpan,
 } from './Music.style'
+
+import { format } from 'timeago.js'
 
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -59,6 +65,13 @@ const Music: React.FC<myComponentProp> = ({
     userId,
     likes,
 }) => {
+    const isPlaying = useSelector((state: RootState) => state.player.isPlaying)
+    const currentSong = useSelector(
+        (state: RootState) => state.player.currentSong?.songUrl
+    )
+    const [previousPlayingState, setPreviousPlayingState] =
+        useState<boolean>(false) // Store the previous playing state
+
     console.log('_id:', _id) // Log the _id value
     console.log('song data:', {
         album,
@@ -90,11 +103,17 @@ const Music: React.FC<myComponentProp> = ({
 
     const dispatch = useDispatch()
 
-    const handlePlaySong = () => {
-        if (songUrl) {
-            dispatch(setCurrentSong(songUrl))
-        }
-    }
+    // const handlePlaySong = () => {
+    //     console.log('handlePlaySong is called')
+    //     dispatch(setCurrentSong(songUrl))
+    //     dispatch(playSong())
+    // }
+
+    // const handlePauseSong = () => {
+    //     console.log('handlePauseSong is called')
+    //     dispatch(pauseSong())
+    // }
+
     const [optionIsOpened, setOptionIsOpened] = useState(false)
     const [markedItem, setMarkedItem] = useState(false)
     const [openDeleteModal, setOpenDeleteModal] = useState(false)
@@ -121,15 +140,12 @@ const Music: React.FC<myComponentProp> = ({
         setOpenDeleteModal(true)
         setOptionIsOpened(false)
         setMarkedItem(true)
-        // dispatch(setOpenDeleteModal(true))
-        // dispatch(setmarkDeletedItem(true))
     }
 
     const closeModal = () => {
         setMarkedItem(false)
         setOpenDeleteModal(false)
-        // dispatch(setOpenDeleteModal(false))
-        // dispatch(setmarkDeletedItem(false))
+
         console.log('close')
     }
     console.log(markedItem)
@@ -149,12 +165,13 @@ const Music: React.FC<myComponentProp> = ({
         right: 0;
     `
     const spotifyStyle = css`
+        width: 100%;
         color: #1f3044;
         padding: 4px 4px;
         border-radius: 8px;
         background-color: ${optionIsOpened ? '#a8bcc3' : ''};
         background-color: ${markedItem ? '#a8bcc3' : ''};
-        max-width: 800px;
+        /* max-width: 800px; */
         &:hover {
             background-color: #161b22;
         }
@@ -169,8 +186,23 @@ const Music: React.FC<myComponentProp> = ({
         height: 100vh;
         width: 100%;
     `
+
+    const handlePlayPause = () => {
+        if (isPlaying && currentSong === songUrl) {
+            // Only set previous state if it was previously playing
+            if (previousPlayingState) {
+                setPreviousPlayingState(false)
+            }
+            dispatch(pauseSong())
+        } else {
+            setPreviousPlayingState(isPlaying) // Remember the previous state before playing
+            dispatch(setCurrentSong({ title: title, songUrl: songUrl }))
+            dispatch(playSong())
+        }
+    }
+
     return (
-        <div onClick={handlePlaySong}>
+        <div onClick={handlePlayPause} style={{ cursor: 'pointer' }}>
             <SuccessToast isToastVisible={showSuccessToast} />
             <FailedToast isToastVisible={showFailedToast} />
 
@@ -202,6 +234,7 @@ const Music: React.FC<myComponentProp> = ({
                 </Overlay>
             )}
             <StyledBackGround onClick={handleOptionClick}></StyledBackGround>
+
             <Flex
                 flexDirection="row"
                 alignItems="center"
@@ -214,7 +247,13 @@ const Music: React.FC<myComponentProp> = ({
                     flex={1.5}
                     css={playTitle.styles}
                 >
-                    <Box ml={2}>{true ? <FaPlay /> : <FaPause />}</Box>
+                    <Box ml={2}>
+                        {isPlaying && currentSong === songUrl ? (
+                            <FaPause />
+                        ) : (
+                            <FaPlay />
+                        )}
+                    </Box>
                     <Box>
                         <img
                             style={{
@@ -222,9 +261,7 @@ const Music: React.FC<myComponentProp> = ({
                                 height: '45px',
                                 borderRadius: '5px',
                             }}
-                            src={
-                                'https://th.bing.com/th/id/OIP.keIG-gLYH4XdTkLvAFqI2QHaEo?rs=1&pid=ImgDetMain'
-                            }
+                            src={imageUrl}
                         />
                     </Box>
                     <Flex
@@ -262,7 +299,7 @@ const Music: React.FC<myComponentProp> = ({
                     css={[boxStyle.styles, hiddenOnSmallScreen.styles]}
                     flex={1}
                 >
-                    <Text fontSize={14}>{formatDate(date)}</Text>
+                    <Text fontSize={14}>{date}</Text>
                 </Box>
                 <Box css={StyledOptionContainer.styles}>
                     <StyledOption onClick={handleOptionClick} />

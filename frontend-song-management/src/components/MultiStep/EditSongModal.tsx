@@ -15,7 +15,13 @@ const ModalBackground = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 50, 0.5); /* Blue-black background color */
+    background-color: rgba(
+        31,
+        111,
+        208,
+        0.1
+    ); // Use rgba to make the color semi-transparent
+    backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -140,10 +146,10 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
             }
         }
 
-        if (isOpen) {
+        if (isOpen && !song) {
             fetchSongById()
         }
-    }, [isOpen, songId])
+    }, [isOpen, songId, song])
     // if (!song) {
     //     return null // Or a loading spinner
     // }
@@ -260,6 +266,8 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
             setPage('pageone')
             setFormData(initialFormData)
             console.log(newSongId)
+            // after using newSongId...
+            dispatch({ type: 'song/resetNewSongId' })
         } else {
             // dispatch({ type: 'song/createSong', payload: { data: formData } })
         }
@@ -373,7 +381,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
                             required
                         /> */}
                                     <StyledInput
-                                        required
+                                        // required
                                         type="file"
                                         placeholder="audio file"
                                         name="postAudio"
@@ -396,7 +404,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
                                     }}
                                 >
                                     <StyledInput
-                                        required
+                                        // required
                                         type="file"
                                         placeholder="image file"
                                         name="postImage"

@@ -145,7 +145,7 @@ const SongModal = ({
                 setPage('1')
         }
     }
-    const newSongId = useSelector((state: RootState) => state.songs.newSongId)
+    const newSongIds = useSelector((state: RootState) => state.songs.newSongIds)
 
     const [file, setFile] = useState<File | null>(null)
     const [showErrorMessage, setShowErrorMessage] = useState(false)
@@ -233,16 +233,17 @@ const SongModal = ({
         if (formData.postImage) {
             dispatch({
                 type: 'song/updateSongCover',
-                payload: { id: newSongId, file: formData.postImage },
+                payload: { id: newSongIds, file: formData.postImage },
             })
         }
-        console.log(newSongId)
+        console.log(newSongIds)
         if (createSongCauseAnError === false && buttonIsLoading === false) {
             navigate('/')
             onClose()
             setPage('pageone')
             setFormData(initialFormData)
-            console.log(newSongId)
+            console.log(newSongIds)
+            dispatch({ type: 'song/resetNewSongId' })
         } else {
             // dispatch({ type: 'song/createSong', payload: { data: formData } })
         }
@@ -260,6 +261,7 @@ const SongModal = ({
     const handleCloseModal = (e: React.MouseEvent) => {
         if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
             onClose()
+            setPage('pageone')
         }
     }
 

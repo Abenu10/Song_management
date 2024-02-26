@@ -1,6 +1,10 @@
+import { setCurrentSong } from '@/state/player/PlayerSlice'
+import { RootState } from '@/state/store'
 import { useState, useEffect } from 'react'
 import AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 interface PlayerProps {
@@ -23,6 +27,15 @@ const Playercontainer = styled.div`
     width: 100%;
 `
 export default function Player({ songs }: PlayerProps) {
+    const dispatch = useDispatch()
+    const currentSongUrl = useSelector(
+        (state: RootState) => state.player.currentSong?.songUrl
+    )
+    console.log('currentSongUrl', currentSongUrl)
+    const currentSongTitle = useSelector(
+        (state: RootState) => state.player.currentSong?.title
+    )
+
     const [trackIndex, setTrackIndex] = useState(0)
 
     useEffect(() => {
@@ -35,6 +48,11 @@ export default function Player({ songs }: PlayerProps) {
             }
         }
     }, [songs])
+    useEffect(() => {
+        if (musicTracks[trackIndex]) {
+            dispatch(setCurrentSong(musicTracks[trackIndex]))
+        }
+    }, [trackIndex])
 
     const musicTracks = songs
         ? songs.map((song) => ({
@@ -71,11 +89,19 @@ export default function Player({ songs }: PlayerProps) {
                             height: '8rem',
                         }}
                         autoPlay
-                        src={musicTracks[trackIndex].songUrl}
+                        src={
+                            currentSongUrl
+                                ? currentSongUrl
+                                : musicTracks[trackIndex].songUrl
+                        }
                         onPlay={(e) => console.log('onPlay')}
                         showSkipControls={true}
                         showJumpControls={false}
-                        header={`Now playing: ${musicTracks[trackIndex].title}`}
+                        header={`Now playing: ${
+                            currentSongTitle
+                                ? currentSongTitle
+                                : musicTracks[trackIndex].title
+                        }`}
                         footer="music app"
                         onClickPrevious={handleClickPrevious}
                         onClickNext={handleClickNext}

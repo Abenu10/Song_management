@@ -8,7 +8,8 @@ import { RootState } from '../state/store'
 import { Key } from '@mui/icons-material'
 import Player from '@/components/Player/Player'
 import { backgroundColor } from 'styled-system'
-//
+import { format } from 'timeago.js'
+import SongTableTitle from '@/components/Music/SongTableTitle'
 
 interface Song {
     _id: string
@@ -21,6 +22,7 @@ interface Song {
     userId: string
     likes: string[]
     __v?: Number
+    createdAt: Date
 }
 
 function Home() {
@@ -55,22 +57,27 @@ function Home() {
                     </Text>
                 </Box>
                 <Box>
+                    <SongTableTitle />
                     {isLoading
                         ? 'Loading'
                         : data.map((song: Song) => {
                               return (
-                                  <Music
-                                      key={song._id}
-                                      artist={song.artist}
-                                      title={song.title}
-                                      album={song.album}
-                                      genre={song.genre}
-                                      songUrl={song.songUrl}
-                                      userId={song.userId}
-                                      likes={song.likes}
-                                      // imageUrl={}
-                                      _id={song._id}
-                                  />
+                                  <>
+                                      <Music
+                                          key={song._id}
+                                          artist={song.artist}
+                                          title={song.title}
+                                          album={song.album}
+                                          genre={song.genre}
+                                          songUrl={song.songUrl}
+                                          userId={song.userId}
+                                          likes={song.likes}
+                                          // imageUrl={}
+                                          _id={song._id}
+                                          //   date={song.createdAt.toISOString()}
+                                          date={format(song.createdAt)}
+                                      />
+                                  </>
                               )
                           })}
                 </Box>

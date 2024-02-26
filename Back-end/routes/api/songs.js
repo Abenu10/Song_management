@@ -35,6 +35,7 @@ router.post('/new/:id', auth, upload.single('postAudio'), async (req, res) => {
       songUrl: data.secure_url,
       publicId: data.public_id,
       userId: req.params.id,
+      imageUrl: null,
     });
 
     // save songUrl  to database
@@ -63,8 +64,10 @@ router.put(
       console.log(req.headers);
       const updatedSong = await Song.updateOne(
         {_id: req.params.id},
-        {$set: {imageUrl: data.url}}
+        {$set: {imageUrl: data.url}},
+        {new: true}
       );
+
       console.log(req.headers);
       res.status(200).json({message: 'song cover updated', song: updatedSong});
     } catch (error) {
