@@ -217,7 +217,7 @@ function App() {
                     <Route index element={<Home />} />
                     <Route path="playlist" element={<GenrePage />} />
                     <Route
-                        path="playlist/:playlistID"
+                        path="genre/:genre"
                         element={<FilteredSongsPage />}
                     />
                     <Route path="Statistics" element={<StatisticsPage />} />

@@ -1,8 +1,6 @@
-import { RootState } from '@/state/store'
 import { useState, useEffect } from 'react'
 import AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 interface PlayerProps {
@@ -25,10 +23,6 @@ const Playercontainer = styled.div`
     width: 100%;
 `
 export default function Player({ songs }: PlayerProps) {
-    const currentSong = useSelector(
-        (state: RootState) => state.player.currentSong
-    )
-    console.log(currentSong)
     const [trackIndex, setTrackIndex] = useState(0)
 
     useEffect(() => {
@@ -77,11 +71,7 @@ export default function Player({ songs }: PlayerProps) {
                             height: '8rem',
                         }}
                         autoPlay
-                        src={
-                            currentSong
-                                ? currentSong
-                                : musicTracks[trackIndex].songUrl
-                        }
+                        src={musicTracks[trackIndex].songUrl}
                         onPlay={(e) => console.log('onPlay')}
                         showSkipControls={true}
                         showJumpControls={false}
