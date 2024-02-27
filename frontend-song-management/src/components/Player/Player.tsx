@@ -31,7 +31,9 @@ export default function Player({ songs }: PlayerProps) {
     const currentSongUrl = useSelector(
         (state: RootState) => state.player.currentSong?.songUrl
     )
+    
     console.log('currentSongUrl', currentSongUrl)
+    
     const currentSongTitle = useSelector(
         (state: RootState) => state.player.currentSong?.title
     )

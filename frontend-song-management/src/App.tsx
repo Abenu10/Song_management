@@ -5,8 +5,7 @@ import Home from './pages/Home'
 import GenrePage from './pages/PlaylistPage'
 import StatisticsPage from './pages/StatisticsPage'
 import FilteredSongsPage from './pages/FilteredSongsPage'
-// import AddSongPage from './pages/AddSong delete❌/AddSongPage'
-import EditSongPage from './pages/EditSongPage'
+
 //
 
 import { useState, useEffect } from 'react'
@@ -221,7 +220,7 @@ function App() {
                         element={<FilteredSongsPage />}
                     />
                     <Route path="Statistics" element={<StatisticsPage />} />
-                    <Route path="editSong/:id" element={<EditSongPage />} />
+                    {/* <Route path="editSong/:id" element={<EditSongPage />} /> */}
                 </Route>
             </Routes>
             {/* ) */}

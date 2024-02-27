@@ -81,13 +81,15 @@ const StyledOption = styled.option`
     }
 `
 const Categories = [
-    'R&B',
+    'Jazz',
     'Electronic',
     'Rock',
-    'Rap',
-    'country/Ethiopia',
     'Pop',
-    'Hip',
+    'Hip-Hop',
+    'Rap',
+    'Classical',
+    'Ethiopian Music',
+    'other',
 ]
 const Button = styled.button`
     background-color: #007bff;

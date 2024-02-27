@@ -37,6 +37,26 @@ router.post('/new/:id', auth, upload.single('postAudio'), async (req, res) => {
       userId: req.params.id,
       imageUrl: null,
     });
+    // Check if genre is valid
+    if (
+      ![
+        'Jazz',
+        'Electronic',
+        'Rock',
+        'Pop',
+        'Hip-Hop',
+        'Rap',
+        'Classical',
+        'Ethiopian Music',
+        'other',
+      ].includes(req.body.genre)
+    ) {
+      return res
+        .status(400)
+        .send(
+          'Invalid genre. Genre must be one of: Rock, Pop, Hip-Hop, Electronic, Classical, Jazz, Other'
+        );
+    }
 
     // save songUrl  to database
     const savedSong = await Song.updateOne(
@@ -119,6 +139,27 @@ router.get('/list/:id', async (req, res) => {
 //  FIXME: update a song
 router.put('/:id', async (req, res) => {
   try {
+    // Check if genre is valid
+    if (
+      req.body.genre &&
+      ![
+        'Rock',
+        'Pop',
+        'Hip-Hop',
+        'Electronic',
+        'Classical',
+        'Jazz',
+        'Ethiopian Music',
+        'Other',
+      ].includes(req.body.genre)
+    ) {
+      return res
+        .status(400)
+        .send(
+          'Invalid genre. Genre must be one of: Rap, Rock, Pop, Hip-Hop, Electronic, Classical, Jazz, Other, Ethiopian Music',
+          'Ethiopian Music'
+        );
+    }
     const song = await Song.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
@@ -127,6 +168,7 @@ router.put('/:id', async (req, res) => {
     res.status(400).send(error);
   }
 });
+
 //  TODO: Remove a song
 router.delete('/:id', async (req, res) => {
   try {

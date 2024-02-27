@@ -85,7 +85,8 @@ const Music: React.FC<myComponentProp> = ({
         userId,
         likes,
     }) // Log the song data
-    console.log(title)
+    // console.log(title)
+       
     const [open, setOpen] = useState(false)
     const [editSongId, setEditSongId] = useState<string | null>(null)
     const openEditModal = (songId: string | undefined) => {
