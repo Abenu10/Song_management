@@ -9,10 +9,7 @@ import {
     postLoginInitializationSaga,
     watchFetchSongByIdSaga,
 } from './songsSaga'
-import {
-    fetchSongsStatisticsSaga,
-    fetchSongsStatisticsDataSaga,
-} from './songsStatisticsSaga'
+
 import {
     watchLogin,
     watchRegister,
@@ -20,6 +17,7 @@ import {
     watchLogout,
     watchFetchUserDetails,
 } from './authSaga'
+import { watchFetchStats } from './statSaga'
 
 export default function* rootSaga() {
     yield all([
@@ -31,12 +29,11 @@ export default function* rootSaga() {
         createSongSaga(),
         updateSongCoverSaga(),
         updateSongSaga(),
-        fetchSongsStatisticsSaga(),
-        fetchSongsStatisticsDataSaga(),
         deleteSongByIdSaga(),
         watchFetchUserDetails(),
         // watchFetchUserFromCookie(),
         watchLogout(),
         watchFetchSongByIdSaga(),
+        watchFetchStats(),
     ])
 }

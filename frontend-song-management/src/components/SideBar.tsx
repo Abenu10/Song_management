@@ -137,40 +137,6 @@ export default function SideBar() {
                         </Box>
                     </Flex>
                 </Link>
-                <Link to={'/playlist'}>
-                    <Flex
-                        flexDirection={'row'}
-                        alignItems="center"
-                        css={sideBarElement}
-                        style={{
-                            color:
-                                location.pathname === '/genre' ? '#BD1E51' : '',
-                            marginLeft: '0',
-                            paddingLeft: '40px',
-                        }}
-                        ml={40}
-                    >
-                        <Box mr={20}>
-                            <svg
-                                stroke="currentColor"
-                                fill="var(--icon-color, currentColor)"
-                                stroke-width="0"
-                                viewBox="0 0 24 24"
-                                height="1.3em"
-                                width="1.3em"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <g>
-                                    <path fill="none" d="M0 0h24v24H0z"></path>
-                                    <path d="M2 18h10v2H2v-2zm0-7h14v2H2v-2zm0-7h20v2H2V4zm17 11.17V9h5v2h-3v7a3 3 0 1 1-2-2.83zM18 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
-                                </g>
-                            </svg>
-                        </Box>
-                        <Box>
-                            <Text>Playlist</Text>
-                        </Box>
-                    </Flex>
-                </Link>
                 <Link to={'/Statistics'}>
                     <Flex
                         flexDirection={'row'}
@@ -205,6 +171,40 @@ export default function SideBar() {
                         </Box>
                         <Box>
                             <Text>Statistics</Text>
+                        </Box>
+                    </Flex>
+                </Link>
+                <Link to={'/playlist'}>
+                    <Flex
+                        flexDirection={'row'}
+                        alignItems="center"
+                        css={sideBarElement}
+                        style={{
+                            color:
+                                location.pathname === '/genre' ? '#BD1E51' : '',
+                            marginLeft: '0',
+                            paddingLeft: '40px',
+                        }}
+                        ml={40}
+                    >
+                        <Box mr={20}>
+                            <svg
+                                stroke="currentColor"
+                                fill="var(--icon-color, currentColor)"
+                                stroke-width="0"
+                                viewBox="0 0 24 24"
+                                height="1.3em"
+                                width="1.3em"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <g>
+                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                    <path d="M2 18h10v2H2v-2zm0-7h14v2H2v-2zm0-7h20v2H2V4zm17 11.17V9h5v2h-3v7a3 3 0 1 1-2-2.83zM18 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+                                </g>
+                            </svg>
+                        </Box>
+                        <Box>
+                            <Text>Playlist</Text>
                         </Box>
                     </Flex>
                 </Link>

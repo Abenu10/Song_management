@@ -105,7 +105,7 @@ router.get('/list', auth, async (req, res) => {
   }
 });
 // Generate stats
-router.get('/stats', async (req, res) => {
+router.get('/stats', auth, async (req, res) => {
   try {
     // Fetch all songs
     const songs = await Song.find();
