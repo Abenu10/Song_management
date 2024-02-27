@@ -232,7 +232,7 @@ export function* fetchSongsSaga() {
 
 export function* fetchSongsByGenreSaga() {
     yield takeEvery('songsByGenre/fetchSongs', fetchSongsByGenre)
-}
+}1
 
 export function* createSongSaga() {
     yield takeEvery('song/createSong', createSong)

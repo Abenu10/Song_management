@@ -34,6 +34,7 @@ interface Songs {
 
     newSongId: string | null
     newSongIds: string | null
+    selectedGenre: string | null
 }
 
 const initialState: Songs = {
@@ -71,6 +72,7 @@ const initialState: Songs = {
     showOpenDeleteModal: false,
     newSongId: '',
     newSongIds: '',
+    selectedGenre: null,
 }
 
 const songsSlice = createSlice({
@@ -134,6 +136,9 @@ const songsSlice = createSlice({
         resetNewSongId: (state) => {
             state.newSongId = null
         },
+        setSelectedGenre: (state, action: PayloadAction<string | null>) => {
+            state.selectedGenre = action.payload
+        },
     },
 })
 
@@ -153,6 +158,7 @@ export const {
     createSongSuccess,
     fetchSongById,
     updateSong,
+    setSelectedGenre,
 } = songsSlice.actions
 
 export default songsSlice.reducer

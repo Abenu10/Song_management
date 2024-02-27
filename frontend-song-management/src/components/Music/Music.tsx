@@ -31,7 +31,7 @@ import {
 
 import { format } from 'timeago.js'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState, ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../state/store'
@@ -65,6 +65,10 @@ const Music: React.FC<myComponentProp> = ({
     userId,
     likes,
 }) => {
+    const dispatch = useDispatch()
+
+
+
     const isPlaying = useSelector((state: RootState) => state.player.isPlaying)
     const currentSong = useSelector(
         (state: RootState) => state.player.currentSong?.songUrl
@@ -86,7 +90,7 @@ const Music: React.FC<myComponentProp> = ({
         likes,
     }) // Log the song data
     // console.log(title)
-       
+
     const [open, setOpen] = useState(false)
     const [editSongId, setEditSongId] = useState<string | null>(null)
     const openEditModal = (songId: string | undefined) => {
@@ -102,18 +106,19 @@ const Music: React.FC<myComponentProp> = ({
     // FIXME: get the songs object state useselector
     const songs = useSelector((state: RootState) => state.songs.songs)
 
-    const dispatch = useDispatch()
-
-    // const handlePlaySong = () => {
-    //     console.log('handlePlaySong is called')
-    //     dispatch(setCurrentSong(songUrl))
-    //     dispatch(playSong())
+    // const handleGenreChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     const selectedGenre = event.target.value
+    //     dispatch({
+    //         type: 'songsByGenre/fetchSongs',
+    //         payload: { genre: selectedGenre },
+    //     })
     // }
-
-    // const handlePauseSong = () => {
-    //     console.log('handlePauseSong is called')
-    //     dispatch(pauseSong())
-    // }
+    // useEffect(() => {
+    //     dispatch({
+    //         type: 'songsByGenre/fetchSongs',
+    //         payload: { genre: 'genre' },
+    //     })
+    // }, [dispatch])
 
     const [optionIsOpened, setOptionIsOpened] = useState(false)
     const [markedItem, setMarkedItem] = useState(false)

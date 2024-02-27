@@ -23,29 +23,46 @@ interface Song {
     likes: string[]
     __v?: Number
     createdAt: Date
-    imageUrl:string
+    imageUrl: string
 }
 
-
 function Home() {
+    const dispatch = useDispatch()
+    const songsByGenre = useSelector(
+        (state: RootState) => state.songs.songsByGenre
+    )
+    const selectedGenre = useSelector(
+        (state: RootState) => state.songs.selectedGenre
+    )
+    useEffect(() => {
+        if (selectedGenre) {
+            dispatch({
+                type: 'songsByGenre/fetchSongs',
+                payload: { genre: selectedGenre },
+            })
+        } else {
+            dispatch({ type: 'songs/fetchSongs' })
+        }
+    }, [selectedGenre, dispatch])
+
     const data = useSelector((state: RootState) => state.songs.songs)
 
     const isLoading = useSelector(
         (state: RootState) => state.songs.getSongsLoading
     )
-    const dispatch = useDispatch()
     const HomeStyle = css`
         width: 100%;
     `
 
-    useEffect(() => {
-        dispatch({ type: 'songs/fetchSongs' })
-    }, [])
+    // useEffect(() => {
+    //     dispatch({ type: 'songs/fetchSongs' })
+    // }, [])
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
     console.log(data)
 
+    const songsToDisplay = selectedGenre ? songsByGenre : data
     return (
         <>
             <Flex
@@ -62,7 +79,7 @@ function Home() {
                     <SongTableTitle />
                     {isLoading
                         ? 'Loading'
-                        : data.map((song: Song) => {
+                        : songsToDisplay.map((song: Song) => {
                               return (
                                   <>
                                       <Music

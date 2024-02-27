@@ -14,6 +14,7 @@ import SongModal from './MultiStep/SongModal'
 import { useDispatch } from 'react-redux'
 
 import { logoutStart } from '@/state/auth/authSlice'
+import { setSelectedGenre } from '../state/songs/songsSlice'
 
 const LogoutButton = styled.button`
     // Add your styles here. For example:
@@ -55,6 +56,18 @@ const SearchContainer = styled.div`
     display: flex;
     align-items: center;
 `
+const genres = [
+    'All',
+    'Jazz',
+    'Electronic',
+    'Rock',
+    'Pop',
+    'Hip-Hop',
+    'Rap',
+    'Classical',
+    'Ethiopian Music',
+    'other',
+]
 
 export default function NavBar({ openModal }: { openModal: any }) {
     const dispatch = useDispatch()
@@ -119,6 +132,11 @@ export default function NavBar({ openModal }: { openModal: any }) {
         // Cookies.remove('token', { httpOnly: true, sameSite: 'strict' })
         navigate('/login')
     }
+    const handleGenreChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedGenre =
+            event.target.value === 'All' ? '' : event.target.value
+        dispatch({ type: 'songs/setSelectedGenre', payload: selectedGenre })
+    }
     return (
         <>
             {/* Nav bar */}
@@ -126,6 +144,13 @@ export default function NavBar({ openModal }: { openModal: any }) {
                 openMobileNav={open}
                 onClick={() => setOpen(false)}
             />
+            <select onChange={handleGenreChange}>
+                {genres.map((genre, index) => (
+                    <option key={index} value={genre}>
+                        {genre}
+                    </option>
+                ))}
+            </select>
             <Flex
                 css={NavStyle.styles}
                 justifyContent={'space-between'}
