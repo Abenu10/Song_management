@@ -3,8 +3,6 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import Main from './layout/Main'
 import Home from './pages/Home'
 import GenrePage from './pages/PlaylistPage'
-import StatisticsPage from './pages/StatisticsPage'
-import FilteredSongsPage from './pages/FilteredSongsPage'
 
 //
 
@@ -32,6 +30,9 @@ import { jwtDecode } from 'jwt-decode'
 import { loginSuccess } from './state/auth/authSlice'
 import { fetchUserDetailsStart } from './state/user/userSlice'
 import axios, { AxiosResponse } from 'axios'
+import Playlist from './pages/playlist/Playlist'
+import PlaylistPage from './pages/PlaylistPage'
+import Statistics from './pages/statistics/Statistics'
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
@@ -214,12 +215,10 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/" element={<Main />}>
                     <Route index element={<Home />} />
-                    <Route path="playlist" element={<GenrePage />} />
-                    <Route
-                        path="playlist/:playlistID"
-                        element={<FilteredSongsPage />}
-                    />
-                    <Route path="Statistics" element={<StatisticsPage />} />
+                    {/* <Route path="playlist" element={<GenrePage />} /> */}
+                    <Route path="playlist" element={<PlaylistPage />} />
+                    <Route path="playlist/:playlistID" element={<Playlist />} />
+                    <Route path="Statistics" element={<Statistics />} />
                     {/* <Route path="editSong/:id" element={<EditSongPage />} /> */}
                 </Route>
             </Routes>

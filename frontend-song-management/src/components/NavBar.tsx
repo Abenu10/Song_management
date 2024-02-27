@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux'
 
 import { logoutStart } from '@/state/auth/authSlice'
 import { setSelectedGenre } from '../state/songs/songsSlice'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 const LogoutButton = styled.button`
     // Add your styles here. For example:
@@ -30,15 +31,26 @@ const LogoutButton = styled.button`
 `
 
 const AddSongButton = styled.button`
-    background: #1f6fd0;
-    color: rgb(230, 230, 230);
+    position: fixed;
+    right: 62px;
+    bottom: 131px;
+    background-color: #1f6fd0;
+    color: #fff;
     border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
+    border-radius: 50%; // This will make the button a perfect circle
+    padding: 0px;
+    z-index: 1000;
     display: flex;
     align-items: center;
+    justify-content: center;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease;
+    width: 60px; // Set the width of the button
+    height: 60px; // Set the height of the button
+
+    &:hover {
+        background-color: #0056b3;
+    }
 `
 const MenuIcon = styled(TbMenu2)`
     cursor: pointer;
@@ -55,6 +67,29 @@ const SearchContainer = styled.div`
     position: relative;
     display: flex;
     align-items: center;
+`
+const StyledSelect = styled.select`
+    padding: 10px;
+    background-color: #1f6fd0;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    &:focus {
+        box-shadow: 0 0 10px rgba(0, 0, 255, 0.2);
+        transform: scale(1.02);
+    }
+
+    option {
+        padding: 10px;
+        background-color: #1f6fd0;
+        color: #000;
+        border-radius: 4px;
+    }
 `
 const genres = [
     'All',
@@ -124,8 +159,8 @@ export default function NavBar({ openModal }: { openModal: any }) {
         }
     `
     const StyledIcon4 = styled(IoIosAddCircleOutline)`
-        margin-right: 10px;
-        font-size: 30px;
+        margin-right: 0px;
+        font-size: 60px;
     `
     const handleLogout = () => {
         dispatch(logoutStart())
@@ -139,32 +174,31 @@ export default function NavBar({ openModal }: { openModal: any }) {
     }
     return (
         <>
-            {/* Nav bar */}
-            <SmallScreenSidebar
-                openMobileNav={open}
-                onClick={() => setOpen(false)}
+            <ReactTooltip
+                id="my-tooltip-1"
+                place="top"
+                variant="info"
+                content="Add Song"
+                style={{ fontSize: '1.2rem' }}
             />
-            <select onChange={handleGenreChange}>
-                {genres.map((genre, index) => (
-                    <option key={index} value={genre}>
-                        {genre}
-                    </option>
-                ))}
-            </select>
+            <AddSongButton data-tooltip-id="my-tooltip-1" onClick={openModal}>
+                <StyledIcon4 />
+            </AddSongButton>
             <Flex
                 css={NavStyle.styles}
                 justifyContent={'space-between'}
                 alignItems={'center'}
             >
                 <Box>
-                    {/* <MenuIcon onClick={() => setOpen(true)} /> */}
-                    {/* <Flex> */}
-                    <AddSongButton onClick={openModal}>
-                        <StyledIcon4 />
-                        Add Song
-                    </AddSongButton>
-                    {/* </Flex> */}
+                    <StyledSelect onChange={handleGenreChange}>
+                        {genres.map((genre, index) => (
+                            <option key={index} value={genre}>
+                                {genre}
+                            </option>
+                        ))}
+                    </StyledSelect>
                 </Box>
+
                 <Box>
                     <SearchContainer
                         style={{
