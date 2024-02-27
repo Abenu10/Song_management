@@ -84,7 +84,7 @@ router.put(
       console.log(req.headers);
       const updatedSong = await Song.updateOne(
         {_id: req.params.id},
-        {$set: {imageUrl: data.url}},
+        {$set: {imageUrl: data.secure_url}},
         {new: true}
       );
 
@@ -102,6 +102,74 @@ router.get('/list', auth, async (req, res) => {
     res.status(200).json({message: 'list of songs', song: songs});
   } catch (error) {
     res.status(400).send(error);
+  }
+});
+// Generate stats
+router.get('/stats', async (req, res) => {
+  try {
+    // Fetch all songs
+    const songs = await Song.find();
+
+    // Calculate total statistics
+    const totalSongs = songs.length;
+    const totalArtists = new Set(songs.map((song) => song.artist)).size;
+    const totalAlbums = new Set(songs.map((song) => song.album)).size;
+    const totalGenres = new Set(songs.map((song) => song.genre)).size;
+
+    // number of  song in each genre
+    const genreCounts = await Song.aggregate([
+      {$group: {_id: '$genre', count: {$sum: 1}}},
+    ]);
+
+    // number of songs each artist has
+    const artistSongCounts = await Song.aggregate([
+      {
+        $group: {
+          _id: '$artist',
+          count: {$sum: 1},
+        },
+      },
+    ]);
+    //number of songs in each album
+    const albumSongCounts = await Song.aggregate([
+      {
+        $group: {
+          _id: '$album',
+          count: {$sum: 1},
+        },
+      },
+    ]);
+    //number  of albums each artist has
+    const albumCountsPerArtist = await Song.aggregate([
+      {
+        $group: {
+          _id: '$artist',
+          albums: {$addToSet: '$album'},
+        },
+      },
+      {
+        $project: {
+          artist: '$_id',
+          numberOfAlbums: {$size: '$albums'},
+        },
+      },
+    ]);
+
+    // Prepare and return the response data
+    const data = {
+      totalSongs,
+      totalArtists,
+      totalAlbums,
+      totalGenres,
+      genreCounts,
+      artistSongCounts,
+      albumSongCounts,
+      albumCountsPerArtist,
+    };
+
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({message: error.message});
   }
 });
 // Get a song by ID
@@ -212,42 +280,5 @@ router.put('/:id/like', async (req, res) => {
     res.status(500).send(err);
   }
 });
-// Generate stats
-router.get('/stats', async (req, res) => {
-  try {
-    const totalSongs = await Song.countDocuments();
-    const totalArtists = await Song.distinct('artist').countDocuments();
-    const totalAlbums = await Song.distinct('album').countDocuments();
-    const totalGenres = await Song.distinct('genre').countDocuments();
 
-    const songsByGenre = await Song.aggregate([
-      {$group: {_id: '$genre', count: {$sum: 1}}},
-      {$sort: {count: -1}},
-    ]);
-
-    const songsByArtist = await Song.aggregate([
-      {$group: {_id: '$artist', count: {$sum: 1}}},
-      {$sort: {count: -1}},
-    ]);
-
-    const songsByAlbum = await Song.aggregate([
-      {$group: {_id: '$album', count: {$sum: 1}}},
-      {$sort: {count: -1}},
-    ]);
-
-    const stats = {
-      totalSongs,
-      totalArtists,
-      totalAlbums,
-      totalGenres,
-      songsByGenre,
-      songsByArtist,
-      songsByAlbum,
-    };
-
-    res.status(200).send(stats);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
 module.exports = router;

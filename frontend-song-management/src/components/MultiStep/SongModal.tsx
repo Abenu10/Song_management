@@ -108,6 +108,7 @@ const FileName = styled.span`
 const StyledInput = styled.input`
     padding: 10px;
     /* Add playful spirit: */
+    color: #000;
     background-color: #f0f8ff;
     border: 1px solid #c0c0ff;
 

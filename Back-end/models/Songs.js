@@ -17,14 +17,15 @@ const SongSchema = new mongoose.Schema(
     genre: {
       type: String,
       enum: [
+        'Jazz',
+        'Electronic',
         'Rock',
         'Pop',
         'Hip-Hop',
-        'Electronic',
+        'Rap',
         'Classical',
-        'Jazz',
         'Ethiopian Music',
-        'Other',
+        'other',
       ],
       required: true,
     },

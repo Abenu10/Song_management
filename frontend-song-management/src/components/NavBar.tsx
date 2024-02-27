@@ -50,6 +50,7 @@ const AddSongButton = styled.button`
 
     &:hover {
         background-color: #0056b3;
+        
     }
 `
 const MenuIcon = styled(TbMenu2)`
