@@ -4,17 +4,27 @@ import { RootState } from '../../state/store'
 import styled from 'styled-components'
 import { Box, Flex, Text } from 'rebass'
 
-const StatsContainer = styled.div`
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-`
-
 const Dropdown = styled.select`
     width: 200px;
     height: 30px;
     margin-bottom: 20px;
 `
+const StatsContainer = styled.div`
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    animation: fadeIn 1s;
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+`
+
 const StyledSelect = styled.select`
     padding: 10px;
     background-color: #1f6fd0;
@@ -31,6 +41,11 @@ const StyledSelect = styled.select`
         transform: scale(1.02);
     }
 
+    &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 10px rgba(0, 0, 255, 0.2);
+    }
+
     option {
         padding: 10px;
         background-color: #1f6fd0;
@@ -38,7 +53,6 @@ const StyledSelect = styled.select`
         border-radius: 4px;
     }
 `
-
 const Statistics = () => {
     const dispatch = useDispatch()
     const stats = useSelector((state: RootState) => state.stats)
