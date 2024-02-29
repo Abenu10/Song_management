@@ -38,15 +38,15 @@ const StyledSelect = styled.select`
         border-radius: 4px;
     }
 `
+
 const Statistics = () => {
     const dispatch = useDispatch()
-    const stats = useSelector((state: RootState) => state.stats.stats)
+    const stats = useSelector((state: RootState) => state.stats)
     console.log(stats)
-    useEffect(() => {
-        dispatch({ type: 'stats/fetch' })
-    }, [dispatch])
 
-    const [selectedGenre, setSelectedGenre] = useState(stats.genreCounts[0]._id)
+    const [selectedGenre, setSelectedGenre] = useState(
+        stats?.genreCounts[0]._id
+    )
     const [selectedArtist, setSelectedArtist] = useState(
         stats.artistSongCounts[0]._id
     )

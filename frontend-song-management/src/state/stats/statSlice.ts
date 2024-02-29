@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface CountItem {
+interface Count {
     _id: string
     count: number
 }
@@ -16,12 +16,11 @@ interface StatsState {
     totalArtists: number
     totalAlbums: number
     totalGenres: number
-    genreCounts: CountItem[]
-    artistSongCounts: CountItem[]
-    albumSongCounts: CountItem[]
+    genreCounts: Count[]
+    artistSongCounts: Count[]
+    albumSongCounts: Count[]
     albumCountsPerArtist: AlbumCountPerArtist[]
     isLoading: boolean
-    stats: any
 }
 
 const initialState: StatsState = {
@@ -34,7 +33,6 @@ const initialState: StatsState = {
     albumSongCounts: [],
     albumCountsPerArtist: [],
     isLoading: false,
-    stats: null,
 }
 
 export const statsSlice = createSlice({
@@ -42,7 +40,7 @@ export const statsSlice = createSlice({
     initialState,
     reducers: {
         setStats: (state, action: PayloadAction<StatsState>) => {
-            state.stats = action.payload // Modify this line
+            return { ...state, ...action.payload }
         },
         setIsLoading: (state, action: PayloadAction<boolean>) => {
             state.isLoading = action.payload

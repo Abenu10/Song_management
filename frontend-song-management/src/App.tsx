@@ -130,6 +130,10 @@ function App() {
         setIsLoading(false)
     }, [dispatch])
 
+    useEffect(() => {
+        dispatch({ type: 'stats/fetch' })
+    }, [dispatch])
+
     const user = useSelector((state: RootState) => state.auth.user)
     const isFetching = useSelector((state: RootState) => state.auth.isFetching)
     const [isLoading, setIsLoading] = useState(true)

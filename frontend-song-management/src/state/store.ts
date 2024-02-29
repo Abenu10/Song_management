@@ -6,7 +6,7 @@ import createSagaMiddleware from 'redux-saga'
 import rootSaga from './rootSaga'
 import AuthReducer from '../state/auth/authSlice'
 import UserReducer from '../state/user/userSlice'
-import StatsReducer from '../state/stats/statSlice'
+import statsReducer from '../state/stats/statSlice'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -16,7 +16,7 @@ export const store = configureStore({
         player: PlayerReducer,
         auth: AuthReducer,
         user: UserReducer,
-        stats: StatsReducer,
+        stats: statsReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(sagaMiddleware),
