@@ -126,13 +126,14 @@ function App() {
             const decodedToken = jwtDecode(token)
             dispatch(loginSuccess({ user: decodedToken }))
             dispatch(fetchUserDetailsStart())
+            dispatch({ type: 'stats/fetch' })
         }
         setIsLoading(false)
     }, [dispatch])
 
-    useEffect(() => {
-        dispatch({ type: 'stats/fetch' })
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch({ type: 'stats/fetch' })
+    // }, [dispatch])
 
     const user = useSelector((state: RootState) => state.auth.user)
     const isFetching = useSelector((state: RootState) => state.auth.isFetching)
