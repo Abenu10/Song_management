@@ -106,19 +106,6 @@ const Music: React.FC<myComponentProp> = ({
     // FIXME: get the songs object state useselector
     const songs = useSelector((state: RootState) => state.songs.songs)
 
-    // const handleGenreChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     const selectedGenre = event.target.value
-    //     dispatch({
-    //         type: 'songsByGenre/fetchSongs',
-    //         payload: { genre: selectedGenre },
-    //     })
-    // }
-    // useEffect(() => {
-    //     dispatch({
-    //         type: 'songsByGenre/fetchSongs',
-    //         payload: { genre: 'genre' },
-    //     })
-    // }, [dispatch])
 
     const [optionIsOpened, setOptionIsOpened] = useState(false)
     const [markedItem, setMarkedItem] = useState(false)

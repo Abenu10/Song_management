@@ -68,7 +68,11 @@ function Home() {
             <Flex
                 flexDirection={'column'}
                 css={HomeStyle.styles}
-                style={{ backgroundColor: '#0d1117' }}
+                style={{
+                    backgroundColor: '#0d1117',
+                    overflow: 'auto',
+                    height: 'calc(100vh - 8rem)',
+                }}
             >
                 <Box>
                     <Text fontSize={5} fontWeight="bold">
@@ -100,6 +104,8 @@ function Home() {
                                   </>
                               )
                           })}
+                    <div style={{ height: '2rem' }}></div>
+                    <div style={{ height: '2rem' }}></div>
                 </Box>
             </Flex>
             {/* <Player songs={data} /> */}

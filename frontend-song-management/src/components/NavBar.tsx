@@ -34,23 +34,42 @@ const AddSongButton = styled.button`
     position: fixed;
     right: 62px;
     bottom: 131px;
-    background-color: #1f6fd0;
+    z-index: 1000;
     color: #fff;
     border: none;
     border-radius: 50%; // This will make the button a perfect circle
     padding: 0px;
-    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
-    transition: background-color 0.3s ease;
     width: 60px; // Set the width of the button
     height: 60px; // Set the height of the button
+    /* background-color: #1f6fd0; */
+    background: linear-gradient(
+        to right,
+
+        #1f6fd0,
+        transparent
+    );
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    transition: all 0.3s ease-in-out;
+    outline: 1px solid white;
 
     &:hover {
-        background-color: #0056b3;
-        
+        background: linear-gradient(
+            to right,
+
+            #1f6fd0,
+            transparent
+        );
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        transform: scale(1.05);
+    }
+
+    &:focus {
+        outline: 2px solid white; // Added outline of white
+        box-shadow: 0 0 4px rgba(0, 0, 255, 0.2);
+        transform: scale(1.02);
     }
 `
 const MenuIcon = styled(TbMenu2)`
@@ -134,7 +153,6 @@ export default function NavBar({ openModal }: { openModal: any }) {
     const SearchStyleInput = styled.input`
         padding: 10px 32px;
 
-        /* Add playful spirit: */
         background: linear-gradient(
             to right,
 
@@ -163,6 +181,7 @@ export default function NavBar({ openModal }: { openModal: any }) {
         margin-right: 0px;
         font-size: 60px;
     `
+
     const handleLogout = () => {
         dispatch(logoutStart())
         // Cookies.remove('token', { httpOnly: true, sameSite: 'strict' })
@@ -183,7 +202,18 @@ export default function NavBar({ openModal }: { openModal: any }) {
                 style={{ fontSize: '1.2rem' }}
             />
             <AddSongButton data-tooltip-id="my-tooltip-1" onClick={openModal}>
-                <StyledIcon4 />
+                {/* <StyledIcon4 /> */}
+                <svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 448 512"
+                    height="4em"
+                    width="4em"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path>
+                </svg>
             </AddSongButton>
             <Flex
                 css={NavStyle.styles}
