@@ -51,7 +51,7 @@ const SkeletonSong = () => {
                     flex={1.5}
                     css={playTitle.styles}
                 >
-                    <Box ml={2}>
+                    <Box ml={4}>
                         <Skeleton circle width={50} height={50} />{' '}
                         {/* Mimics the song image */}
                     </Box>
@@ -115,20 +115,5 @@ const SkeletonSong = () => {
         </>
     )
 }
-
-// const SkeletonBox = styled.div`
-//     display: flex;
-//     height: 100px;
-//     padding: 1rem;
-//     border-radius: 10px;
-//     /* Mimics the styles from Music.style.ts */
-//     background-color: #e1f2f7;
-//     color: #010101;
-//     border: none;
-//     border-radius: 10px;
-//     font-size: 16px;
-//     cursor: pointer;
-//     transition: background-color 0.3s ease;
-// `
 
 export default SkeletonSong

@@ -68,7 +68,6 @@ const Music: React.FC<myComponentProp> = ({
     _id,
     userId,
     likes,
-    // isLoading,
 }) => {
     const dispatch = useDispatch()
 
@@ -217,23 +216,10 @@ const Music: React.FC<myComponentProp> = ({
         <>
             {isLoading ? (
                 // If the component is still loading, display a skeleton
-                <SkeletonTheme baseColor="#161b22" highlightColor="#1f6fd0">
+                <SkeletonTheme baseColor="#39424e" highlightColor="#1f6fd0">
                     <div style={{ marginBottom: '6px' }}>
                         <SkeletonSong />
                     </div>
-                    {/* <Flex css={spotifyStyle}>
-                        <Skeleton count={1} height={30} />
-                    </Flex> */}
-                    {/* <SongBox>
-                        <Flex
-                            justifyContent="space-between"
-                            alignItems="center"
-                        >
-                            <Skeleton width="70%" height={20} />
-                            <Skeleton width={40} height={15} />
-                        </Flex>
-                        <Skeleton width="100%" height={15} mt={1} />
-                    </SongBox> */}
                 </SkeletonTheme>
             ) : (
                 <>
