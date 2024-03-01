@@ -14,6 +14,7 @@ const SongTableTitle = () => {
             justifyContent="start"
             css={titleStyle.styles}
             p={[2]}
+            style={{ marginBottom: '8px' }}
         >
             <Box flex={2}>
                 <Text fontSize={[2, 3, 4]} fontWeight="bold">

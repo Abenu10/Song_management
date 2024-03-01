@@ -70,8 +70,8 @@ function Home() {
                 css={HomeStyle.styles}
                 style={{
                     backgroundColor: '#0d1117',
-                    overflow: 'auto',
-                    height: 'calc(100vh - 8rem)',
+                    // overflow: 'auto',
+                    // height: 'calc(100vh - 8rem)',
                 }}
             >
                 <Box>
@@ -81,29 +81,30 @@ function Home() {
                 </Box>
                 <Box>
                     <SongTableTitle />
-                    {isLoading
-                        ? 'Loading'
-                        : songsToDisplay.map((song: Song) => {
-                              return (
-                                  <>
-                                      <Music
-                                          key={song._id}
-                                          artist={song.artist}
-                                          title={song.title}
-                                          album={song.album}
-                                          genre={song.genre}
-                                          songUrl={song.songUrl}
-                                          userId={song.userId}
-                                          likes={song.likes}
-                                          // imageUrl={}
-                                          _id={song._id}
-                                          //   date={song.createdAt.toISOString()}
-                                          date={format(song.createdAt)}
-                                          imageUrl={song.imageUrl}
-                                      />
-                                  </>
-                              )
-                          })}
+                    {songsToDisplay.map((song: Song) => {
+                        return (
+                            <>
+                                <Music
+                                    // isLoading={isLoading}
+                                    key={song._id}
+                                    artist={song.artist}
+                                    title={song.title}
+                                    album={song.album}
+                                    genre={song.genre}
+                                    songUrl={song.songUrl}
+                                    userId={song.userId}
+                                    likes={song.likes}
+                                    // imageUrl={}
+                                    _id={song._id}
+                                    //   date={song.createdAt.toISOString()}
+                                    date={format(song.createdAt)}
+                                    imageUrl={song.imageUrl}
+                                />
+                            </>
+                        )
+                    })}
+                    <div style={{ height: '2rem' }}></div>
+                    <div style={{ height: '2rem' }}></div>
                     <div style={{ height: '2rem' }}></div>
                     <div style={{ height: '2rem' }}></div>
                 </Box>

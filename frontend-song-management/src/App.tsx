@@ -96,7 +96,7 @@ function App() {
                 localStorage.removeItem('token')
 
                 // Navigate to login page
-                navigate('/login')
+                // navigate('/login')
             }, 36000) // 1 hour
         }
 
@@ -139,98 +139,40 @@ function App() {
     const isFetching = useSelector((state: RootState) => state.auth.isFetching)
     const [isLoading, setIsLoading] = useState(true)
 
-    useEffect(() => {
-        if (!user) {
-            navigate('/login')
-        }
-    }, [user, navigate])
-    // const { user } = useContext(AuthContext)
     console.log(user)
     console.log(isFetching)
 
-    // useEffect(() => {
-    //     // Simulate a network request
-    //     setTimeout(() => {
-    //       setIsFetching(false);
-    //     }, 2000);
-    //   }, []);
-
     const [openSidebar, setOpenSidebar] = useState(false)
-
-    const sideBarStyle = css`
-        position: fixed;
-        top: 0;
-        left: ${openSidebar ? '-350px' : '0px'};
-        width: 350px;
-        height: 100%;
-        background: #1d2228;
-        transition: all 0.5s ease;
-        font-weight: bolder;
-    `
-    const sideBarElement = css`
-        font-size: 20px;
-        color: #e1e2e2;
-
-        padding: 7px;
-        margin: 5px 16px;
-        box-sizing: border-box;
-        cursor: pointer;
-        border-radius: 10px;
-        &:hover {
-            color: #fb8122;
-        }
-        transition: 0.4s;
-    `
-
-    const header = css`
-        font-size: 22px;
-        color: #e1e2e2;
-        text-align: center;
-    `
-    const menu = css`
-        margin-top: 25px;
-        padding: 0px 10px;
-    `
-    function openMySidebar() {
-        setOpenSidebar((prev) => !prev)
-    }
-    function closeMySidebar() {
-        setOpenSidebar((prev) => !prev)
-    }
-    const hiddenOnMediumScreen = css`
-        @media (max-width: 768px) {
-            display: none;
-        }
-    `
 
     return (
         <>
-            {/* {isLoading ? (
+            {isLoading ? (
                 <div>Loading...</div>
-            ) : ( */}
-            <Routes>
-                <Route
-                    path="/login"
-                    element={!user ? <Login /> : <Navigate to="/" />}
-                />
-                <Route
-                    path="/register"
-                    element={!user ? <Register /> : <Navigate to="/" />}
-                />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/" element={<Main />}>
-                    <Route index element={<Home />} />
-                    {/* <Route path="playlist" element={<GenrePage />} /> */}
-                    <Route path="playlist" element={<PlaylistPage />} />
-                    <Route path="playlist/:playlistID" element={<Playlist />} />
-                    <Route path="Statistics" element={<Statistics />} />
-                    {/* <Route path="editSong/:id" element={<EditSongPage />} /> */}
-                </Route>
-            </Routes>
-            {/* ) */}
-            {/* } */}
-
-            {/* )} */}
+            ) : (
+                <Routes>
+                    <Route
+                        path="/login"
+                        element={!user ? <Login /> : <Navigate to="/" />}
+                    />
+                    <Route
+                        path="/register"
+                        element={!user ? <Register /> : <Navigate to="/" />}
+                    />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/" element={<Main />}>
+                        <Route index element={<Home />} />
+                        {/* <Route path="playlist" element={<GenrePage />} /> */}
+                        <Route path="playlist" element={<PlaylistPage />} />
+                        <Route
+                            path="playlist/:playlistID"
+                            element={<Playlist />}
+                        />
+                        <Route path="Statistics" element={<Statistics />} />
+                        {/* <Route path="editSong/:id" element={<EditSongPage />} /> */}
+                    </Route>
+                </Routes>
+            )}
+            s
         </>
     )
 }

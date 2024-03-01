@@ -115,17 +115,10 @@ function Login() {
                             )}
                         </LoginButton>
                         <LoginForgot>Forgot Password?</LoginForgot>
-                        <LoginRegisterButton>
-                            {isFetching ? (
-                                <CircularProgress
-                                    color="secondary"
-                                    size="20px"
-                                />
-                            ) : (
-                                'Create a New Account'
-                            )}
-                        </LoginRegisterButton>
                     </LoginBox>
+                    <LoginRegisterButton onClick={() => navigate('/register')}>
+                        Create a New Account
+                    </LoginRegisterButton>
                 </LoginRight>
             </LoginWrapper>
         </LoginContainer>

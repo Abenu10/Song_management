@@ -26,9 +26,9 @@ export const LoginLeft = styled.div`
 export const LoginRight = styled(LoginLeft)``
 
 export const LoginLogo = styled.div`
-    color: #1f6fd0;
     font-size: 50px;
     font-weight: 800;
+    color: #1775ee;
     margin-bottom: 10px;
 `
 
@@ -73,6 +73,8 @@ export const LoginButton = styled.button`
     &:disabled {
         cursor: not-allowed;
     }
+    top: -26px;
+position: relative;
 `
 
 export const LoginForgot = styled.span`
@@ -84,4 +86,6 @@ export const LoginRegisterButton = styled(LoginButton)`
     width: 60%;
     align-self: center;
     background-color: #42b72a;
+    position: relative;
+    top: -90px;
 `

@@ -1,6 +1,18 @@
+import {
+    Login,
+    LoginWrapper,
+    LoginLeft,
+    LoginRight,
+    LoginLogo,
+    LoginDesc,
+    LoginBox,
+    LoginInput,
+    LoginButton,
+    LoginForgot,
+    LoginRegisterButton,
+} from './Register.style'
 import { useRef } from 'react'
-import './register.css'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { RootState } from '../../state/store'
 // const api = axios.create({
 //     baseURL: import.meta.env.VITE_BASE_URL,
@@ -51,56 +63,52 @@ function Register() {
         <>
             {isFetching && <p>Loading...</p>}
             {error && <p>{error}</p>}
-            <div className="login">
-                <div className="loginWrapper">
-                    <div className="loginLeft">
-                        <div className="loginLogo">HabeshaNet</div>
-                        <span className="loginDesc">
-                            Connect with friends and the world around you on
-                            HabeshaNet.
-                        </span>
-                    </div>
-                    <div className="loginRight">
-                        <form className="loginBox" onSubmit={handleClick}>
-                            <input
+            <Login>
+                <LoginWrapper>
+                    <LoginLeft>
+                        <LoginLogo>Muzikabet</LoginLogo>
+                        <LoginDesc>
+                            Listen to music with others, discover new tracks,
+                            and share your passion for music on Muzikabet.
+                        </LoginDesc>
+                    </LoginLeft>
+                    <LoginRight>
+                        <LoginBox onSubmit={handleClick}>
+                            <LoginInput
                                 placeholder="name"
                                 required
                                 ref={name}
-                                className="loginInput"
                             />
-                            <input
+                            <LoginInput
                                 placeholder="Email"
                                 type="email"
                                 required
                                 ref={email}
-                                className="loginInput"
                             />
-                            <input
+                            <LoginInput
                                 placeholder="Password"
                                 type="password"
                                 required
                                 ref={password}
-                                className="loginInput"
                             />
-                            <input
+                            <LoginInput
                                 placeholder="Password Again"
                                 type="password"
                                 minLength={6}
                                 required
                                 ref={passwordAgain}
-                                className="loginInput"
                             />
-                            <button className="loginButton" type="submit">
-                                Sign Up
-                            </button>
+                            <LoginButton type="submit">Sign Up</LoginButton>
 
-                            <button className="loginRegisterButton">
+                            <LoginRegisterButton
+                                onClick={() => navigate('/login')}
+                            >
                                 Login into Account
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+                            </LoginRegisterButton>
+                        </LoginBox>
+                    </LoginRight>
+                </LoginWrapper>
+            </Login>
         </>
     )
 }

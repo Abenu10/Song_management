@@ -1,77 +1,87 @@
-.login {
+import styled from 'styled-components'
+
+export const Login = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: #f0f2f5;
+    background-color: #1d1e22;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+    background-color: #0d1117;
+`
 
-.loginWrapper {
+export const LoginWrapper = styled.div`
     width: 70%;
     height: 70%;
     display: flex;
-}
+`
 
-.loginLeft,
-.loginRight {
+export const LoginLeft = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-right: 15px;
-}
+`
 
-.loginLogo {
+export const LoginRight = styled(LoginLeft)``
+
+export const LoginLogo = styled.div`
     font-size: 50px;
     font-weight: 800;
     color: #1775ee;
     margin-bottom: 10px;
-}
+`
 
-.loginDesc {
+export const LoginDesc = styled.span`
     font-size: 24px;
-}
+`
 
-.loginBox {
+export const LoginBox = styled.form`
     height: 400px;
     padding: 20px;
-    background-color: white;
+    background-color: #010101;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
+`
 
-.loginInput {
+export const LoginInput = styled.input`
+    color: #010409;
     height: 50px;
     border-radius: 10px;
     border: 1px solid gray;
     font-size: 18px;
     padding-left: 20px;
-}
+    &:focus {
+        outline: none;
+    }
+`
 
-.loginInput:focus {
-    outline: none;
-}
-
-.loginButton {
+export const LoginButton = styled.button`
+    background-color: #1f6fd0;
     height: 50px;
     border-radius: 10px;
     border: none;
-    background-color: #1775ee;
     color: white;
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
-}
+    &:focus {
+        outline: none;
+    }
+    &:disabled {
+        cursor: not-allowed;
+    }
+`
 
-.loginForgot {
+export const LoginForgot = styled.span`
     text-align: center;
     color: #1775ee;
-}
+`
 
-.loginRegisterButton {
+export const LoginRegisterButton = styled.button`
     width: 60%;
     align-self: center;
     height: 50px;
@@ -82,4 +92,4 @@
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
-}
+`

@@ -37,14 +37,6 @@ export default function Main() {
             background-color: #0d1117;
         }
     `
-    const contentStyle = css`
-        color: black;
-        height: 100vh;
-
-        border-radius: 10px;
-    `
-    const [open, setOpen] = useState(false)
-    const location = useLocation()
 
     const openModal = () => setModalOpen(true) // Function to open modal
     const closeModal = () => setModalOpen(false) // Function to close modal
@@ -52,7 +44,11 @@ export default function Main() {
 
     return (
         <>
-            <Flex css={MainStyle.styles} alignItems={''}>
+            <Flex
+                css={MainStyle.styles}
+                alignItems={''}
+                style={{ minHeight: '100vh' }}
+            >
                 <Box>
                     <SideBar />
                 </Box>
