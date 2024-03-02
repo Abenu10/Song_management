@@ -61,6 +61,7 @@ export const StyledSelect = styled.select`
     box-shadow: 0 0 2px rgba(0, 0, 255, 0.1);
     transition: 0.2s ease-in-out;
     border-radius: 8px; /* Rounded corners */
+    color: black;
 
     /* Playful font */
     font-size: 18px;
@@ -82,14 +83,14 @@ const StyledOption = styled.option`
 `
 const Categories = [
     'Jazz',
-        'Electronic',
-        'Rock',
-        'Pop',
-        'Hip-Hop',
-        'Rap',
-        'Classical',
-        'Ethiopian Music',
-        'other',
+    'Electronic',
+    'Rock',
+    'Pop',
+    'Hip-Hop',
+    'Rap',
+    'Classical',
+    'Ethiopian Music',
+    'other',
 ]
 const Button = styled.button`
     background-color: #007bff;
@@ -98,6 +99,7 @@ const Button = styled.button`
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px;
 `
 
 const FileName = styled.span`
@@ -271,6 +273,7 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
             console.log(newSongId)
             // after using newSongId...
             dispatch({ type: 'song/resetNewSongId' })
+            dispatch({ type: 'songs/fetchSongs' })
         } else {
             // dispatch({ type: 'song/createSong', payload: { data: formData } })
         }

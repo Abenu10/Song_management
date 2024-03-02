@@ -28,7 +28,7 @@ export const StyledRemoveIcon = styled(MdDelete)`
 
 export const Button = styled.button`
     padding: 15px 30px;
-    background-color: #26408b;
+    background-color: #1f6fd0;
     color: #e1f2f7;
     border: none;
     border-radius: 10px;

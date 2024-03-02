@@ -12,7 +12,7 @@ const StatusCard : React.FC<myComponentProp> = ({title, data}) => {
 
     const cardStyle = css`
     gap: 20px;
-    border: 2px solid #a8bcc3;
+    border: 2px solid #00bbff;
     padding: 15px;
     color: #1F3044;
     border-radius: 10px;

@@ -17,7 +17,7 @@ export default function SideBar() {
 
         width: 350px;
 
-        //  background: #a8bcc3;
+       
         background: #010409;
         transition: all 0.5s ease;
         font-weight: bolder;

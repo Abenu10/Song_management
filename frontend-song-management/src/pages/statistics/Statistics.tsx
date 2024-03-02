@@ -157,7 +157,7 @@ const Statistics = () => {
                 alignItems={'center'}
                 css={`
                     gap: 10px;
-                    margin-top: 0px;
+                    margin-top: -140px;
                 `}
             >
                 <Box>

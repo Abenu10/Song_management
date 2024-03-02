@@ -57,7 +57,7 @@ export default function PlaylistPage() {
                     Playlists
                 </Text>
             </Box>
-            <Flex flexDirection={'row'} css={genreStyles.styles}>
+            {/* <Flex flexDirection={'row'} css={genreStyles.styles}>
                 {genres.map((data, i) => {
                     return (
                         <Link to={data.name} key={i}>
@@ -65,6 +65,18 @@ export default function PlaylistPage() {
                         </Link>
                     )
                 })}
+            </Flex> */}
+            <Flex
+                flexDirection={'row'}
+                justifyContent={'space-around'}
+                alignItems={'center'}
+                css={`
+                    gap: 10px;
+                `}
+            >
+                <Box>
+                    <Text fontSize={40}>Under Construction 🏗</Text>
+                </Box>
             </Flex>
         </Flex>
     )

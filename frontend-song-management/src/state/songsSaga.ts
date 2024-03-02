@@ -105,6 +105,7 @@ function* createSong(action: any) {
                 type: 'songs/setNewSongId',
                 payload: songId,
             })
+            yield put({ type: 'songs/fetchSongs' })
         } catch (error) {
             yield put(setCreateSongCauseAnError(true))
             yield put(setAddSongButtonLoading(false))
@@ -138,6 +139,7 @@ function* updateSongCover(action: any) {
                 )
             })
             console.log(response.data)
+            yield put({ type: 'songs/fetchSongs' })
         } catch (error) {
             console.log(error)
         }
@@ -161,6 +163,7 @@ function* updateSong(action: any) {
             yield put(setEditSongCauseAnError(false))
             console.log(response.data)
             yield put(setEditSongButtonLoading(false))
+            yield put({ type: 'songs/fetchSongs' })
         } catch (error) {
             yield put(setEditSongCauseAnError(true))
             yield put(setEditSongButtonLoading(false))
@@ -232,7 +235,8 @@ export function* fetchSongsSaga() {
 
 export function* fetchSongsByGenreSaga() {
     yield takeEvery('songsByGenre/fetchSongs', fetchSongsByGenre)
-}1
+}
+1
 
 export function* createSongSaga() {
     yield takeEvery('song/createSong', createSong)

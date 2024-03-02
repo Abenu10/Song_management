@@ -31,9 +31,9 @@ export default function Player({ songs }: PlayerProps) {
     const currentSongUrl = useSelector(
         (state: RootState) => state.player.currentSong?.songUrl
     )
-    
+
     console.log('currentSongUrl', currentSongUrl)
-    
+
     const currentSongTitle = useSelector(
         (state: RootState) => state.player.currentSong?.title
     )
@@ -82,7 +82,7 @@ export default function Player({ songs }: PlayerProps) {
                     <AudioPlayer
                         style={{
                             // borderRadius: '1rem',
-                            background: 'rgba(0, 0, 0, 0.4)',
+                            background: 'rgba(1, 4, 9, 0.4)',
                             backdropFilter: 'blur(10px)',
                             // borderRadius: '10px',
                             border: '1px solid rgba(255, 255, 255, 0.1)',

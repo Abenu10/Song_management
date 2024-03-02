@@ -172,9 +172,8 @@ const Music: React.FC<myComponentProp> = ({
         color: #1f3044;
         padding: 4px 4px;
         border-radius: 8px;
-        background-color: ${optionIsOpened ? '#a8bcc3' : ''};
-        background-color: ${markedItem ? '#a8bcc3' : ''};
-        /* max-width: 800px; */
+        background-color: ${optionIsOpened ? '#161b22' : ''};
+
         &:hover {
             background-color: #161b22;
         }

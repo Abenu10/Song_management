@@ -98,6 +98,7 @@ const Button = styled.button`
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px;
 `
 
 const FileName = styled.span`
@@ -165,7 +166,7 @@ const SongModal = ({
         title: '',
         artist: '',
         album: '',
-        genre: '',
+        genre: 'other',
         postAudio: '',
         postImage: '',
     }
@@ -208,15 +209,6 @@ const SongModal = ({
         e.preventDefault()
         handleClick()
 
-        // if (createSongCauseAnError === false && buttonIsLoading === false) {
-        //     await dispatch({
-        //         type: 'song/createSong',
-        //         payload: { data: formData },
-        //     })
-
-        // } else {
-        //     // dispatch({ type: 'song/createSong', payload: { data: formData } })
-        // }
         const response = await dispatch({
             type: 'song/createSong',
             payload: { data: formData },
@@ -247,8 +239,10 @@ const SongModal = ({
             setFormData(initialFormData)
             console.log(newSongIds)
             dispatch({ type: 'song/resetNewSongId' })
+            dispatch({ type: 'songs/fetchSongs' })
         } else {
             // dispatch({ type: 'song/createSong', payload: { data: formData } })
+            onClose()
         }
     }
     const handleClick = () => {
