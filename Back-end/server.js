@@ -13,7 +13,7 @@ const cors = require('cors');
 const corsOptions = {
   origin: [
     'http://localhost:5173',
-    'https://song-management-abjfnas2h-abenu10.vercel.app',
+    'https://song-management-1h3vjkies-abenu10.vercel.app',
   ],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
