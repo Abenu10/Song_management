@@ -3,6 +3,8 @@ name: Publish Docker Image to Docker Hub
 on:
   push:
     branches: ['master']
+    paths:
+      - 'Back-end/**'
 
 jobs:
   build:
@@ -20,5 +22,5 @@ jobs:
       - name: Build the Docker image
         run: docker build Back-end --file Back-end/Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/song_management-backend
 
-      - name: Docker Push
+      - name: Dohen there are changes in the Back-end directory. This means that when you cker Push
         run: docker push ${{ secrets.DOCKER_USERNAME }}/song_management-backend
