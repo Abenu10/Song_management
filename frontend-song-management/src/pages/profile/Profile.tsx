@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../state/store'
-import { fetchUserDetailsStart } from '@/state/user/userSlice'
+import { fetchUserDetailsStart } from '../../state/user/userSlice'
 
 const Profile = () => {
     const dispatch = useDispatch()

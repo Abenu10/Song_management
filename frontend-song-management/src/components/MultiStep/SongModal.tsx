@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, FormEvent } from 'react'
 import styled from 'styled-components'
-import { RootState } from '@/state/store'
+import { RootState } from '../../state/store'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 import { useDispatch } from 'react-redux'

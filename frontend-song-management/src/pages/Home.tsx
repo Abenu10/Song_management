@@ -6,10 +6,10 @@ import { css } from '@emotion/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../state/store'
 import { Key } from '@mui/icons-material'
-import Player from '@/components/Player/Player'
+import Player from '../components/Player/Player'
 import { backgroundColor } from 'styled-system'
 import { format } from 'timeago.js'
-import SongTableTitle from '@/components/Music/SongTableTitle'
+import SongTableTitle from '../components/Music/SongTableTitle'
 import { Analytics } from '@vercel/analytics/react'
 
 interface Song {

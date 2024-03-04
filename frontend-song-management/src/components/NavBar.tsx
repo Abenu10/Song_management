@@ -8,12 +8,12 @@ import { IoIosClose } from 'react-icons/io'
 import { IoIosSearch } from 'react-icons/io'
 import { Navigate, useLocation, useNavigate } from 'react-router'
 import { IoIosAddCircleOutline } from 'react-icons/io'
-import SmallScreenSidebar from './SmallScreen- ❌/SmallScreenSidebar'
+
 import { useState } from 'react'
 import SongModal from './MultiStep/SongModal'
 import { useDispatch } from 'react-redux'
 
-import { logoutStart } from '@/state/auth/authSlice'
+import { logoutStart } from '../state/auth/authSlice'
 import { setSelectedGenre } from '../state/songs/songsSlice'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 

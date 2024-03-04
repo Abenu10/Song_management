@@ -1,5 +1,5 @@
-import { setCurrentSong } from '@/state/player/PlayerSlice'
-import { RootState } from '@/state/store'
+import { setCurrentSong } from '../../state/player/PlayerSlice'
+import { RootState } from '../../state/store'
 import { useState, useEffect } from 'react'
 import AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css'
