@@ -45,7 +45,6 @@ function Home() {
         }
     }, [selectedGenre, dispatch])
 
-
     const data = useSelector((state: RootState) => state.songs.songs)
 
     const isLoading = useSelector(
