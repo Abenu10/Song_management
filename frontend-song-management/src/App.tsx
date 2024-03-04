@@ -24,7 +24,7 @@ import Profile from './pages/profile/Profile'
 import { RootState } from './state/store'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import Spinner from './components/spinner❌/Spinner'
+
 
 import { jwtDecode } from 'jwt-decode'
 import { loginSuccess } from './state/auth/authSlice'
@@ -84,31 +84,31 @@ function App() {
         return () => {
             window.removeEventListener('resize', handleResize)
         }
-        let timeoutId: NodeJS.Timeout
+        // let timeoutId: NodeJS.Timeout
 
-        function resetTimeout() {
-            // Clear the previous timeout
-            clearTimeout(timeoutId)
+        // function resetTimeout() {
+        //     // Clear the previous timeout
+        //     clearTimeout(timeoutId)
 
-            // Set a new timeout
-            timeoutId = setTimeout(() => {
-                // Remove the token from local storage
-                localStorage.removeItem('token')
+        //     // Set a new timeout
+        //     timeoutId = setTimeout(() => {
+        //         // Remove the token from local storage
+        //         localStorage.removeItem('token')
 
-                // Navigate to login page
-                // navigate('/login')
-            }, 36000) // 1 hour
-        }
+        //         // Navigate to login page
+        //         // navigate('/login')
+        //     }, 36000) // 1 hour
+        // }
 
         // Call resetTimeout whenever the user interacts with the application
-        window.onmousemove = resetTimeout
-        window.onmousedown = resetTimeout
-        window.onclick = resetTimeout
-        window.onscroll = resetTimeout
-        window.onkeypress = resetTimeout
+        // window.onmousemove = resetTimeout
+        // window.onmousedown = resetTimeout
+        // window.onclick = resetTimeout
+        // window.onscroll = resetTimeout
+        // window.onkeypress = resetTimeout
 
         // Set the initial timeout
-        resetTimeout()
+        // resetTimeout()
 
         // Clean up function to remove the event listeners when the component unmounts
         return () => {
