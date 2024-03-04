@@ -18,7 +18,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/song_management-backend
+        run: docker build Back-end --file Back-end/Dockerfile --tag ${{ secrets.DOCKER_USERNAME }}/song_management-backend
 
       - name: Docker Push
         run: docker push ${{ secrets.DOCKER_USERNAME }}/song_management-backend
