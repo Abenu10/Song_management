@@ -131,11 +131,16 @@ const SongModal = ({
     isOpen: boolean
     onClose: () => void
 }) => {
+      const showCreateSongSuccessToast = useSelector(
+          (state: RootState) => state.songs.showCreateSongSuccessToast
+      )
     const [page, setPage] = useState('pageone')
 
     const nextPage = (page) => {
         setPage(page)
     }
+
+
 
     const nextPageNumber = (pageNumber) => {
         switch (pageNumber) {
@@ -280,6 +285,12 @@ const SongModal = ({
 
     return isOpen ? (
         <ModalBackgrounds>
+            {showCreateSongSuccessToast && (
+                <SuccessToast
+                    isToastVisible={showCreateSongSuccessToast}
+                    toastMessage="Song created successfully."
+                />
+            )}
             <ModalContent ref={modalRef}>
                 <MultiStepProgressBar
                     page={page}

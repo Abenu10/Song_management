@@ -136,6 +136,9 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
     isOpen,
     onClose,
 }) => {
+     const showEditSongSuccessToast = useSelector(
+        (state: RootState) => state.songs.showEditSongSuccessToast
+    )
     console.log('songId:', songId)
     const [song, setSong] = useState(null)
     useEffect(() => {
@@ -312,6 +315,13 @@ const EditSongModal: React.FC<EditSongModalProps> = ({
 
     return isOpen ? (
         <ModalBackground onClick={onClose}>
+            
+     {showEditSongSuccessToast && (
+                            <SuccessToast
+                                isToastVisible={showEditSongSuccessToast}
+                                toastMessage="Song edited successfully."
+                            />
+                        )}
             <ModalContent ref={modalRef} onClick={(e) => e.stopPropagation()}>
                 <MultiStepProgressBar
                     page={page}

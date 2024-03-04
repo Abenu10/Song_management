@@ -9,9 +9,13 @@ import { useDispatch } from 'react-redux'
 
 type myComponentProp = {
     isToastVisible: boolean
+    toastMessage: string
 }
 
-const SuccessToast: React.FC<myComponentProp> = ({ isToastVisible }) => {
+const SuccessToast: React.FC<myComponentProp> = ({
+    isToastVisible,
+    toastMessage,
+}) => {
     const dispach = useDispatch()
     useEffect(() => {
         setTimeout(() => {
@@ -73,7 +77,7 @@ to {
             >
                 <StyledCheckMark />
 
-                <Text fontSize={3}>Song deleted successfully.</Text>
+                <Text fontSize={3}>{toastMessage}</Text>
             </Flex>
         </ToastContainer>
     )

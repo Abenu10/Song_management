@@ -39,7 +39,6 @@ function* fetchSongsByGenre(action: any) {
         const response: AxiosResponse = yield call(() =>
             api.get(`${VITE_BASE_URL}/songs/list/${genre}`)
         )
-
         if (response.data.message === 'list of songs by genre') {
             yield put(setSongsByGenre(response.data.song))
         } else {
@@ -105,6 +104,10 @@ function* createSong(action: any) {
                 type: 'songs/setNewSongId',
                 payload: songId,
             })
+             yield put({
+                 type: 'songs/createSongSuccessToast',
+                 payload: response.data,
+             })
             yield put({ type: 'songs/fetchSongs' })
         } catch (error) {
             yield put(setCreateSongCauseAnError(true))
@@ -164,6 +167,7 @@ function* updateSong(action: any) {
             console.log(response.data)
             yield put(setEditSongButtonLoading(false))
             yield put({ type: 'songs/fetchSongs' })
+            yield put({ type: 'songs/editSongSuccess', payload: response.data })
         } catch (error) {
             yield put(setEditSongCauseAnError(true))
             yield put(setEditSongButtonLoading(false))

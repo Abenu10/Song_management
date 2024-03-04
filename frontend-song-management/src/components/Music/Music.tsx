@@ -226,7 +226,8 @@ const Music: React.FC<myComponentProp> = ({
                         onClick={handlePlayPause}
                         style={{ cursor: 'pointer' }}
                     >
-                        <SuccessToast isToastVisible={showSuccessToast} />
+                        {/* <SuccessToast isToastVisible={showSuccessToast} /> */}
+
                         <FailedToast isToastVisible={showFailedToast} />
 
                         {/* Render modal if isOpen is true */}

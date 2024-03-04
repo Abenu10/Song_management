@@ -34,6 +34,8 @@ interface Songs {
 
     newSongId: string | null
     newSongIds: string | null
+    showCreateSongSuccessToast: boolean
+    showEditSongSuccessToast: boolean
     selectedGenre: string | null
 }
 
@@ -72,6 +74,8 @@ const initialState: Songs = {
     showOpenDeleteModal: false,
     newSongId: '',
     newSongIds: '',
+    showCreateSongSuccessToast: false,
+    showEditSongSuccessToast: false,
     selectedGenre: null,
 }
 
@@ -138,6 +142,14 @@ const songsSlice = createSlice({
         },
         setSelectedGenre: (state, action: PayloadAction<string | null>) => {
             state.selectedGenre = action.payload
+        },
+        createSongSuccessToast: (state, action: PayloadAction<Song>) => {
+            state.songs.push(action.payload);
+            state.showCreateSongSuccessToast = true;
+        },
+        editSongSuccessToast: (state, action: PayloadAction<Song>) => {
+            state.songs = state.songs.map(song => song._id === action.payload._id ? action.payload : song);
+            state.showEditSongSuccessToast = true;
         },
     },
 })

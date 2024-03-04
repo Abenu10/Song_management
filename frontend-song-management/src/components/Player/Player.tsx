@@ -87,7 +87,7 @@ export default function Player({ songs }: PlayerProps) {
                             // borderRadius: '10px',
                             border: '1px solid rgba(255, 255, 255, 0.1)',
                             // boxShadow: '0 8px 32px 0 rgba(31, 111, 208, 0.20)',
-                            color: 'rgba(255, 255, 255, 0.75)',
+                            color: 'rgba(255, 0, 0, 0.75)',
                             height: '8rem',
                         }}
                         autoPlay
@@ -104,7 +104,7 @@ export default function Player({ songs }: PlayerProps) {
                                 ? currentSongTitle
                                 : musicTracks[trackIndex].title
                         }`}
-                        footer="music app"
+                        footer="Muzika bet"
                         onClickPrevious={handleClickPrevious}
                         onClickNext={handleClickNext}
                         onEnded={handleClickNext}
