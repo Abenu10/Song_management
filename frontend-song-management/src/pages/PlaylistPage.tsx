@@ -5,6 +5,7 @@ import Genre from '../components/Genre'
 
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 
 type genre = {
     name: string
@@ -51,13 +52,14 @@ export default function PlaylistPage() {
     }, [])
 
     return (
-        <Flex flexDirection={'column'}>
-            <Box>
-                <Text fontSize={6} fontWeight="bold" mb={2}>
-                    Playlists
-                </Text>
-            </Box>
-            {/* <Flex flexDirection={'row'} css={genreStyles.styles}>
+        <>
+            <Flex flexDirection={'column'}>
+                <Box>
+                    <Text fontSize={6} fontWeight="bold" mb={2}>
+                        Playlists
+                    </Text>
+                </Box>
+                {/* <Flex flexDirection={'row'} css={genreStyles.styles}>
                 {genres.map((data, i) => {
                     return (
                         <Link to={data.name} key={i}>
@@ -66,18 +68,20 @@ export default function PlaylistPage() {
                     )
                 })}
             </Flex> */}
-            <Flex
-                flexDirection={'row'}
-                justifyContent={'space-around'}
-                alignItems={'center'}
-                css={`
-                    gap: 10px;
-                `}
-            >
-                <Box>
-                    <Text fontSize={40}>Under Construction 🏗</Text>
-                </Box>
+                <Flex
+                    flexDirection={'row'}
+                    justifyContent={'space-around'}
+                    alignItems={'center'}
+                    css={`
+                        gap: 10px;
+                    `}
+                >
+                    <Box>
+                        <Text fontSize={40}>Under Construction 🏗</Text>
+                    </Box>
+                </Flex>
             </Flex>
-        </Flex>
+            <Analytics />
+        </>
     )
 }

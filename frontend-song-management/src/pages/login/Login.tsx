@@ -24,6 +24,7 @@ import {
     LoginRegisterButton,
 } from './Login.style'
 import { fetchUserDetailsStart } from '../../state/user/userSlice'
+import { Analytics } from '@vercel/analytics/react'
 
 // Call this function after login
 const checkToken = async () => {
@@ -80,48 +81,53 @@ function Login() {
     // console.log(user)
 
     return (
-        <LoginContainer>
-            <LoginWrapper>
-                <LoginLeft>
-                    <LoginLogo>Muzikabet</LoginLogo>
-                    <LoginDesc>
-                        Listen to music with others, discover new tracks, and
-                        share your passion for music on Muzikabet.
-                    </LoginDesc>
-                </LoginLeft>
-                <LoginRight>
-                    <LoginBox onSubmit={handleSubmit}>
-                        <LoginInput
-                            placeholder="Email"
-                            type="email"
-                            required
-                            ref={email}
-                        />
-                        <LoginInput
-                            placeholder="Password"
-                            type="password"
-                            minLength="6"
-                            required
-                            ref={password}
-                        />
-                        <LoginButton type="submit" disabled={isFetching}>
-                            {isFetching ? (
-                                <CircularProgress
-                                    color="secondary"
-                                    size="20px"
-                                />
-                            ) : (
-                                'Log In'
-                            )}
-                        </LoginButton>
-                        <LoginForgot>Forgot Password?</LoginForgot>
-                    </LoginBox>
-                    <LoginRegisterButton onClick={() => navigate('/register')}>
-                        Create a New Account
-                    </LoginRegisterButton>
-                </LoginRight>
-            </LoginWrapper>
-        </LoginContainer>
+        <>
+            <LoginContainer>
+                <LoginWrapper>
+                    <LoginLeft>
+                        <LoginLogo>Muzikabet</LoginLogo>
+                        <LoginDesc>
+                            Listen to music with others, discover new tracks,
+                            and share your passion for music on Muzikabet.
+                        </LoginDesc>
+                    </LoginLeft>
+                    <LoginRight>
+                        <LoginBox onSubmit={handleSubmit}>
+                            <LoginInput
+                                placeholder="Email"
+                                type="email"
+                                required
+                                ref={email}
+                            />
+                            <LoginInput
+                                placeholder="Password"
+                                type="password"
+                                minLength="6"
+                                required
+                                ref={password}
+                            />
+                            <LoginButton type="submit" disabled={isFetching}>
+                                {isFetching ? (
+                                    <CircularProgress
+                                        color="secondary"
+                                        size="20px"
+                                    />
+                                ) : (
+                                    'Log In'
+                                )}
+                            </LoginButton>
+                            <LoginForgot>Forgot Password?</LoginForgot>
+                        </LoginBox>
+                        <LoginRegisterButton
+                            onClick={() => navigate('/register')}
+                        >
+                            Create a New Account
+                        </LoginRegisterButton>
+                    </LoginRight>
+                </LoginWrapper>
+            </LoginContainer>
+            <Analytics />
+        </>
     )
 }
 

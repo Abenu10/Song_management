@@ -20,6 +20,7 @@ import { RootState } from '../../state/store'
 import { FormEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerStart } from '../../state/auth/authSlice'
+import { Analytics } from '@vercel/analytics/react'
 
 function Register() {
     const name = useRef<HTMLInputElement>(null)
@@ -109,6 +110,7 @@ function Register() {
                     </LoginRight>
                 </LoginWrapper>
             </Login>
+            <Analytics />
         </>
     )
 }

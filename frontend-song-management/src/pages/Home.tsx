@@ -10,6 +10,7 @@ import Player from '@/components/Player/Player'
 import { backgroundColor } from 'styled-system'
 import { format } from 'timeago.js'
 import SongTableTitle from '@/components/Music/SongTableTitle'
+import { Analytics } from '@vercel/analytics/react'
 
 interface Song {
     _id: string
@@ -109,6 +110,7 @@ function Home() {
                     <div style={{ height: '2rem' }}></div>
                 </Box>
             </Flex>
+            <Analytics />
             {/* <Player songs={data} /> */}
         </>
     )

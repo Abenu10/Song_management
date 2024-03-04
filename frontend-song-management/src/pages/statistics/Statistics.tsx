@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../state/store'
 import styled from 'styled-components'
 import { Box, Flex, Text } from 'rebass'
+import { Analytics } from '@vercel/analytics/react'
 
 const Dropdown = styled.select`
     width: 200px;
@@ -81,95 +82,98 @@ const Statistics = () => {
         setSelectedAlbum(event.target.value)
     }
     return (
-        <div>
-            <h1>Statistics</h1>
-            <StatsContainer>
-                <div>Total Songs: {stats.totalSongs}</div>
-                <div>Total Artists: {stats.totalArtists}</div>
-                <div>Total Albums: {stats.totalAlbums}</div>
-                <div>Total Genres: {stats.totalGenres}</div>
-            </StatsContainer>
+        <>
+            <div>
+                <h1>Statistics</h1>
+                <StatsContainer>
+                    <div>Total Songs: {stats.totalSongs}</div>
+                    <div>Total Artists: {stats.totalArtists}</div>
+                    <div>Total Albums: {stats.totalAlbums}</div>
+                    <div>Total Genres: {stats.totalGenres}</div>
+                </StatsContainer>
 
-            <Flex
-                flexDirection={'row'}
-                justifyContent={'space-around'}
-                css={`
-                    gap: 10px;
-                    margin-top: 20px;
-                    margin-bottom: 200px;
-                `}
-            >
-                <Box>
-                    <StyledSelect onChange={handleGenreChange}>
-                        {stats.genreCounts.map((item) => (
-                            <option key={item._id} value={item._id}>
-                                {item._id}
-                            </option>
-                        ))}
-                    </StyledSelect>
-                    <div>
-                        Songs in selected genre:{' '}
-                        {
-                            stats.genreCounts.find(
-                                (item) => item._id === selectedGenre
-                            )?.count
-                        }
-                    </div>
-                </Box>
-                <Box>
-                    <StyledSelect onChange={handleArtistChange}>
-                        {stats.artistSongCounts.map((item) => (
-                            <option key={item._id} value={item._id}>
-                                {item._id}
-                            </option>
-                        ))}
-                    </StyledSelect>
-                    <div>
-                        Songs by selected artist:{' '}
-                        {
-                            stats.artistSongCounts.find(
-                                (item) => item._id === selectedArtist
-                            )?.count
-                        }
-                    </div>
-                </Box>
-                <Box>
-                    <StyledSelect onChange={handleAlbumChange}>
-                        {stats.albumSongCounts.map((item) => (
-                            <option key={item._id} value={item._id}>
-                                {item._id}
-                            </option>
-                        ))}
-                    </StyledSelect>
-                    <div>
-                        Songs in selected album:{' '}
-                        {
-                            stats.albumSongCounts.find(
-                                (item) => item._id === selectedAlbum
-                            )?.count
-                        }
-                    </div>
-                </Box>
-            </Flex>
-            <Flex
-                flexDirection={'row'}
-                justifyContent={'space-around'}
-                alignItems={'center'}
-                css={`
-                    gap: 10px;
-                    margin-top: -140px;
-                `}
-            >
-                <Box>
-                    {stats.albumCountsPerArtist.map((item) => (
-                        <div key={item._id}>
-                            Artist: {item.artist}, Number of Albums:{' '}
-                            {item.numberOfAlbums}
+                <Flex
+                    flexDirection={'row'}
+                    justifyContent={'space-around'}
+                    css={`
+                        gap: 10px;
+                        margin-top: 20px;
+                        margin-bottom: 200px;
+                    `}
+                >
+                    <Box>
+                        <StyledSelect onChange={handleGenreChange}>
+                            {stats.genreCounts.map((item) => (
+                                <option key={item._id} value={item._id}>
+                                    {item._id}
+                                </option>
+                            ))}
+                        </StyledSelect>
+                        <div>
+                            Songs in selected genre:{' '}
+                            {
+                                stats.genreCounts.find(
+                                    (item) => item._id === selectedGenre
+                                )?.count
+                            }
                         </div>
-                    ))}
-                </Box>
-            </Flex>
-        </div>
+                    </Box>
+                    <Box>
+                        <StyledSelect onChange={handleArtistChange}>
+                            {stats.artistSongCounts.map((item) => (
+                                <option key={item._id} value={item._id}>
+                                    {item._id}
+                                </option>
+                            ))}
+                        </StyledSelect>
+                        <div>
+                            Songs by selected artist:{' '}
+                            {
+                                stats.artistSongCounts.find(
+                                    (item) => item._id === selectedArtist
+                                )?.count
+                            }
+                        </div>
+                    </Box>
+                    <Box>
+                        <StyledSelect onChange={handleAlbumChange}>
+                            {stats.albumSongCounts.map((item) => (
+                                <option key={item._id} value={item._id}>
+                                    {item._id}
+                                </option>
+                            ))}
+                        </StyledSelect>
+                        <div>
+                            Songs in selected album:{' '}
+                            {
+                                stats.albumSongCounts.find(
+                                    (item) => item._id === selectedAlbum
+                                )?.count
+                            }
+                        </div>
+                    </Box>
+                </Flex>
+                <Flex
+                    flexDirection={'row'}
+                    justifyContent={'space-around'}
+                    alignItems={'center'}
+                    css={`
+                        gap: 10px;
+                        margin-top: -140px;
+                    `}
+                >
+                    <Box>
+                        {stats.albumCountsPerArtist.map((item) => (
+                            <div key={item._id}>
+                                Artist: {item.artist}, Number of Albums:{' '}
+                                {item.numberOfAlbums}
+                            </div>
+                        ))}
+                    </Box>
+                </Flex>
+            </div>
+            <Analytics />
+        </>
     )
 }
 

@@ -12,6 +12,7 @@ import { RootState } from '@/state/store'
 import SongModal from '@/components/MultiStep/SongModal'
 import { useState } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router'
+import { Analytics } from '@vercel/analytics/react'
 
 interface Song {
     _id: string
@@ -59,7 +60,8 @@ export default function Main() {
                 </Box>
             </Flex>
             <Player songs={data} />
-            <SongModal isOpen={modalOpen} onClose={closeModal} />{' '}
+            <SongModal isOpen={modalOpen} onClose={closeModal} />
+            <Analytics />
         </>
     )
 }
