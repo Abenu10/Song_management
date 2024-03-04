@@ -10,12 +10,15 @@ const app = express();
 app.use(cookieParser());
 
 const cors = require('cors');
-// const corsOptions = {
-//   origin: 'https://song-management.vercel.app/',
-//   credentials: true, //access-control-allow-credentials:true
-//   optionSuccessStatus: 200,
-// };
-app.use(cors());
+const corsOptions = {
+  origin: [
+    'http://localhost:5173',
+    'https://song-management-abjfnas2h-abenu10.vercel.app',
+  ],
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 connectDB();
 
 // Init MIddleware
