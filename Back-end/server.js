@@ -11,7 +11,7 @@ app.use(cookieParser());
 
 const cors = require('cors');
 const corsOptions = {
-  origin: 'http://localhost:5173',
+  origin: 'https://song-management.vercel.app/',
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
@@ -32,5 +32,5 @@ app.use('/api/playlist', require('./routes/api/playlist'));
 
 const PORT = process.env.PORT || 8800;
 app.listen(PORT, console.log(`Listening on port ${PORT}`));
-// 
-// 
+//
+//
