@@ -23,24 +23,16 @@ import { JwtPayload } from 'jwt-decode'
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
 function* fetchSongs() {
-    const token = localStorage.getItem('token')
-    if (token) {
-        const decodedToken: JwtPayload = jwtDecode(token)
-        const currentTime = Date.now() / 1000
-        if (decodedToken?.exp && decodedToken.exp < currentTime) {
-            yield put(push('/login')) // Redirect to login if token is expired
+    try {
+        const response: AxiosResponse = yield call(() => api.get('/songs/list'))
+        if (response.data.message === 'list of songs') {
+            console.log(response)
+            yield put(setSongs(response.data.song))
         } else {
-            try {
-                const response = yield call(() =>
-                    api.get(`${VITE_BASE_URL}/songs/list`)
-                )
-                yield put(setSongs(response.data.song))
-            } catch (err) {
-                console.log(err)
-            }
+            console.log('Unexpected response message:', response.data.message)
         }
-    } else {
-        yield put(push('/login')) // Redirect to login if no token is found
+    } catch (error) {
+        console.log(error)
     }
 }
 function* fetchSongsByGenre(action: any) {
