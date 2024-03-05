@@ -32,20 +32,14 @@ function* fetchSongs() {
         } else {
             try {
                 const response = yield call(
-                    axios.get,
-                    `https://song-management-h8a8.onrender.com/api/songs/list`,
-                    {
-                        headers: {
-                            Authorization: token ? `Bearer ${token}` : '',
-                        },
-                    }
+                    api.get,
+                    `${VITE_BASE_URL}/songs/list`
                 )
                 yield put(setSongs(response.data.song))
             } catch (err) {
                 console.log(err)
             }
         }
-        // 
     } else {
         yield put(push('/login')) // Redirect to login if no token is found
     }
