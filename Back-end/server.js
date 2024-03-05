@@ -17,6 +17,7 @@ const corsOptions = {
     'https://song-management.vercel.app',
     'https://www.muzikabet.tech',
     'https://song-management-lyq1zj467-abenu10.vercel.app/',
+    'https://song-management-ov73.vercel.app',
   ],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
