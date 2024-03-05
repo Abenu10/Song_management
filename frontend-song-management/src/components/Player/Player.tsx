@@ -80,7 +80,7 @@ export default function Player({ songs }: PlayerProps) {
             <Playercontainer>
                 {musicTracks[trackIndex] && (
                     <AudioPlayer
-                        style={{
+       j                 style={{
                             // borderRadius: '1rem',
                             background: 'rgba(1, 4, 9, 0.4)',
                             backdropFilter: 'blur(10px)',
