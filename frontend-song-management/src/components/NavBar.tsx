@@ -113,7 +113,7 @@ const StyledSelect = styled.select`
     }
 `
 const genres = [
-    'All',
+    'Ethiopian Music',
     'Jazz',
     'Electronic',
     'Rock',
@@ -190,7 +190,7 @@ export default function NavBar({ openModal }: { openModal: any }) {
     }
     const handleGenreChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedGenre =
-            event.target.value === 'All' ? '' : event.target.value
+            event.target.value === 'Ethiopian Music' ? '' : event.target.value
         dispatch({ type: 'songs/setSelectedGenre', payload: selectedGenre })
     }
     return (
