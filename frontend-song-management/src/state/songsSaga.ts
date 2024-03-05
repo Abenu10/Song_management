@@ -31,9 +31,8 @@ function* fetchSongs() {
             yield put(push('/login')) // Redirect to login if token is expired
         } else {
             try {
-                const response = yield call(
-                    api.get,
-                    `${VITE_BASE_URL}/songs/list`
+                const response = yield call(() =>
+                    api.get(`${VITE_BASE_URL}/songs/list`)
                 )
                 yield put(setSongs(response.data.song))
             } catch (err) {
