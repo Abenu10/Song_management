@@ -59,3 +59,33 @@ yarn dev
 ```
 
 The application should now be running at http://localhost:3000.
+
+## 🐳 Docker Deployment
+
+This application is also set up to run in Docker containers. Here's how you can get started:
+
+### Prerequisites
+
+- Docker
+- Docker Compose
+
+1.  **Building the Docker Image:**
+
+To build the Docker image for the backend service, run the following command:
+
+```sh
+docker-compose build
+```
+
+2. **Start the Docker containers:**
+
+```sh
+docker-compose up
+```
+
+## 🐳 You can also pull the Docker image from Docker Hub: 🐳
+
+```sh
+docker pull abenu/song_management-backend
+```
+
