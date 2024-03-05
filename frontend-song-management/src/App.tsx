@@ -177,12 +177,11 @@ function App() {
                             path="playlist/:playlistID"
                             element={<Playlist />}
                         />
-                        <Route path="Statistics" element={<Statistics />} />
+                        <Route path="/Statistics" element={<Statistics />} />
                         {/* <Route path="editSong/:id" element={<EditSongPage />} /> */}
                     </Route>
                 </Routes>
             )}
-            s
         </>
     )
 }
