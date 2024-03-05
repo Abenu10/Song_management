@@ -104,10 +104,10 @@ function* createSong(action: any) {
                 type: 'songs/setNewSongId',
                 payload: songId,
             })
-             yield put({
-                 type: 'songs/createSongSuccessToast',
-                 payload: response.data,
-             })
+            yield put({
+                type: 'songs/createSongSuccessToast',
+                payload: response.data,
+            })
             yield put({ type: 'songs/fetchSongs' })
         } catch (error) {
             yield put(setCreateSongCauseAnError(true))

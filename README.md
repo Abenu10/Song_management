@@ -1,6 +1,7 @@
-# 🎵 Song Management Application 🎵
+# 🎵 Muzikabet🎵
+![Muzikabet](https://res.cloudinary.com/dptx5wjus/image/upload/v1709624445/post-images/music_kgfpja.png)
 
-Welcome to our Song Management Application! This is a full-stack application built with passion and love for music. It's designed to help you manage your songs, explore different genres, and much more.
+Welcome to our Music Application! This is a full-stack application built with passion and love for music. It's designed to help you manage your songs, explore different genres, and much more.
 
 ## 🚀 Features
 
