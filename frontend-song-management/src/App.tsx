@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
 import Main from './layout/Main'
@@ -34,31 +36,6 @@ import PlaylistPage from './pages/PlaylistPage'
 import Statistics from './pages/statistics/Statistics'
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
-
-const StyledIcon = styled(IoMdHome)`
-    margin-right: 10px;
-    font-size: 30px;
-`
-const StyledIcon2 = styled(BiCategory)`
-    margin-right: 10px;
-    font-size: 30px;
-`
-const StyledIcon3 = styled(IoStatsChart)`
-    margin-right: 10px;
-    font-size: 30px;
-`
-const MenuIcon = styled(TbMenu2)`
-    position: absolute;
-    cursor: pointer;
-    left: 0;
-    top: 25px;
-    font-size: 35px;
-`
-const CloseIcon = styled(IoIosClose)`
-    font-size: 40px;
-    cursor: pointer;
-    transition: all 0.5s ease;
-`
 
 function App() {
     const dispatch = useDispatch()
