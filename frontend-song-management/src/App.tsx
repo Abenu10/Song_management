@@ -25,7 +25,6 @@ import { RootState } from './state/store'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 
-
 import { jwtDecode } from 'jwt-decode'
 import { loginSuccess } from './state/auth/authSlice'
 import { fetchUserDetailsStart } from './state/user/userSlice'
@@ -64,6 +63,31 @@ const CloseIcon = styled(IoIosClose)`
 function App() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    useEffect(() => {
+        const checkToken = async () => {
+            const token = localStorage.getItem('token')
+            if (token) {
+                try {
+                    const response = await axios.get(
+                        'http://localhost:8800/api/auth/user/id',
+                        {
+                            headers: { Authorization: `Bearer ${token}` },
+                        }
+                    )
+                    if (!response.data.userId) {
+                        navigate('/login')
+                    }
+                } catch (error) {
+                    localStorage.removeItem('token')
+                    navigate('/login')
+                }
+            } else {
+                navigate('/login')
+            }
+        }
+
+        checkToken()
+    }, [navigate])
     useEffect(() => {
         const handleResize = () => {
             // Check the screen width and update the state accordingly

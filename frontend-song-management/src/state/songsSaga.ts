@@ -13,24 +13,35 @@ import {
     setOpenDeleteModal,
     setSong,
 } from './songs/songsSlice'
-
+import { push } from 'connected-react-router'
+import { jwtDecode } from 'jwt-decode'
 import axios, { AxiosResponse } from 'axios'
 import { RootState } from './store'
 import api from '../api/apiCalls'
+import { JwtPayload } from 'jwt-decode'
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
 function* fetchSongs() {
-    try {
-        const response: AxiosResponse = yield call(() => api.get('/songs/list'))
-        if (response.data.message === 'list of songs') {
-            console.log(response)
-            yield put(setSongs(response.data.song))
+    const token = localStorage.getItem('token')
+    if (token) {
+        const decodedToken: JwtPayload = jwtDecode(token)
+        const currentTime = Date.now() / 1000
+        if (decodedToken?.exp && decodedToken.exp < currentTime) {
+            yield put(push('/login')) // Redirect to login if token is expired
         } else {
-            console.log('Unexpected response message:', response.data.message)
+            try {
+                const response = yield call(
+                    api.get,
+                    `${VITE_BASE_URL}/songs/list`
+                )
+                yield put(setSongs(response.data.song))
+            } catch (err) {
+                console.log(err)
+            }
         }
-    } catch (error) {
-        console.log(error)
+    } else {
+        yield put(push('/login')) // Redirect to login if no token is found
     }
 }
 function* fetchSongsByGenre(action: any) {
