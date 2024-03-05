@@ -34,12 +34,14 @@ import axios, { AxiosResponse } from 'axios'
 import Playlist from './pages/playlist/Playlist'
 import PlaylistPage from './pages/PlaylistPage'
 import Statistics from './pages/statistics/Statistics'
-
+import { useLocation } from 'react-router-dom'
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
 function App() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
+
     useEffect(() => {
         const checkToken = async () => {
             const token = localStorage.getItem('token')
@@ -51,15 +53,22 @@ function App() {
                             headers: { Authorization: `Bearer ${token}` },
                         }
                     )
-                    if (!response.data.userId) {
+                    if (
+                        !response.data.userId &&
+                        location.pathname !== '/register'
+                    ) {
                         navigate('/login')
                     }
                 } catch (error) {
                     localStorage.removeItem('token')
-                    navigate('/login')
+                    if (location.pathname !== '/register') {
+                        navigate('/login')
+                    }
                 }
             } else {
-                navigate('/login')
+                if (location.pathname !== '/register') {
+                    navigate('/login')
+                }
             }
         }
 
