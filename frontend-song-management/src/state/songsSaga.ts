@@ -32,8 +32,13 @@ function* fetchSongs() {
         } else {
             try {
                 const response = yield call(
-                    api.get,
-                    `${VITE_BASE_URL}/songs/list`
+                    axios.get,
+                    `https://song-management-h8a8.onrender.com/api/songs/list`,
+                    {
+                        headers: {
+                            Authorization: token ? `Bearer ${token}` : '',
+                        },
+                    }
                 )
                 yield put(setSongs(response.data.song))
             } catch (err) {
