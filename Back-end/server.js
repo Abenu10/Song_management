@@ -10,19 +10,20 @@ const app = express();
 app.use(cookieParser());
 
 const cors = require('cors');
-const corsOptions = {
-  origin: [
-    'http://localhost:5173',
-    'https://song-management-1h3vjkies-abenu10.vercel.app',
-    'https://song-management.vercel.app',
-    'https://www.muzikabet.tech',
-    'https://song-management-lyq1zj467-abenu10.vercel.app/',
-    'https://song-management-ov73.vercel.app',
-  ],
-  credentials: true, //access-control-allow-credentials:true
-  optionSuccessStatus: 200,
-};
-app.use(cors(corsOptions));
+//const corsOptions = {
+  //origin: [
+    //'http://localhost:5173',
+    //'https://song-management-1h3vjkies-abenu10.vercel.app',
+    //'https://song-management.vercel.app',
+    //'https://www.muzikabet.tech',
+    //'https://song-management-lyq1zj467-abenu10.vercel.app/',
+    //'https://song-management-ov73.vercel.app',
+  //],
+  //credentials: true, //access-control-allow-credentials:true
+  //optionSuccessStatus: 200,
+//};
+//app.use(cors(corsOptions));
+app.use(cors());
 connectDB();
 
 // Init MIddleware
