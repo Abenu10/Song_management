@@ -1,4 +1,4 @@
 node_modules/
 config/default.json
 config/default.json
-.env/
+.env
