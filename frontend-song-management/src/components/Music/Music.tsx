@@ -292,10 +292,11 @@ const Music: React.FC<myComponentProp> = ({
                                             width: '45px',
                                             height: '45px',
                                             borderRadius: '5px',
+                                            objectFit: 'cover',
                                         }}
                                         src={
                                             imageUrl ||
-                                            'https://th.bing.com/th/id/OIP.keIG-gLYH4XdTkLvAFqI2QHaEo?rs=1&pid=ImgDetMain'
+                                            'https://res.cloudinary.com/dptx5wjus/image/upload/v1709624715/post-images/istockphoto-1351449908-1024x1024_w9jrty.jpg'
                                         }
                                     />
                                 </Box>
