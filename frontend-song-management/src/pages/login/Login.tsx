@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -94,13 +94,13 @@ function Login() {
                     <LoginRight>
                         <LoginBox onSubmit={handleSubmit}>
                             <LoginInput
-                                placeholder="Email"
+                                placeholder="test@gmail.com"
                                 type="email"
                                 required
                                 ref={email}
                             />
                             <LoginInput
-                                placeholder="Password"
+                                placeholder="123456"
                                 type="password"
                                 minLength="6"
                                 required
