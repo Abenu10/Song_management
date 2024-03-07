@@ -98,6 +98,7 @@ function Login() {
                                 type="email"
                                 required
                                 ref={email}
+                                defaultValue="test@gmail.com"
                             />
                             <LoginInput
                                 placeholder="123456"
@@ -105,6 +106,7 @@ function Login() {
                                 minLength="6"
                                 required
                                 ref={password}
+                                defaultValue="123456"
                             />
                             <LoginButton type="submit" disabled={isFetching}>
                                 {isFetching ? (
