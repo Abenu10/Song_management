@@ -12,6 +12,7 @@ import {
     setShowFailedToast,
     setOpenDeleteModal,
     setSong,
+    searchTermChanged,
 } from './songs/songsSlice'
 import { push } from 'connected-react-router'
 import { jwtDecode } from 'jwt-decode'
@@ -230,6 +231,9 @@ function* deleteSongById(action: any) {
         console.log(error)
     }
 }
+function* updateSearchTerm(action) {
+    yield put(searchTermChanged(action.payload))
+}
 
 export function* postLoginInitializationSaga() {
     yield takeLatest('auth/postLoginInit', fetchSongs)
@@ -268,4 +272,7 @@ function* watchResetNewSongId() {
     yield takeEvery('song/resetNewSongId', function* () {
         // additional logic here...
     })
+}
+export function* watchSearchTermChange() {
+    yield takeLatest('SEARCH_TERM_CHANGED', updateSearchTerm)
 }

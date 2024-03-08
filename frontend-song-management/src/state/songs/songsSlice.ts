@@ -37,6 +37,7 @@ interface Songs {
     showCreateSongSuccessToast: boolean
     showEditSongSuccessToast: boolean
     selectedGenre: string | null
+    searchTerm: string
 }
 
 const initialState: Songs = {
@@ -77,6 +78,7 @@ const initialState: Songs = {
     showCreateSongSuccessToast: false,
     showEditSongSuccessToast: false,
     selectedGenre: null,
+    searchTerm: '',
 }
 
 const songsSlice = createSlice({
@@ -144,12 +146,17 @@ const songsSlice = createSlice({
             state.selectedGenre = action.payload
         },
         createSongSuccessToast: (state, action: PayloadAction<Song>) => {
-            state.songs.push(action.payload);
-            state.showCreateSongSuccessToast = true;
+            state.songs.push(action.payload)
+            state.showCreateSongSuccessToast = true
         },
         editSongSuccessToast: (state, action: PayloadAction<Song>) => {
-            state.songs = state.songs.map(song => song._id === action.payload._id ? action.payload : song);
-            state.showEditSongSuccessToast = true;
+            state.songs = state.songs.map((song) =>
+                song._id === action.payload._id ? action.payload : song
+            )
+            state.showEditSongSuccessToast = true
+        },
+        searchTermChanged: (state, action: PayloadAction<string>) => {
+            state.searchTerm = action.payload
         },
     },
 })
@@ -171,6 +178,7 @@ export const {
     fetchSongById,
     updateSong,
     setSelectedGenre,
+    searchTermChanged,
 } = songsSlice.actions
 
 export default songsSlice.reducer

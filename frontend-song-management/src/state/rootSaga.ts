@@ -8,6 +8,7 @@ import {
     deleteSongByIdSaga,
     postLoginInitializationSaga,
     watchFetchSongByIdSaga,
+    watchSearchTermChange,
 } from './songsSaga'
 
 import {
@@ -35,5 +36,6 @@ export default function* rootSaga() {
         watchLogout(),
         watchFetchSongByIdSaga(),
         watchFetchStats(),
+        watchSearchTermChange(),
     ])
 }

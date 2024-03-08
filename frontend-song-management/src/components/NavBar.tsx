@@ -193,6 +193,9 @@ export default function NavBar({ openModal }: { openModal: any }) {
             event.target.value === 'All' ? '' : event.target.value
         dispatch({ type: 'songs/setSelectedGenre', payload: selectedGenre })
     }
+    const handleSearchChange = (event) => {
+        dispatch({ type: 'SEARCH_TERM_CHANGED', payload: event.target.value })
+    }
     return (
         <>
             <ReactTooltip
@@ -242,6 +245,7 @@ export default function NavBar({ openModal }: { openModal: any }) {
                         <SearchStyleInput
                             type="text"
                             placeholder="Search for songs, artists etc..."
+                            onChange={handleSearchChange}
                         />
                     </SearchContainer>
                 </Box>

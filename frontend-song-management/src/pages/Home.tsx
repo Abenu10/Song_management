@@ -30,6 +30,7 @@ interface Song {
 
 function Home() {
     const dispatch = useDispatch()
+    const searchTerm = useSelector((state: RootState) => state.songs.searchTerm)
     const songsByGenre = useSelector(
         (state: RootState) => state.songs.songsByGenre
     )
@@ -65,6 +66,14 @@ function Home() {
     console.log(data)
 
     const songsToDisplay = selectedGenre ? songsByGenre : data
+
+    const filteredSongs = songsToDisplay.filter(
+        (song) =>
+            song.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            song.artist.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            song.album.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            song.genre.toLowerCase().includes(searchTerm.toLowerCase())
+    )
     return (
         <>
             <Flex
@@ -83,7 +92,7 @@ function Home() {
                 </Box>
                 <Box>
                     <SongTableTitle />
-                    {songsToDisplay.map((song: Song) => {
+                    {filteredSongs.map((song: Song) => {
                         return (
                             <>
                                 <Music
