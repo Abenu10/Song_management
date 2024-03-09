@@ -13,12 +13,12 @@ import {
     setOpenDeleteModal,
     setSong,
     searchTermChanged,
-} from './songs/songsSlice'
+} from './songsSlice'
 import { push } from 'connected-react-router'
 import { jwtDecode } from 'jwt-decode'
 import axios, { AxiosResponse } from 'axios'
-import { RootState } from './store'
-import api from '../api/apiCalls'
+import { RootState } from '../store'
+import api from '../../api/apiCalls'
 import { JwtPayload } from 'jwt-decode'
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL

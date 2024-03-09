@@ -292,7 +292,7 @@ router.get('/search', async (req, res) => {
 
 // TODO: like song
 //song id on the parameter , user id in the req.body
-router.put('/:id/like', async (req, res) => {
+router.put('/:id/like',auth, async (req, res) => {
   try {
     const song = await Song.findById(req.params.id);
     if (!song.likes.includes(req.body.userId)) {
@@ -304,6 +304,14 @@ router.put('/:id/like', async (req, res) => {
     }
   } catch (err) {
     res.status(500).send(err);
+  }
+});
+router.get('/user/likes', auth, async (req, res) => {
+  try {
+    const songs = await Song.find({ likes: req.userId });
+    res.status(200).json(songs);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 

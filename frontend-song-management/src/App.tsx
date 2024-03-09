@@ -35,6 +35,7 @@ import Playlist from './pages/playlist/Playlist'
 import PlaylistPage from './pages/PlaylistPage'
 import Statistics from './pages/statistics/Statistics'
 import { useLocation } from 'react-router-dom'
+import Library from './pages/Librarys/Library'
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
 function App() {
@@ -173,6 +174,7 @@ function App() {
                         <Route index element={<Home />} />
                         {/* <Route path="playlist" element={<GenrePage />} /> */}
                         <Route path="playlist" element={<PlaylistPage />} />
+                        <Route path="library" element={<Library />} />
                         <Route
                             path="playlist/:playlistID"
                             element={<Playlist />}

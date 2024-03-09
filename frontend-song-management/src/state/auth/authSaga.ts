@@ -10,18 +10,18 @@ import {
     logoutStart,
     logoutSuccess,
     logoutFailure,
-} from '../state/auth/authSlice'
+} from './authSlice'
 import {
     fetchUserDetailsStart,
     fetchUserDetailsSuccess,
     fetchUserDetailsFailure,
-} from '../state/user/userSlice'
+} from '../user/userSlice'
 import axios, { AxiosResponse } from 'axios'
 // import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
 
-import { fetchSongsSaga } from './songsSaga'
-import api from '../api/apiCalls'
+import { fetchSongsSaga } from '../songs/songsSaga'
+import api from '../../api/apiCalls'
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 

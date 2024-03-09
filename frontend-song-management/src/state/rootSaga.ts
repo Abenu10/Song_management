@@ -9,7 +9,7 @@ import {
     postLoginInitializationSaga,
     watchFetchSongByIdSaga,
     watchSearchTermChange,
-} from './songsSaga'
+} from './songs/songsSaga'
 
 import {
     watchLogin,
@@ -17,8 +17,8 @@ import {
     // watchFetchUserFromCookie,
     watchLogout,
     watchFetchUserDetails,
-} from './authSaga'
-import { watchFetchStats } from './statSaga'
+} from './auth/authSaga'
+import { watchFetchStats } from './stats/statSaga'
 
 export default function* rootSaga() {
     yield all([

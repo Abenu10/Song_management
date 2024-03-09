@@ -23,8 +23,8 @@
 
 import { call, put, takeEvery } from 'redux-saga/effects'
 import axios, { AxiosResponse } from 'axios'
-import { setStats, setIsLoading } from './stats/statSlice'
-import api from '../api/apiCalls'
+import { setStats, setIsLoading } from './statSlice'
+import api from '../../api/apiCalls'
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL
 
