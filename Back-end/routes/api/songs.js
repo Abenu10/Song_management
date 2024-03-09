@@ -13,55 +13,9 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const upload = require('../../middleware/upload');
 const Song = require('../../models/Songs');
+const redis = require('./redis');
 
-const Redis = require('ioredis');
 
-// Connect to your internal Redis instance using the REDIS_URL environment variable
-// The REDIS_URL is set to the internal Redis URL e.g. redis://red-343245ndffg023:6379
-const redis = new Redis(process.env.REDIS_URL);
-
-redis.on('connect', () => {
-  console.log('Successfully connected to Redis');
-});
-
-// Set and retrieve some values
-redis.set('key', 'ioredis');
-
-redis.get('key', function (err, result) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log(result);
-  }
-});
-
-// list all songs
-// list all songs
-router.get('/list', auth, async (req, res) => {
-  try {
-    const start = Date.now();
-
-    // Try to get the songs from Redis first
-    const cachedSongs = await redis.get('songs');
-
-    if (cachedSongs) {
-      console.log('Serving from cache');
-      console.log(`Response time: ${Date.now() - start} ms`);
-      res
-        .status(200)
-        .json({message: 'list of songs', song: JSON.parse(cachedSongs)});
-    } else {
-      console.log('Serving from database');
-      const songs = await Song.find();
-      // Store the songs in Redis, with an expiration time of 1 hour
-      redis.set('songs', JSON.stringify(songs), 'EX', 60 * 60);
-      console.log(`Response time: ${Date.now() - start} ms`);
-      res.status(200).json({message: 'list of songs', song: songs});
-    }
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
 router.get('/clear-cache', async (req, res) => {
   try {
     await redis.flushdb();
@@ -152,14 +106,29 @@ router.put(
   }
 );
 // list all songs
-// router.get('/list', auth, async (req, res) => {
-//   try {
-//     const songs = await Song.find();
-//     res.status(200).json({message: 'list of songs', song: songs});
-//   } catch (error) {
-//     res.status(400).send(error);
-//   }
-// });
+// list all songs
+router.get('/list', auth, async (req, res) => {
+  try {
+    const start = Date.now();
+    const cachedSongs = await redis.get('songs');
+    if (cachedSongs) {
+      console.log('Serving from cache');
+      
+      console.log(`Response time: ${Date.now() - start} ms`);
+      res
+        .status(200)
+        .json({message: 'list of songs', song: JSON.parse(cachedSongs)});
+    } else {
+      console.log('Serving from database');
+      const songs = await Song.find();
+      redis.set('songs', JSON.stringify(songs), 'EX', 60 * 60);
+      console.log(`Response time: ${Date.now() - start} ms`);
+      res.status(200).json({message: 'list of songs', song: songs});
+    }
+  } catch (error) {
+    res.status(500).json({message: 'An error occurred', error: error.message});
+  }
+});
 
 // Generate stats
 router.get('/stats', auth, async (req, res) => {

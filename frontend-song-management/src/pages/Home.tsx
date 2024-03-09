@@ -96,7 +96,6 @@ function Home() {
                         return (
                             <>
                                 <Music
-                                    // isLoading={isLoading}
                                     key={song._id}
                                     artist={song.artist}
                                     title={song.title}
