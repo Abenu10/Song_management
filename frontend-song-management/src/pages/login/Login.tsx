@@ -72,6 +72,7 @@ function Login() {
                     password: password.current?.value,
                 })
             )
+            dispatch({ type: 'stats/fetch' })
             // navigate('/')
             // checkToken()
         } catch (error) {

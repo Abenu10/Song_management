@@ -6,9 +6,11 @@ import styled from '@emotion/styled'
 import { Flex, Box, Text } from 'rebass'
 
 import { Link, useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 //
 
 export default function SideBar() {
+    const dispatch = useDispatch()
     const location = useLocation()
     const sideBarStyle = css`
         height: 100vh;
@@ -150,6 +152,9 @@ export default function SideBar() {
                             paddingLeft: '40px',
                         }}
                         ml={40}
+                        onClick={() => {
+                            dispatch({ type: 'stats/fetch' })
+                        }}
                     >
                         <Box mr={20}>
                             <svg
