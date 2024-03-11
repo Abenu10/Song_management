@@ -42,6 +42,22 @@ export const likedSongsSlice = createSlice({
             state.status = 'failed'
             state.error = action.payload
         },
+        likeSongStart: (state, action: PayloadAction<string>) => {
+            // You can set some state values here if needed
+        },
+        likeSongSuccess: (state, action: PayloadAction<LikedSong>) => {
+            // Update the liked song in the state
+            const index = state.songs.findIndex(
+                (song) => song._id === action.payload._id
+            )
+            if (index !== -1) {
+                state.songs[index] = action.payload
+            }
+        },
+        likeSongFailure: (state, action: PayloadAction<string>) => {
+            state.status = 'failed'
+            state.error = action.payload
+        },
     },
 })
 
@@ -49,6 +65,9 @@ export const {
     fetchLikedSongsStart,
     fetchLikedSongsSuccess,
     fetchLikedSongsFailure,
+    likeSongStart,
+    likeSongSuccess,
+    likeSongFailure,
 } = likedSongsSlice.actions
 
 export default likedSongsSlice.reducer

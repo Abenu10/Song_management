@@ -19,6 +19,7 @@ import {
     watchFetchUserDetails,
 } from './auth/authSaga'
 import { watchFetchStats } from './stats/statSaga'
+import { likedSongsSaga, likeSongsSaga } from './likedSongs/likedSongsSaga'
 
 export default function* rootSaga() {
     yield all([
@@ -37,5 +38,7 @@ export default function* rootSaga() {
         watchFetchSongByIdSaga(),
         watchFetchStats(),
         watchSearchTermChange(),
+        likeSongsSaga(),
+        likedSongsSaga(),
     ])
 }
