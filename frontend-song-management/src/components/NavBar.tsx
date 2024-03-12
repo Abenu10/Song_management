@@ -50,18 +50,18 @@ const AddSongButton = styled.button`
         to right,
 
         #1f6fd0,
-        transparent
+        #010409
     );
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
     transition: all 0.3s ease-in-out;
-    outline: 1px solid white;
+    /* outline: 1px solid white; */
 
     &:hover {
         background: linear-gradient(
             to right,
 
             #1f6fd0,
-            transparent
+            #010409
         );
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
         transform: scale(1.05);
@@ -175,7 +175,7 @@ export default function NavBar({ openModal }: { openModal: any }) {
         &:focus {
             box-shadow: 0 0 4px rgba(0, 0, 255, 0.2);
             border-color: #53555c;
-            outline: auto;
+            /* outline: auto; */
         }
     `
     const StyledIcon4 = styled(IoIosAddCircleOutline)`
