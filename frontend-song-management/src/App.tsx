@@ -142,9 +142,20 @@ function App() {
         setIsLoading(false)
     }, [dispatch])
 
-    // useEffect(() => {
-    //     dispatch({ type: 'stats/fetch' })
-    // }, [dispatch])
+    //       useEffect(() => {
+    //     const token = localStorage.getItem('token');
+    //     if (token) {
+    //       const decodedToken = jwtDecode(token);
+    //       const expirationTime = decodedToken.exp * 1000; // Convert to milliseconds
+    //       if (Date.now() >= expirationTime) {
+    //         localStorage.removeItem('token');
+    //         dispatch(loginFailure('Token expired'));
+    //       }
+    //     }
+    //   }, [dispatch]);
+    useEffect(() => {
+        dispatch({ type: 'stats/fetch' })
+    }, [dispatch])
 
     const user = useSelector((state: RootState) => state.auth.user)
     const isFetching = useSelector((state: RootState) => state.auth.isFetching)
