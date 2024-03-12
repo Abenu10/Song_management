@@ -15,7 +15,6 @@ const upload = require('../../middleware/upload');
 const Song = require('../../models/Songs');
 const redis = require('./redis');
 
-
 router.get('/clear-cache', async (req, res) => {
   try {
     await redis.flushdb();
@@ -113,7 +112,7 @@ router.get('/list', auth, async (req, res) => {
     const cachedSongs = await redis.get('songs');
     if (cachedSongs) {
       console.log('Serving from cache');
-      
+
       console.log(`Response time: ${Date.now() - start} ms`);
       res
         .status(200)
@@ -292,14 +291,14 @@ router.get('/search', async (req, res) => {
 
 // TODO: like song
 //song id on the parameter , user id in the req.body
-router.put('/:id/like',auth, async (req, res) => {
+router.put('/:id/like', auth, async (req, res) => {
   try {
     const song = await Song.findById(req.params.id);
-    if (!song.likes.includes(req.body.userId)) {
-      await song.updateOne({$push: {likes: req.body.userId}});
+    if (!song.likes.includes(req.userId)) {
+      await song.updateOne({$push: {likes: req.userId}});
       res.status(200).send('The song has been liked');
     } else {
-      await song.updateOne({$pull: {likes: req.body.userId}});
+      await song.updateOne({$pull: {likes: req.userId}});
       res.status(200).json('The song has been disliked');
     }
   } catch (err) {
@@ -308,10 +307,10 @@ router.put('/:id/like',auth, async (req, res) => {
 });
 router.get('/user/likes', auth, async (req, res) => {
   try {
-    const songs = await Song.find({ likes: req.userId });
+    const songs = await Song.find({likes: req.userId});
     res.status(200).json(songs);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({message: error.message});
   }
 });
 

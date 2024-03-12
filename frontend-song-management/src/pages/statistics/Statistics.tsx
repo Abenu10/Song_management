@@ -15,6 +15,11 @@ const StatsContainer = styled.div`
     justify-content: space-around;
     margin-bottom: 20px;
     animation: fadeIn 1s;
+    background-color: #1f6fd0;
+    border-radius: 10px;
+    padding: 20px;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
     @keyframes fadeIn {
         0% {
