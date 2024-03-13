@@ -105,7 +105,6 @@ router.put(
   }
 );
 // list all songs
-// list all songs
 router.get('/list', auth, async (req, res) => {
   try {
     const start = Date.now();
@@ -271,7 +270,7 @@ router.delete('/:id', async (req, res) => {
     }
     const publicId = song.publicId.split('/').pop();
     await removeFromCloudinary(publicId);
-    const deletedSong = await Song.findByIdAndDelete(req.params.id);
+  const deletedSong = await Song.findByIdAndDelete(req.params.id);
     res.status(200).json({message: 'song Deleted', song: deletedSong});
   } catch (error) {
     res.status(400).send(error);
@@ -296,10 +295,10 @@ router.put('/:id/like', auth, async (req, res) => {
     const song = await Song.findById(req.params.id);
     if (!song.likes.includes(req.userId)) {
       await song.updateOne({$push: {likes: req.userId}});
-      res.status(200).send('The song has been liked');
+      res.status(200).json({message: 'You liked the song', song: song});
     } else {
       await song.updateOne({$pull: {likes: req.userId}});
-      res.status(200).json('The song has been disliked');
+      res.status(200).json({message: 'You disliked the song', song: song});
     }
   } catch (err) {
     res.status(500).send(err);
