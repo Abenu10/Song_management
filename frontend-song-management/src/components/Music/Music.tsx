@@ -229,7 +229,7 @@ const Music: React.FC<myComponentProp> = ({
         }
     }
 
-    console.log(user._id)
+    // console.log(user._id)
     console.log(likes)
     useEffect(() => {
         setIsLiked(
