@@ -80,7 +80,7 @@ const Music: React.FC<myComponentProp> = ({
     const dispatch = useDispatch()
     const [isLiked, setIsLiked] = useState(false)
     const user = useSelector((state: RootState) => state.user.user)
-    //console.log(user)
+    //    //console.log(user)
     const isPlaying = useSelector((state: RootState) => state.player.isPlaying)
     const currentSong = useSelector(
         (state: RootState) => state.player.currentSong?.songUrl
@@ -88,20 +88,20 @@ const Music: React.FC<myComponentProp> = ({
     const [previousPlayingState, setPreviousPlayingState] =
         useState<boolean>(false) // Store the previous playing state
 
-    // console.log('_id:', _id) // Log the _id value
-    console.log('song data:', {
-        album,
-        artist,
-        genre,
-        imageUrl,
-        songUrl,
-        date,
-        title,
-        _id,
-        userId,
-        likes,
-    }) // Log the song data
-    // console.log(title)
+    //    // console.log('_id:', _id) // Log the _id value
+    //    console.log('song data:', {
+    //     album,
+    //     artist,
+    //     genre,
+    //     imageUrl,
+    //     songUrl,
+    //     date,
+    //     title,
+    //     _id,
+    //     userId,
+    //     likes,
+    // }) // Log the song data
+    //    // console.log(title)
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
@@ -159,9 +159,9 @@ const Music: React.FC<myComponentProp> = ({
         setMarkedItem(false)
         setOpenDeleteModal(false)
 
-        console.log('close')
+        //        console.log('close')
     }
-    // console.log(markedItem)
+    //    // console.log(markedItem)
 
     const StyledContent = styled.div`
         z-index: 10;
@@ -229,14 +229,14 @@ const Music: React.FC<myComponentProp> = ({
         }
     }
 
-    // console.log(user._id)
-    console.log(likes)
+    //    // console.log(user._id)
+    //    console.log(likes)
     useEffect(() => {
         setIsLiked(
             user._id ? likes?.includes(String(user._id)) || false : false
         )
     }, [likes])
-    console.log(isLiked)
+    //    console.log(isLiked)
     return (
         <>
             {isLoading ? (
