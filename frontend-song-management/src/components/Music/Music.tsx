@@ -88,7 +88,7 @@ const Music: React.FC<myComponentProp> = ({
     const [previousPlayingState, setPreviousPlayingState] =
         useState<boolean>(false) // Store the previous playing state
 
-    console.log('_id:', _id) // Log the _id value
+    // console.log('_id:', _id) // Log the _id value
     console.log('song data:', {
         album,
         artist,
