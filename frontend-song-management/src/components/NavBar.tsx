@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // import Cookies from 'js-cookie'
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
@@ -12,11 +12,12 @@ import { IoIosAddCircleOutline } from 'react-icons/io'
 
 import { useState } from 'react'
 import SongModal from './MultiStep/SongModal'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { logoutStart } from '../state/auth/authSlice'
 import { setSelectedGenre } from '../state/songs/songsSlice'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
+import { RootState } from '../state/store'
 
 const LogoutButton = styled.button`
     // Add your styles here. For example:
@@ -130,6 +131,15 @@ export default function NavBar({ openModal }: { openModal: any }) {
     const navigate = useNavigate()
     const [open, setOpen] = useState(false)
     const location = useLocation()
+    const { isFetching, shouldNavigateToLogin } = useSelector(
+        (state: RootState) => state.auth
+    )
+
+    useEffect(() => {
+        if (shouldNavigateToLogin) {
+            navigate('/login')
+        }
+    }, [shouldNavigateToLogin, navigate])
 
     // const openModal = () => setModalOpen(true) // Function to open modal
     // const closeModal = () => setModalOpen(false) // Function to close modal
@@ -186,7 +196,7 @@ export default function NavBar({ openModal }: { openModal: any }) {
     const handleLogout = () => {
         dispatch(logoutStart())
         // Cookies.remove('token', { httpOnly: true, sameSite: 'strict' })
-        navigate('/login')
+        // navigate('/login')
     }
     const handleGenreChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedGenre =

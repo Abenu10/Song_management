@@ -95,11 +95,15 @@ function* fetchUserDetails() {
 //     }
 // }
 
+
+
 function* logoutSaga() {
     try {
         yield call(api.get, `${VITE_BASE_URL}/auth/logout`)
         localStorage.removeItem('token')
         yield put(logoutSuccess())
+        yield put({ type: 'NAVIGATE_TO_LOGIN' })
+
     } catch (err) {
         yield put(logoutFailure(err.message))
     }

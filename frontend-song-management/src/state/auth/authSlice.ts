@@ -4,12 +4,14 @@ interface AuthState {
     user: any // Specify the user type
     isFetching: boolean
     error: boolean
+    shouldNavigateToLogin: boolean
 }
 
 const initialState: AuthState = {
     user: null,
     isFetching: false,
     error: false,
+    shouldNavigateToLogin: false,
 }
 
 export const authSlice = createSlice({
@@ -25,10 +27,12 @@ export const authSlice = createSlice({
             state.isFetching = false
             state.user = action.payload.user
             state.error = false
+            state.shouldNavigateToLogin = false
         },
         loginFailure: (state) => {
             state.isFetching = false
             state.error = true
+            state.shouldNavigateToLogin = true
         },
         registerStart: (state, action) => {
             state.isFetching = true
@@ -49,6 +53,7 @@ export const authSlice = createSlice({
             state.isFetching = false
             state.user = null
             state.error = false
+            state.shouldNavigateToLogin = true
         },
         logoutFailure: (state) => {
             state.isFetching = false
