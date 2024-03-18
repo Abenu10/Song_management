@@ -65,13 +65,13 @@ const Statistics = () => {
     console.log(stats)
 
     const [selectedGenre, setSelectedGenre] = useState(
-        stats?.genreCounts[0]._id
+        stats?.genreCounts?.[0]?._id
     )
     const [selectedArtist, setSelectedArtist] = useState(
-        stats.artistSongCounts[0]._id
+        stats?.artistSongCounts?.[0]?._id
     )
     const [selectedAlbum, setSelectedAlbum] = useState(
-        stats.albumSongCounts[0]._id
+        stats?.albumSongCounts?.[0]?._id
     )
     const handleGenreChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedGenre(event.target.value)
