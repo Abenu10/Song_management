@@ -233,9 +233,11 @@ const Music: React.FC<myComponentProp> = ({
     //    console.log(likes)
     useEffect(() => {
         setIsLiked(
-            user._id ? likes?.includes(String(user._id)) || false : false
+            user && user._id
+                ? likes?.includes(String(user._id)) || false
+                : false
         )
-    }, [likes])
+    }, [likes, user])
     //    console.log(isLiked)
     return (
         <>
